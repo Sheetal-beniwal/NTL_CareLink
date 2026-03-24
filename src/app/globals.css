@@ -11,9 +11,13 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* Custom Blue/Green/White Palette */
+  /* Custom Integrated Palette */
   --color-white: #FFFFFF;
-  --color-medical-blue: #1E3A8A;
+  --color-medical-dark: #003B5C;      /* Deep Navy */
+  --color-medical-primary: #00A3AD;   /* Professional Teal */
+  --color-medical-accent: #00E0D2;    /* Vibrant Cyan */
+  --color-medical-light: #E0F7F9;     /* Soft Healthcare Cyan */
+  --color-medical-blue: #1E3A8A;      /* Main Branch Blue */
   --color-medical-light-blue: #3B82F6;
   --color-light-green: #9AE6B4;
   --color-celadon: #D1FAE5;
