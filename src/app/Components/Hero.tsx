@@ -8,15 +8,15 @@ const Hero = () => {
   return (
     <section className="relative min-h-[90vh] py-20 w-full overflow-hidden bg-medical-dark flex items-center">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 text-medical-dark">
         <Image
           src="/hero-bg.png"
           alt="Modern Hospital Interior"
           fill
-          className="object-cover opacity-50"
+          className="object-cover opacity-70"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-medical-dark via-medical-dark/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-medical-dark/95 via-medical-dark/70 to-transparent z-10" />
       </div>
 
       <div className="container mx-auto px-6 relative z-30 flex flex-col md:flex-row items-center gap-12">

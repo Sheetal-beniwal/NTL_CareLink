@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1e3a8a; /* Deep Blue for foreground */
 }
 
 @theme inline {
@@ -10,37 +10,43 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-
-  /* Premium Medical Palette */
-  --color-medical-primary: #0d9488; /* Teal 600 */
-  --color-medical-secondary: #0ea5e9; /* Sky 500 */
-  --color-medical-accent: #06b6d4; /* Cyan 500 */
-  --color-medical-dark: #082f49; /* Sky 950 */
-  --color-medical-light: #f0fdfa; /* Teal 50 */
   
-  --animate-float: float 3s ease-in-out infinite;
-  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Custom Integrated Palette */
+  --color-white: #FFFFFF;
+  --color-medical-dark: #003B5C;      /* Deep Navy */
+  --color-medical-primary: #00A3AD;   /* Professional Teal */
+  --color-medical-accent: #00E0D2;    /* Vibrant Cyan */
+  --color-medical-light: #E0F7F9;     /* Soft Healthcare Cyan */
+  --color-medical-blue: #1E3A8A;      /* Main Branch Blue */
+  --color-medical-light-blue: #3B82F6;
+  --color-light-green: #9AE6B4;
+  --color-celadon: #D1FAE5;
+  --color-ash-grey: #64748B;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-slow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(10px, -30px) rotate(10deg); }
+  66% { transform: translate(-15px, -15px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
 }
