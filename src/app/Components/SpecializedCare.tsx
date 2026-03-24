@@ -66,7 +66,7 @@ const SpecializedCare = () => {
                   <h3 className="text-xl font-bold text-white mb-1 tracking-tight group-hover:text-light-green transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-white/70 text-xs leading-relaxed max-w-[90%] font-medium">
+                  <p className="text-slate-100 text-xs leading-relaxed max-w-[90%] font-medium">
                     {service.description}
                   </p>
                   <div className="w-8 h-0.5 bg-light-green mt-3 rounded-full group-hover:w-16 transition-all duration-500" />
