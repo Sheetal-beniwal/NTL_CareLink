@@ -5,8 +5,9 @@ import {
   MapPin, 
   Hospital, 
   Users, 
-  ShieldCheck, 
-  ArrowRight 
+  ShieldCheck,
+  MessageSquare,
+  Activity,
 } from "lucide-react";
 
 export default function Home() {
@@ -131,58 +132,172 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 4. Why Choose Us (Simple Placeholder) */}
-        <section className="py-24 bg-gray-50">
-          <div className="container mx-auto px-6 text-center space-y-16">
-            <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-gray-900">Why Choose NTL CareLink?</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">We provide end-to-end support for your medical journey abroad, ensuring safety, comfort, and world-class care.</p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { title: "Price Comparison", desc: "Save up to 70% compared to local costs without compromising on quality." },
-                { title: "Certified Hospitals", desc: "Every hospital in our network is JCI accredited and internationally recognized." },
-                { title: "Full Concierge", desc: "From visa assistance to airport pickup, we handle everything for you." }
-              ].map((item, i) => (
-                <div key={i} className="p-8 bg-white rounded-3xl shadow-sm border border-gray-100 text-left space-y-4 hover:shadow-xl transition-shadow">
-                  <div className="w-12 h-12 bg-medical-light text-medical-primary rounded-xl flex items-center justify-center font-bold text-xl">
-                    {i + 1}
+        {/* 4. Refined Why Choose Us Section */}
+        <section className="py-24 bg-gray-50 overflow-hidden">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col lg:flex-row gap-16 items-start">
+              {/* Left Column: Text & Benefits */}
+              <div className="flex-1 space-y-12">
+                <div className="space-y-6 text-left">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-medical-primary/10 text-medical-primary font-bold text-xs uppercase tracking-widest">
+                    Your Trusted Medical Partner
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">{item.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                    Why Patients Trust <span className="text-medical-primary">NTL CareLink</span>
+                  </h2>
+                  <p className="text-gray-600 text-lg leading-relaxed max-w-xl border-l-4 border-medical-accent pl-6">
+                    We collaborate with India's most recognized medical institutions, including 
+                    <span className="font-bold text-medical-dark"> Apollo Hospital, Artemis Hospital, and Max Hospital</span>, 
+                    to ensure our patients receive the highest standard of treatment.
+                  </p>
                 </div>
-              ))}
+
+                {/* Benefit Cards Grid */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {[
+                    "Medical Travel Assistance",
+                    "Full Treatment Management",
+                    "Cost & Budget Planning",
+                    "Translation & Patient Support",
+                    "Hospital & Doctor Coordination"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 p-5 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-medical-primary/50 transition-colors group">
+                      <div className="w-10 h-10 bg-medical-light text-medical-primary rounded-xl flex items-center justify-center font-bold text-sm shrink-0 group-hover:bg-medical-primary group-hover:text-white transition-colors">
+                        0{i + 1}
+                      </div>
+                      <span className="font-semibold text-gray-800">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Visuals & Contact */}
+              <div className="lg:w-[450px] space-y-8">
+                {/* Main Visual with Contact Overlay */}
+                <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl group">
+                  <Image 
+                    src="/why-choose-us/hospital.png" 
+                    alt="Professional Medical Care" 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-medical-dark via-transparent to-transparent" />
+                  
+                  {/* Contact Info Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white space-y-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-1 bg-medical-accent text-white rounded-full text-xs font-bold uppercase tracking-widest mb-2">
+                       Get Information
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xl font-bold">+91 8146654185</p>
+                      <p className="text-xl font-bold">+91 7696579175</p>
+                    </div>
+                    <p className="text-sm border-t border-white/20 pt-4 opacity-80">
+                      ntlcarelinkglobal@gmail.com
+                    </p>
+                  </div>
+                </div>
+
+                {/* Secondary Feature Card */}
+                <div className="p-8 bg-medical-dark text-white rounded-3xl shadow-xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-medical-primary/20 rounded-full -mr-12 -mt-12" />
+                  <div className="relative z-10 flex items-center gap-6">
+                    <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden shrink-0">
+                      <Image 
+                        src="/why-choose-us/patient.png" 
+                        alt="Patient Care" 
+                        width={80} 
+                        height={80} 
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-xl">Best Treatment in India</h4>
+                      <p className="text-gray-400 text-sm">Recognized hospitals & world-class expertise at your service.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Top Treatments (Placeholder) */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-6">
-             <div className="flex justify-between items-end mb-12">
-               <div className="space-y-4">
-                 <h2 className="text-4xl font-bold text-gray-900">Top Medical Treatments</h2>
-                 <p className="text-gray-600 max-w-lg">Most popular procedures requested by our patients globally.</p>
-               </div>
-               <button className="hidden md:flex items-center gap-2 text-medical-primary font-bold hover:underline">
-                 View All Treatments <ArrowRight size={18} />
-               </button>
-             </div>
+        {/* 5. Our Health Services Section (Brochure Inspired) */}
+        <section className="py-24 bg-white relative overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-medical-light/30 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl -z-10" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-medical-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl -z-10" />
 
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-               {["Cardiology", "Orthopedics", "Cosmetic Surgery", "Dental Care"].map((item, i) => (
-                 <div key={i} className="group cursor-pointer">
-                    <div className="relative h-64 w-full bg-gray-200 rounded-2xl overflow-hidden mb-4">
-                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-medical-primary/80 transition-colors" />
-                       <div className="absolute bottom-4 left-4 text-white">
-                          <h4 className="text-xl font-bold">{item}</h4>
-                          <p className="text-sm opacity-80">More than 50 procedures</p>
-                       </div>
+          <div className="container mx-auto px-6 space-y-20">
+            <div className="text-center space-y-4 max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-medical-light text-medical-primary font-bold text-xs uppercase tracking-widest">
+                Excellence in Care
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                Our Comprehensive <span className="text-medical-primary">Health Services</span>
+              </h2>
+              <p className="text-gray-500 text-lg">
+                We are always here to ensure your health is served better with world-class 
+                medical assistance and end-to-end patient care.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { 
+                  title: "Medical Visa Assistance", 
+                  desc: "Facilitating smooth visa invitations and processing for international patients.",
+                  icon: <ShieldCheck className="w-8 h-8" /> 
+                },
+                { 
+                  title: "Hospital Coordination", 
+                  desc: "Strategic partner network to find the best hospitals and medical specialists in India.",
+                  icon: <Hospital className="w-8 h-8" /> 
+                },
+                { 
+                  title: "Full Journey Management", 
+                  desc: "Professional handling of appointments, diagnosis, surgical bookings, and discharge.",
+                  icon: <Stethoscope className="w-8 h-8" /> 
+                },
+                { 
+                  title: "Free Medical Opinion", 
+                  desc: "Online consultation with top doctors to plan your treatment before you fly.",
+                  icon: <Users className="w-8 h-8" /> 
+                },
+                { 
+                  title: "Patient Concierge", 
+                  desc: "Pick-up services, local SIM cards, currency exchange, and accommodation support.",
+                  icon: <MapPin className="w-8 h-8" /> 
+                },
+                { 
+                  title: "Translation & Support", 
+                  desc: "Language assistants and dedicated support staff to bridge any communication gaps.",
+                  icon: <MessageSquare className="w-8 h-8" /> 
+                }
+              ].map((service, i) => (
+                <div key={i} className="group p-8 rounded-[32px] bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-medical-primary/10 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-medical-light/50 rounded-bl-[64px] transition-transform group-hover:scale-110" />
+                  
+                  <div className="relative z-10 space-y-6">
+                    <div className="w-16 h-16 rounded-2xl bg-medical-light flex items-center justify-center text-medical-primary transition-transform group-hover:scale-110 group-hover:bg-medical-primary group-hover:text-white group-hover:rotate-6">
+                      {service.icon}
                     </div>
-                 </div>
-               ))}
-             </div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-medical-primary transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-500 leading-relaxed text-base">
+                        {service.desc}
+                      </p>
+                    </div>
+                    <div className="pt-4 flex items-center gap-2 text-medical-primary font-bold text-sm tracking-wide uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>Learn More</span>
+                      <div className="w-5 h-[2px] bg-medical-primary" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
