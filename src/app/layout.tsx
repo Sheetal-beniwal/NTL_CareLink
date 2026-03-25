@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import Navbar from "./Components/Navbar";
+import SidebarForm from "./Components/SidebarForm";
 
 export default function RootLayout({
   children,
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-grow">{children}</main>
+        <SidebarForm />
       </body>
     </html>
   );
