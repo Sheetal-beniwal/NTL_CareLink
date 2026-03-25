@@ -3,6 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 
+import BorderGlow from './BorderGlow';
+
 const Gallery = () => {
   return (
     <section className="py-24 bg-white overflow-hidden">
@@ -24,42 +26,74 @@ const Gallery = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="group relative h-80 rounded-3xl overflow-hidden shadow-2xl transition-all hover:scale-[1.02]">
-            <Image 
-              src="/gallery/cardio.png" 
-              alt="Cardiology" 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-110" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-2xl font-bold">Advanced Cardiology</h3>
+          <BorderGlow 
+            className="w-full h-80" 
+            borderRadius={24} 
+            glowColor="180 100% 40%" 
+            glowRadius={70}
+            glowIntensity={1.8}
+            coneSpread={35}
+            colors={['#00e0d2', '#00b4d8', '#caf0f8']}
+          >
+            <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
+              <Image 
+                src="/gallery/cardio.png" 
+                alt="Cardiology" 
+                fill 
+                className="object-cover transition-transform duration-700" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
+              <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
+                <h3 className="text-2xl font-bold">Advanced Cardiology</h3>
+              </div>
             </div>
-          </div>
-          <div className="group relative h-80 rounded-3xl overflow-hidden shadow-2xl transition-all hover:scale-[1.02]">
-            <Image 
-              src="/gallery/ortho.png" 
-              alt="Orthopedics" 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-110" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-2xl font-bold">Orthopedics</h3>
+          </BorderGlow>
+          
+          <BorderGlow 
+            className="w-full h-80" 
+            borderRadius={24} 
+            glowColor="180 100% 40%" 
+            glowRadius={70}
+            glowIntensity={1.8}
+            coneSpread={35}
+            colors={['#00e0d2', '#00b4d8', '#caf0f8']}
+          >
+            <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
+              <Image 
+                src="/gallery/ortho.png" 
+                alt="Orthopedics" 
+                fill 
+                className="object-cover transition-transform duration-700" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
+              <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
+                <h3 className="text-2xl font-bold">Orthopedics</h3>
+              </div>
             </div>
-          </div>
-          <div className="group relative h-80 rounded-3xl overflow-hidden shadow-2xl transition-all hover:scale-[1.02]">
-            <Image 
-              src="/gallery/wellness.png" 
-              alt="Wellness" 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-110" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-2xl font-bold">Wellness & Recovery</h3>
+          </BorderGlow>
+          
+          <BorderGlow 
+            className="w-full h-80" 
+            borderRadius={24} 
+            glowColor="180 100% 40%" 
+            glowRadius={70}
+            glowIntensity={1.8}
+            coneSpread={35}
+            colors={['#00e0d2', '#00b4d8', '#caf0f8']}
+          >
+            <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
+              <Image 
+                src="/gallery/wellness.png" 
+                alt="Wellness" 
+                fill 
+                className="object-cover transition-transform duration-700" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
+              <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
+                <h3 className="text-2xl font-bold">Wellness & Recovery</h3>
+              </div>
             </div>
-          </div>
+          </BorderGlow>
         </div>
       </div>
     </section>

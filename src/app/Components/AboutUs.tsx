@@ -6,9 +6,7 @@ import { Plus, ArrowUpRight, Stethoscope, HeartPulse, Activity, Thermometer, Plu
 
 const AboutUs = () => {
   return (
-    <section className="relative w-full overflow-hidden py-16 md:pt-24 px-6 min-h-screen flex items-center">
-      {/* Base White Background Layer */}
-      <div className="absolute inset-0 bg-white -z-20" />
+    <section className="relative w-full overflow-hidden py-16 md:py-24 px-6 min-h-screen flex items-center bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-white/10 transition-colors duration-500">
 
       {/* Background Floating Medical Symbols - Increased Opacity for better visibility */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-10">
@@ -65,7 +63,7 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 border-y border-gray-100 py-6 w-full text-right">
+          <div className="grid grid-cols-2 gap-6 border-y border-gray-200/50 dark:border-white/5 py-6 w-full text-right">
             <div className="flex flex-col">
               <span className="text-ash-grey font-semibold uppercase text-xs tracking-wider">Satisfied Patients</span>
               <span className="text-5xl font-light text-medical-light-blue tracking-widest anim-pulse">%100</span>
