@@ -6,7 +6,6 @@ import SidebarForm from "./Components/SidebarForm";
 import Footer from "./Components/Footer";
 import { ThemeProvider } from "./Components/ThemeProvider";
 
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
