@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Calculator, Sparkles, Quote } from "lucide-react";
 import Image from "next/image";
+import Link from 'next/link';
 import TiltedCard from "./TiltedCard";
 
 const Hero = () => {
@@ -58,11 +59,11 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <button className="px-8 py-4 bg-medical-primary hover:bg-medical-primary/90 text-white rounded-xl font-semibold flex items-center justify-center gap-2 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-medical-primary/20 group">
+              <Link href="/register" className="px-8 py-4 bg-medical-primary hover:bg-medical-primary/90 text-white rounded-xl font-semibold flex items-center justify-center gap-2 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-medical-primary/20 group">
                 <Calendar size={20} />
-                Book Consultation
+                Book Appointment
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all backdrop-blur-sm">
                 <Calculator size={20} />
                 Get Free
