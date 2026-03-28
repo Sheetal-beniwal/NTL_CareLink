@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-inter);
   
   /* Custom Integrated Palette */
   --color-white: #FFFFFF;
@@ -23,6 +23,40 @@
   --color-celadon: #D1FAE5;
   --color-ash-grey: #64748B;
 }
+
+@custom-variant dark (&:is(.dark *));
+
+.dark {
+  --background: #0f172a; /* Tailwind slate-900 */
+  --foreground: #f8fafc; /* Tailwind slate-50 */
+}
+
+/* Force dark mode styles across components that use hardcoded bg-white */
+.dark .bg-white { background-color: #0f172a !important; color: #f1f5f9; }
+.dark .text-gray-900 { color: #f8fafc !important; }
+.dark .text-gray-800 { color: #f1f5f9 !important; }
+.dark .text-gray-600 { color: #94a3b8 !important; }
+.dark .text-gray-500 { color: #64748b !important; }
+.dark .bg-gray-50 { background-color: #1e293b !important; }
+.dark .bg-medical-light { background-color: rgba(0, 163, 173, 0.15) !important; color: #00e0d2 !important; }
+.dark .border-gray-100 { border-color: #334155 !important; }
+.dark .text-medical-dark { color: #f8fafc !important; }
+.dark .text-medical-blue { color: #f8fafc !important; }
+.dark .text-ash-grey { color: #cbd5e1 !important; }
+
+/* View Transitions for Dark Mode Toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
 
 body {
   background: var(--background);

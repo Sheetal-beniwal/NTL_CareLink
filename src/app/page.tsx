@@ -6,7 +6,6 @@ import WhyChooseUs from "./Components/WhyChooseUs";
 import HealthServices from "./Components/HealthServices";
 import SpecializedCare from "./Components/SpecializedCare";
 import AboutUs from "./Components/AboutUs";
-import Footer from "./Components/Footer";
 
 export default function Home() {
   return (
@@ -37,8 +36,6 @@ export default function Home() {
           <AboutUs />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

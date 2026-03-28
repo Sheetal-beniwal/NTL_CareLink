@@ -85,7 +85,7 @@ const WhyChooseUs = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-xl">Best Treatment in India</h4>
-                  <p className="text-gray-400 text-sm">Recognized hospitals & world-class expertise at your service.</p>
+                  <p className="text-slate-100/70 text-sm">Recognized hospitals & world-class expertise at your service.</p>
                 </div>
               </div>
             </div>

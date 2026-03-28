@@ -5,20 +5,20 @@ import { ShieldCheck, Hospital, Stethoscope, Users, MapPin, MessageSquare } from
 
 const HealthServices = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-medical-dark dark:bg-[#0b1120] border-b border-gray-100 dark:border-white/5 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-medical-light/30 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-medical-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl -z-10" />
 
       <div className="container mx-auto px-6 space-y-20">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-medical-light text-medical-primary font-bold text-xs uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-medical-accent font-bold text-xs uppercase tracking-widest">
             Excellence in Care
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Our Comprehensive <span className="text-medical-primary">Health Services</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+            Our Comprehensive <span className="text-medical-accent">Health Services</span>
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-slate-100/70 text-lg">
             We are always here to ensure your health is served better with world-class 
             medical assistance and end-to-end patient care.
           </p>
@@ -57,7 +57,7 @@ const HealthServices = () => {
               icon: <MessageSquare className="w-8 h-8" /> 
             }
           ].map((service, i) => (
-            <div key={i} className="group p-8 rounded-[32px] bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-medical-primary/10 transition-all duration-300 relative overflow-hidden">
+            <div key={i} className="group p-8 rounded-[32px] bg-white border border-transparent dark:border-white/5 shadow-xl hover:shadow-2xl hover:shadow-medical-primary/20 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-medical-light/50 rounded-bl-[64px] transition-transform group-hover:scale-110" />
               
               <div className="relative z-10 space-y-6">
