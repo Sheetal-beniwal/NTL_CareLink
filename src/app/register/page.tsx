@@ -67,9 +67,9 @@ export default function RegisterPage() {
           <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 size={48} />
           </div>
-          <h2 className="text-3xl font-bold text-medical-dark">Registration Successful!</h2>
+          <h2 className="text-3xl font-bold text-medical-dark">Appointment Request Received!</h2>
           <p className="text-gray-600 leading-relaxed">
-            Thank you for reaching out to NTL CareLink. Our team will review your details and contact you shortly to assist with your healthcare journey.
+            Thank you for booking with NTL CareLink. Our team will review your details and contact you shortly to confirm your appointment and assist with your healthcare journey.
           </p>
           <Link href="/">
             <button className="w-full py-4 bg-medical-primary text-white rounded-xl font-bold hover:bg-medical-dark transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg">
@@ -95,11 +95,11 @@ export default function RegisterPage() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-medical-primary/10 border border-medical-primary/20 text-medical-primary font-bold text-sm uppercase tracking-wider">
                 <Stethoscope size={16} />
-                <span>Patient Registration</span>
+                <span>Book Your Appointment</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-extrabold text-medical-dark leading-tight">
-                Start Your <span className="text-medical-primary">Global Care</span> Journey Today
+                Your Path to <span className="text-medical-primary">Global Care</span> Starts Here
               </h1>
               
               <p className="text-lg text-gray-600 leading-relaxed">
@@ -262,7 +262,7 @@ export default function RegisterPage() {
                   </>
                 ) : (
                   <>
-                    <span>Register Now</span>
+                    <span>Book Appointment</span>
                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}

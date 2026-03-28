@@ -1,12 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, User, Mail, Phone, Stethoscope, Award } from 'lucide-react';
+import { ChevronRight, User, Mail, Phone, Stethoscope, Clock, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const SidebarForm = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true);
+  
+  // Auto-minimize on navigation
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,45 +61,49 @@ const SidebarForm = () => {
   return (
     <div className="fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex items-start">
       {/* Vertical Tab/Handle */}
-      {!isOpen && (
-        <motion.button
-          initial={{ x: 100 }}
-          animate={{ x: 0 }}
-          onClick={() => setIsOpen(true)}
-          className="bg-medical-primary text-white py-6 px-3 rounded-l-2xl shadow-2xl flex flex-col items-center gap-4 hover:bg-medical-dark transition-all group"
-        >
-          <span className="[writing-mode:vertical-lr] rotate-180 font-bold tracking-widest text-sm uppercase">
-            Register Now
-          </span>
-          <ChevronRight size={20} className="rotate-180 group-hover:scale-125 transition-transform" />
-        </motion.button>
-      )}
-
-      {/* Main Form Container */}
-      <AnimatePresence>
-        {isOpen && (
+      <AnimatePresence mode="wait">
+        {!isOpen ? (
+          <motion.button
+            key="tab"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            onClick={() => setIsOpen(true)}
+            className="bg-medical-primary text-white py-6 px-3 rounded-l-2xl shadow-2xl flex flex-col items-center gap-4 hover:bg-medical-dark transition-all group z-[100]"
+          >
+            <span className="[writing-mode:vertical-lr] rotate-180 font-bold tracking-widest text-sm uppercase">
+              Book Appointment
+            </span>
+            <ChevronRight size={20} className="rotate-180 group-hover:scale-125 transition-transform" />
+          </motion.button>
+        ) : (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-            className="w-[320px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-3xl border-l border-gray-100 overflow-hidden relative"
+            key="sidebar"
+            initial={{ x: '100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '100%', opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="w-[320px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-3xl border-l border-gray-100 relative z-[101]"
           >
             {/* Header */}
-            <div className="bg-medical-dark p-6 text-white relative">
+            <div className="bg-medical-dark p-6 text-white relative rounded-tl-3xl">
+              {/* Left Edge Minimize Button */}
               <button 
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+                className="absolute top-1/2 -left-3 -translate-y-1/2 w-8 h-8 bg-medical-primary text-white rounded-full flex items-center justify-center shadow-xl hover:bg-medical-dark transition-all border-4 border-white z-[110]"
+                title="Minimize"
               >
-                <X size={20} />
+                <ChevronRight size={18} />
               </button>
+
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 bg-medical-primary rounded-xl flex items-center justify-center text-white">
-                  <Award size={24} />
+                  <Calendar size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg leading-tight text-white">Admissions Open</h3>
-                  <p className="text-xs text-medical-accent font-medium uppercase tracking-wider">Session 2026-27</p>
+                  <h3 className="font-bold text-lg leading-tight text-white">Book Appointment</h3>
+                  <p className="text-xs text-medical-accent font-medium uppercase tracking-wider">Fast & Free Consultation</p>
                 </div>
               </div>
             </div>
@@ -105,10 +117,10 @@ const SidebarForm = () => {
                   className="py-10 text-center space-y-4"
                 >
                   <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
-                    <Award size={32} />
+                    <Clock size={32} />
                   </div>
                   <h4 className="text-xl font-bold text-medical-dark">Thank You!</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">Your registration has been received. Our team will contact you shortly.</p>
+                  <p className="text-sm text-gray-500 leading-relaxed">Your appointment request has been received. Our team will contact you shortly.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -186,7 +198,7 @@ const SidebarForm = () => {
                         <span>Sending...</span>
                       </>
                     ) : (
-                      <span>Quick Register</span>
+                      <span>Book Appointment</span>
                     )}
                   </button>
 
@@ -195,7 +207,7 @@ const SidebarForm = () => {
                       href="/register" 
                       className="text-xs font-semibold text-medical-primary hover:text-medical-dark transition-colors flex items-center justify-center gap-1 group"
                     >
-                      Need detailed registration? 
+                      Need detailed booking? 
                       <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
@@ -204,7 +216,7 @@ const SidebarForm = () => {
             </div>
 
             {/* Privacy Note */}
-            <div className="p-4 bg-gray-50 border-t border-gray-100 text-[10px] text-gray-400 text-center">
+            <div className="p-4 bg-gray-50 border-t border-gray-100 text-[10px] text-gray-400 text-center rounded-bl-3xl">
               Your information is secure and will only be used for healthcare consulting.
             </div>
           </motion.div>

@@ -103,10 +103,10 @@ const Footer = () => {
             <p className="text-[#E0F7F9]/80 text-sm max-w-md">Join thousands of patients who have trusted us with their global healthcare needs.</p>
           </div>
           <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3">
-            <button className="px-8 py-3.5 bg-[#00A3AD] text-white rounded-xl font-bold shadow-[0_0_20px_rgba(0,163,173,0.3)] hover:shadow-[0_0_30px_rgba(0,163,173,0.5)] hover:bg-[#00929b] transition-all active:scale-95 flex items-center justify-center gap-2 group">
-              Consult Now
+            <Link href="/register" className="px-8 py-3.5 bg-[#00A3AD] text-white rounded-xl font-bold shadow-[0_0_20px_rgba(0,163,173,0.3)] hover:shadow-[0_0_30px_rgba(0,163,173,0.5)] hover:bg-[#00929b] transition-all active:scale-95 flex items-center justify-center gap-2 group">
+              Book Appointment
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
             <button className="px-8 py-3.5 bg-white/5 text-white border border-white/10 rounded-xl font-bold hover:bg-white/10 transition-all active:scale-95 flex items-center justify-center">
               WhatsApp Us
             </button>
