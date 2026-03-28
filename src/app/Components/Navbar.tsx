@@ -12,14 +12,14 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-medical-dark flex items-center gap-2 group">
           <div className="w-10 h-10 bg-medical-primary rounded-xl flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
-            <Stethoscope size={24} />
+            <img src="/ntl_logo.jpeg" alt="" className='w-30'/>
           </div>
           <span>NTL <span className="text-medical-primary">CareLink</span></span>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 font-medium text-gray-600">
-          {['Hospitals', 'Countries', 'Treatments', 'About Us'].map((item) => (
+          {['Hospitals', 'Destinations', 'Countries', 'Treatments', 'About Us'].map((item) => (
             <Link 
               key={item} 
               href={item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`}
