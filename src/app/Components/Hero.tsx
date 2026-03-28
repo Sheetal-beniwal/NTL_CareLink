@@ -5,6 +5,7 @@ import { ArrowRight, Calendar, Calculator, Sparkles, Quote } from "lucide-react"
 import Image from "next/image";
 import Link from 'next/link';
 import TiltedCard from "./TiltedCard";
+import FloatingMedicalElements from "./FloatingMedicalElements";
 
 const Hero = () => {
   return (
@@ -16,9 +17,11 @@ const Hero = () => {
           alt="Modern Hospital Interior"
           fill
           className="object-cover opacity-70"
-          priority
-        />
+          />
         <div className="absolute inset-0 bg-gradient-to-r from-medical-dark/95 via-medical-dark/70 to-transparent z-10" />
+        
+        {/* New Floating Elements for Hero */}
+        <FloatingMedicalElements density="low" />
       </div>
 
       <div className="container mx-auto px-6 relative z-30 flex flex-col md:flex-row items-center gap-12">
@@ -121,15 +124,14 @@ const Hero = () => {
                      <Sparkles size={24} />
                    </div>
 
-                   {/* Small Image (Restored to h-40) */}
-                   <div className="w-full h-40 bg-medical-primary/20 rounded-2xl overflow-hidden relative mb-4">
+                    <div className="w-full h-40 bg-medical-primary/20 rounded-2xl overflow-hidden relative mb-4 group">
                       <Image 
-                        src="/gallery/wellness.png" 
+                        src="/african_wellness_recovery_1774726781943.png" 
                         alt="Wellness" 
                         fill
-                        className="object-cover opacity-90"
+                        className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-110"
                       />
-                   </div>
+                    </div>
 
                    {/* Content Area */}
                    <div className="space-y-3 relative z-10 flex-1 flex flex-col justify-center">

@@ -3,32 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { Plus, ArrowUpRight, Stethoscope, HeartPulse, Activity, Thermometer, PlusSquare } from 'lucide-react';
+import FloatingMedicalElements from './FloatingMedicalElements';
 
 const AboutUs = () => {
   return (
     <section className="relative w-full overflow-hidden py-16 md:py-24 px-6 min-h-screen flex items-center bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-white/10 transition-colors duration-500">
 
-      {/* Background Floating Medical Symbols - Increased Opacity for better visibility */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-10">
-        <div className="absolute top-[10%] left-[5%] animate-float">
-          <Stethoscope size={120} className="text-medical-blue" />
-        </div>
-        <div className="absolute top-[60%] left-[10%] animate-float-slow">
-          <HeartPulse size={80} className="text-medical-light-blue" />
-        </div>
-        <div className="absolute top-[20%] right-[15%] animate-float">
-          <Activity size={100} className="text-medical-blue" />
-        </div>
-        <div className="absolute bottom-[10%] right-[20%] animate-float-slow">
-          <PlusSquare size={90} className="text-light-green" />
-        </div>
-        <div className="absolute top-[40%] left-[45%] animate-float-slow">
-          <Thermometer size={70} className="text-medical-blue" />
-        </div>
-        <div className="absolute top-[80%] right-[10%] animate-float">
-          <Plus size={150} className="text-medical-light-blue" />
-        </div>
-      </div>
+      <FloatingMedicalElements density="high" />
 
       {/* Decorative Blurs */}
       <div className="absolute top-0 right-0 w-1/4 h-1/4 bg-celadon/40 blur-[100px] -z-10 rounded-full" />
@@ -78,7 +59,7 @@ const AboutUs = () => {
             <div className="flex items-center gap-3 group cursor-pointer">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-light-green group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/doctor_founder.png" 
+                  src="/african_founder_doctor_1774726750288.png" 
                   alt="Founder" 
                   fill 
                   className="object-cover" 
@@ -102,7 +83,7 @@ const AboutUs = () => {
           {/* Main Large Image */}
           <div className="absolute top-0 right-0 w-[85%] h-[85%] rounded-[3rem] overflow-hidden shadow-xl border-4 border-white">
             <Image 
-              src="/healthcare_scene.png" 
+              src="/african_medical_scene_1774726766055.png" 
               alt="Medical Care" 
               fill 
               className="object-cover" 

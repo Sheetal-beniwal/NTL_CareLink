@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ShieldCheck, Hospital, Stethoscope, Users, MapPin, MessageSquare } from 'lucide-react';
+import FloatingMedicalElements from './FloatingMedicalElements';
 
 const HealthServices = () => {
   return (
@@ -9,6 +10,8 @@ const HealthServices = () => {
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-medical-light/30 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-medical-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl -z-10" />
+      
+      <FloatingMedicalElements density="medium" />
 
       <div className="container mx-auto px-6 space-y-20">
         <div className="text-center space-y-4 max-w-3xl mx-auto">

@@ -2,33 +2,34 @@
 
 import React from 'react';
 import TiltedCard from './TiltedCard';
+import FloatingMedicalElements from './FloatingMedicalElements';
 
 const careServices = [
   {
     title: "Heart & Vascular Care",
     description: "Heart disease, blood pressure, blocked arteries, cardiac surgery.",
-    image: "/cardiology.png",
+    image: "/african_cardiology_scene_professional_1774726802908.png",
     className: "lg:col-span-8 lg:row-span-1",
     rotateAmplitude: 8,
   },
   {
     title: "Bones & Orthopedic Care",
     description: "Fractures, arthritis, spine issues, knee/hip replacement.",
-    image: "/orthopedic.png",
+    image: "/african_orthopedic_scene_professional_1774726816309.png",
     className: "lg:col-span-4 lg:row-span-2",
     rotateAmplitude: 12,
   },
   {
     title: "Cancer Care (Oncology)",
     description: "Diagnosis, chemotherapy, radiotherapy, cancer surgeries.",
-    image: "/oncology.png",
+    image: "/african_oncology_scene_professional_1774726833206.png",
     className: "lg:col-span-4 lg:row-span-1",
     rotateAmplitude: 10,
   },
   {
     title: "Brain & Nerve Care",
     description: "Stroke, brain tumors, spinal and neurological conditions.",
-    image: "/neurology.png",
+    image: "/african_neurology_scene_professional_1774726850805.png",
     className: "lg:col-span-4 lg:row-span-1",
     rotateAmplitude: 10,
   },
@@ -36,7 +37,8 @@ const careServices = [
 
 const SpecializedCare = () => {
   return (
-    <section className="py-16 md:py-10 px-6 bg-white relative">
+    <section className="py-16 md:py-10 px-6 bg-white relative overflow-hidden">
+      <FloatingMedicalElements density="low" />
       <div className="max-w-7xl mx-auto space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">

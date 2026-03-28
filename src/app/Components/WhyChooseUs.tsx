@@ -1,11 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import FloatingMedicalElements from './FloatingMedicalElements';
+
+const hospitalImages = [
+  "/hospital_images/max hospital image 1.jpeg",
+  "/hospital_images/Apollo hospital.jpeg",
+  "/hospital_images/Artemis hospital.jpeg",
+  "/hospital_images/medanta hospital.jpeg",
+  "/hospital_images/Bumrungrad Hospital.jpeg",
+  "/hospital_images/Fortis hospital image 1.jpeg"
+];
 
 const WhyChooseUs = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % hospitalImages.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="py-24 bg-gray-50 overflow-hidden">
+    <section className="relative py-24 bg-gray-50 overflow-hidden">
+      <FloatingMedicalElements density="medium" />
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           {/* Left Column: Text & Benefits */}
@@ -45,28 +66,51 @@ const WhyChooseUs = () => {
 
           {/* Right Column: Visuals & Contact */}
           <div className="lg:w-[450px] space-y-8">
-            {/* Main Visual with Contact Overlay */}
-            <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl group">
-              <Image 
-                src="/why-choose-us/hospital.png" 
-                alt="Professional Medical Care" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-medical-dark via-transparent to-transparent" />
+            {/* Main Visual with Contact Overlay: SLIDESHOW */}
+            <div className="relative h-[480px] rounded-3xl overflow-hidden shadow-2xl group border-4 border-white dark:border-slate-800">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentImageIndex}
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute inset-0"
+                >
+                  <Image 
+                    src={hospitalImages[currentImageIndex]} 
+                    alt="World-Class Hospital" 
+                    fill 
+                    className="object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
               
+              <div className="absolute inset-0 bg-gradient-to-t from-medical-dark via-medical-dark/20 to-transparent" />
+              
+              {/* Slideshow Progress Bar */}
+              <div className="absolute top-4 left-4 right-4 flex gap-1.5 z-20">
+                {hospitalImages.map((_, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`h-1 flex-1 rounded-full transition-all duration-500 ${idx === currentImageIndex ? 'bg-medical-accent w-4' : 'bg-white/30'}`} 
+                  />
+                ))}
+              </div>
+
               {/* Contact Info Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white space-y-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1 bg-medical-accent text-white rounded-full text-xs font-bold uppercase tracking-widest mb-2">
-                   Get Information
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white space-y-4 z-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-medical-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest mb-2 shadow-lg shadow-medical-accent/20">
+                   Trusted Partners
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xl font-bold">+91 8146654185</p>
-                  <p className="text-xl font-bold">+91 7696579175</p>
+                  <p className="text-2xl font-black tracking-tight">+91 81466 54185</p>
+                  <p className="text-lg font-bold opacity-80">+91 76965 79175</p>
                 </div>
-                <p className="text-sm border-t border-white/20 pt-4 opacity-80">
-                  ntlcarelinkglobal@gmail.com
-                </p>
+                <div className="pt-4 border-t border-white/20">
+                  <p className="text-xs font-medium opacity-70 mb-1 uppercase tracking-widest">Inquiry Support</p>
+                  <p className="text-sm font-bold">ntlcarelinkglobal@gmail.com</p>
+                </div>
               </div>
             </div>
 
@@ -76,7 +120,7 @@ const WhyChooseUs = () => {
               <div className="relative z-10 flex items-center gap-6">
                 <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden shrink-0">
                   <Image 
-                    src="/why-choose-us/patient.png" 
+                    src="/african_patient_profile_1774726934268.png" 
                     alt="Patient Care" 
                     width={80} 
                     height={80} 

@@ -2,12 +2,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-
 import BorderGlow from './BorderGlow';
+import FloatingMedicalElements from './FloatingMedicalElements';
 
 const Gallery = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="relative py-24 bg-white overflow-hidden">
+      <FloatingMedicalElements density="medium" />
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-16">
           <div className="space-y-4 max-w-2xl">
@@ -37,10 +38,10 @@ const Gallery = () => {
           >
             <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
               <Image 
-                src="/gallery/cardio.png" 
+                src="/african_cardiology_scene_professional_1774726802908.png" 
                 alt="Cardiology" 
                 fill 
-                className="object-cover transition-transform duration-700" 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
               <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
@@ -60,10 +61,10 @@ const Gallery = () => {
           >
             <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
               <Image 
-                src="/gallery/ortho.png" 
+                src="/african_orthopedic_scene_professional_1774726816309.png" 
                 alt="Orthopedics" 
                 fill 
-                className="object-cover transition-transform duration-700" 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
               <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
@@ -83,10 +84,10 @@ const Gallery = () => {
           >
             <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
               <Image 
-                src="/gallery/wellness.png" 
+                src="/african_wellness_recovery_1774726781943.png" 
                 alt="Wellness" 
                 fill 
-                className="object-cover transition-transform duration-700" 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 dark:from-black via-transparent to-transparent opacity-60 dark:opacity-90 pointer-events-none" />
               <div className="absolute bottom-6 left-6 text-white pointer-events-none drop-shadow-lg">
