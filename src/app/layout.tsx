@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 import Navbar from "./Components/Navbar";
+import SidebarForm from "./Components/SidebarForm";
 import Footer from "./Components/Footer";
 import { ThemeProvider } from "./Components/ThemeProvider";
 
@@ -27,6 +28,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} font-sans h-full antialiased`}
     >
+      <body className="min-h-full flex flex-col">
+        <Navbar />
+        <main className="flex-grow">{children}</main>
+        <SidebarForm />
       <body className="min-h-full flex flex-col bg-white text-gray-900 dark:bg-slate-900 dark:text-gray-50">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
