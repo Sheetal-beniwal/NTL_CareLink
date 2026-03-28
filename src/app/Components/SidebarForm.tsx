@@ -40,7 +40,8 @@ const SidebarForm = () => {
           setIsOpen(false);
         }, 3000);
       } else {
-        alert('Something went wrong. Please try again.');
+        const errorData = await response.json();
+        alert(errorData.error || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       console.error('Submission error:', error);

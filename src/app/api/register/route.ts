@@ -3,7 +3,9 @@ import dbConnect from '@/lib/db';
 import Registration from '@/models/Registration';
 
 export async function POST(request: Request) {
+  console.log('🚀 POST /api/register hit');
   try {
+
     await dbConnect();
     const data = await request.json();
     
@@ -39,7 +41,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: 'Internal Server Error. Please try again later.' }, 
+      { error: 'Internal Server Error', message: error.message }, 
       { status: 500 }
     );
   }
