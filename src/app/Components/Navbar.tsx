@@ -29,7 +29,7 @@ const Navbar = () => {
           {menuItems.map((item) => (
             <Link 
               key={item} 
-              href={item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`}
+              href={item === 'About Us' ? '/about' : `/${item.toLowerCase().replace(' ', '-')}`}
               className="hover:text-medical-primary transition-colors relative group"
             >
               {item}
@@ -87,7 +87,7 @@ const Navbar = () => {
               {menuItems.map((item) => (
                 <Link 
                   key={item} 
-                  href={item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`}
+                  href={item === 'About Us' ? '/about' : `/${item.toLowerCase().replace(' ', '-')}`}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-medical-primary transition-colors flex items-center justify-between"
                 >

@@ -48,7 +48,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               {['Home', 'Hospitals', 'Treatments', 'Countries', 'About Us'].map((link) => (
                 <li key={link}>
-                  <Link href={link === 'Home' ? '/' : `/${link.toLowerCase().replace(' ', '-')}`} className="hover:text-medical-accent transition-colors flex items-center gap-2 group">
+                  <Link href={link === 'Home' ? '/' : (link === 'About Us' ? '/about' : `/${link.toLowerCase().replace(' ', '-')}`)} className="hover:text-medical-accent transition-colors flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-medical-primary/50 group-hover:bg-medical-accent transition-colors" />
                     {link}
                   </Link>
