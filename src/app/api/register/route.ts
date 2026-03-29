@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Registration from '@/models/Registration';
+import { sendNotificationEmail } from '@/lib/mailer';
 
 export async function POST(request: Request) {
   console.log('🚀 POST /api/register hit');
@@ -26,6 +27,15 @@ export async function POST(request: Request) {
       service: data.service,
       message: data.message || '',
     });
+
+    // Send email notification after successful registration
+    // We don't want to block the response if email sending fails, or maybe we do?
+    // Let's at least log it and move on
+    try {
+      await sendNotificationEmail(data);
+    } catch (emailError) {
+      console.error('Failed to send registration notification email:', emailError);
+    }
 
     return NextResponse.json(
       { message: 'Registration successful', data: newRegistration },
