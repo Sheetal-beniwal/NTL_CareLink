@@ -25,7 +25,7 @@ export async function GET() {
       'Registration Date': reg.submittedAt ? new Date(reg.submittedAt).toLocaleString() : 'N/A',
     }));
 
-    // Create workbook and worksheet
+    // Create workbook and worksheets
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Registrations');
