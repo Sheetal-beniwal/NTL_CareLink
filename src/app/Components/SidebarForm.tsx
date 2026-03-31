@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, User, Mail, Phone, Stethoscope, Clock, Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -9,9 +9,14 @@ import { usePathname } from 'next/navigation';
 const SidebarForm = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true);
-  
-  // Auto-minimize on navigation
+  const isFirstRender = useRef(true);
+
+  // Close sidebar on navigation, but NOT on first page load
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // skip closing on first render
+    }
     setIsOpen(false);
   }, [pathname]);
 
@@ -86,19 +91,22 @@ const SidebarForm = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="w-[280px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-2xl md:rounded-l-3xl border-l border-gray-100 relative z-[101] overflow-hidden"
+            className="relative flex items-start"
           >
+            {/* Close/Minimize Button — outside overflow-hidden panel */}
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="absolute -left-4 top-6 w-8 h-8 bg-medical-primary text-white rounded-full flex items-center justify-center shadow-xl hover:bg-medical-dark transition-all border-4 border-white z-[120]"
+              title="Minimize"
+            >
+              <ChevronRight size={16} />
+            </button>
+
+            {/* Sidebar Panel */}
+            <div className="w-[280px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-2xl md:rounded-l-3xl border-l border-gray-100 relative z-[101] overflow-hidden">
+
             {/* Header */}
             <div className="bg-medical-dark p-4 md:p-6 text-white relative">
-              {/* Left Edge Minimize Button */}
-              <button 
-                onClick={() => setIsOpen(false)}
-                className="absolute top-1/2 -left-3 -translate-y-1/2 w-8 h-8 bg-medical-primary text-white rounded-full flex items-center justify-center shadow-xl hover:bg-medical-dark transition-all border-4 border-white z-[110]"
-                title="Minimize"
-              >
-                <ChevronRight size={18} />
-              </button>
-
               <div className="flex items-center gap-3 mb-1 md:mb-2">
                 <div className="w-8 h-8 md:w-10 md:h-10 bg-medical-primary rounded-lg md:rounded-xl flex items-center justify-center text-white">
                   <Calendar size={20} className="md:hidden" />
@@ -222,6 +230,7 @@ const SidebarForm = () => {
             <div className="p-4 bg-gray-50 border-t border-gray-100 text-[10px] text-gray-400 text-center rounded-bl-3xl">
              Your information is secure and will only be used for healthcare consulting.
             </div>
+            </div>{/* end inner panel */}
           </motion.div>
         )}
       </AnimatePresence>

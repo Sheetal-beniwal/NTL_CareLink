@@ -38,27 +38,20 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right Side Tools */}
-          <div className="flex items-center gap-4">
-            <div className="hidden lg:flex items-center gap-4 mr-4 border-r border-gray-200 dark:border-slate-800 pr-4 text-medical-dark dark:text-gray-300">
-              <div className="flex flex-col items-end">
-                <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">24/7 Support</span>
-                <span className="text-sm font-bold">+91 81466 54185</span>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-medical-light dark:bg-slate-800 flex items-center justify-center text-medical-primary">
-                <Phone size={18} />
-              </div>
-            </div>
-            
+          {/* Right Side Buttons */}
+          <div className="flex items-center gap-3">
             <ThemeToggle />
 
-            <Link href="/register" className="hidden xs:flex px-4 py-2 bg-medical-primary text-white rounded-full font-semibold hover:bg-medical-dark transition-all shadow-lg hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm">
-              <Calendar size={16} />
-              <span>Book Appointment</span>
+            <Link 
+              href="/register" 
+              className="flex px-6 py-2.5 bg-medical-primary text-white rounded-full font-bold hover:bg-medical-dark transition-all shadow-md hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm whitespace-nowrap"
+            >
+              <Calendar size={18} />
+              <span>Book</span>
             </Link>
 
-            <button className="hidden sm:flex px-4 py-2 bg-medical-dark text-white rounded-full font-semibold hover:bg-medical-primary transition-all shadow-lg hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm">
-              <MessageSquare size={16} />
+            <button className="hidden lg:flex px-6 py-2.5 bg-medical-dark text-white rounded-full font-bold hover:bg-medical-primary transition-all shadow-md hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm whitespace-nowrap">
+              <MessageSquare size={18} />
               <span>Contact Support</span>
             </button>
           </div>
@@ -68,11 +61,14 @@ const Navbar = () => {
       {/* Staggered Menu for Mobile */}
       <StaggeredMenu 
         isFixed={true}
-        items={menuItems.map(item => ({
-          label: item,
-          ariaLabel: item,
-          link: item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`
-        }))}
+        items={[
+          ...menuItems.map(item => ({
+            label: item,
+            ariaLabel: item,
+            link: item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`
+          })),
+          { label: 'Book Now', ariaLabel: 'Book Now', link: '/register' }
+        ]}
         colors={[
           'rgba(0, 163, 173, 0.2)', // Translucent Teal
           'rgba(0, 59, 92, 0.4)',   // Translucent Navy
