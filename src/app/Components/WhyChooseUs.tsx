@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import FloatingMedicalElements from './FloatingMedicalElements';
 
@@ -61,6 +62,19 @@ const WhyChooseUs = () => {
                   <span className="font-semibold text-gray-800">{item}</span>
                 </div>
               ))}
+            </div>
+
+            {/* View Hospitals Button */}
+            <div className="pt-4">
+              <Link 
+                href="/hospitals"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-medical-dark text-white font-bold rounded-2xl hover:bg-medical-primary transition-all duration-300 shadow-xl shadow-medical-dark/20 group"
+              >
+                View our Collaborated hospitals
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
           </div>
 
