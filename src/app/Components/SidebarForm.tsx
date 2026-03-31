@@ -71,12 +71,13 @@ const SidebarForm = () => {
             exit={{ x: 100, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             onClick={() => setIsOpen(true)}
-            className="bg-medical-primary text-white py-6 px-3 rounded-l-2xl shadow-2xl flex flex-col items-center gap-4 hover:bg-medical-dark transition-all group z-[100]"
+            className="bg-medical-primary text-white py-4 md:py-6 px-2 md:px-3 rounded-l-xl md:rounded-l-2xl shadow-2xl flex flex-col items-center gap-3 md:gap-4 hover:bg-medical-dark transition-all group z-[100]"
           >
-            <span className="[writing-mode:vertical-lr] rotate-180 font-bold tracking-widest text-sm uppercase">
+            <span className="[writing-mode:vertical-lr] rotate-180 font-bold tracking-widest text-[10px] md:text-sm uppercase">
               Book Appointment
             </span>
-            <ChevronRight size={20} className="rotate-180 group-hover:scale-125 transition-transform" />
+            <ChevronRight size={16} className="rotate-180 group-hover:scale-125 transition-transform hidden md:block" />
+            <ChevronRight size={14} className="rotate-180 group-hover:scale-125 transition-transform md:hidden" />
           </motion.button>
         ) : (
           <motion.div
@@ -85,10 +86,10 @@ const SidebarForm = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="w-[320px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-3xl border-l border-gray-100 relative z-[101]"
+            className="w-[280px] md:w-[380px] bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.1)] rounded-l-2xl md:rounded-l-3xl border-l border-gray-100 relative z-[101] overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-medical-dark p-6 text-white relative rounded-tl-3xl">
+            <div className="bg-medical-dark p-4 md:p-6 text-white relative">
               {/* Left Edge Minimize Button */}
               <button 
                 onClick={() => setIsOpen(false)}
@@ -98,19 +99,20 @@ const SidebarForm = () => {
                 <ChevronRight size={18} />
               </button>
 
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-medical-primary rounded-xl flex items-center justify-center text-white">
-                  <Calendar size={24} />
+              <div className="flex items-center gap-3 mb-1 md:mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-medical-primary rounded-lg md:rounded-xl flex items-center justify-center text-white">
+                  <Calendar size={20} className="md:hidden" />
+                  <Calendar size={24} className="hidden md:block" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg leading-tight text-white">Book Appointment</h3>
-                  <p className="text-xs text-medical-accent font-medium uppercase tracking-wider">Fast & Free Consultation</p>
+                  <h3 className="font-bold text-base md:text-lg leading-tight text-white">Book Appointment</h3>
+                  <p className="text-[10px] md:text-xs text-medical-accent font-medium uppercase tracking-wider">Fast & Free Consultation</p>
                 </div>
               </div>
             </div>
 
             {/* Form Content */}
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               {isSubmitted ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -136,7 +138,7 @@ const SidebarForm = () => {
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="Full Name*"
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-sm"
+                        className="w-full pl-9 pr-3 py-2.5 md:pl-10 md:pr-4 md:py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-[13px] md:text-sm"
                       />
                     </div>
 
@@ -150,7 +152,7 @@ const SidebarForm = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Email Address*"
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-sm"
+                        className="w-full pl-9 pr-3 py-2.5 md:pl-10 md:pr-4 md:py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-[13px] md:text-sm"
                       />
                     </div>
 
@@ -164,7 +166,7 @@ const SidebarForm = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Phone Number*"
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-sm"
+                        className="w-full pl-9 pr-3 py-2.5 md:pl-10 md:pr-4 md:py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-[13px] md:text-sm"
                       />
                     </div>
 
@@ -176,7 +178,7 @@ const SidebarForm = () => {
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-sm appearance-none cursor-pointer"
+                        className="w-full pl-9 pr-4 py-2.5 md:pl-10 md:pr-4 md:py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-medical-primary focus:ring-4 focus:ring-medical-primary/5 transition-all text-[13px] md:text-sm appearance-none cursor-pointer"
                       >
                         <option value="" disabled>Select Treatment*</option>
                         <option value="dental">Dental Implants</option>
@@ -191,7 +193,7 @@ const SidebarForm = () => {
                   <button 
                     disabled={isLoading}
                     type="submit"
-                    className="w-full py-4 bg-medical-primary hover:bg-medical-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-medical-primary/20 active:scale-95 text-sm uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-3 md:py-4 bg-medical-primary hover:bg-medical-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-medical-primary/20 active:scale-95 text-[13px] md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <>
@@ -218,11 +220,17 @@ const SidebarForm = () => {
 
             {/* Privacy Note */}
             <div className="p-4 bg-gray-50 border-t border-gray-100 text-[10px] text-gray-400 text-center rounded-bl-3xl">
-              Your information is secure and will only be used for healthcare consulting.
+             Your information is secure and will only be used for healthcare consulting.
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style jsx global>{`
+        body.mobile-menu-open .fixed.right-0.top-1\/2 {
+          display: none !important;
+        }
+      `}</style>
     </div>
   );
 };
