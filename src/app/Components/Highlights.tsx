@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Hospital, Users, ShieldCheck } from 'lucide-react';
+import { Stethoscope, Hospital, Users, ShieldCheck } from 'lucide-react';
 
 const Highlights = () => {
   return (
@@ -9,10 +9,10 @@ const Highlights = () => {
       <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="flex flex-col items-center text-center space-y-2">
           <div className="p-3 bg-white/10 dark:bg-medical-primary/10 rounded-2xl text-medical-accent dark:text-medical-primary">
-            <MapPin size={28} />
+            <Stethoscope size={28} />
           </div>
-          <span className="text-3xl font-bold">15+</span>
-          <p className="text-slate-100/70 dark:text-[#6b7280] text-sm uppercase tracking-wider">Countries</p>
+          <span className="text-3xl font-bold">1200+</span>
+          <p className="text-slate-100/70 dark:text-[#6b7280] text-sm uppercase tracking-wider">Doctors</p>
         </div>
         <div className="flex flex-col items-center text-center space-y-2">
           <div className="p-3 bg-white/10 dark:bg-medical-primary/10 rounded-2xl text-medical-accent dark:text-medical-primary">

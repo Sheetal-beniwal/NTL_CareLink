@@ -46,7 +46,7 @@ const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <h4 className="text-white font-bold tracking-wide uppercase text-sm">Quick Links</h4>
             <ul className="space-y-3 text-sm">
-              {['Home', 'Hospitals', 'Treatments', 'Countries', 'About Us'].map((link) => (
+              {['Home', 'Hospitals', 'Treatments', 'Doctors', 'About Us'].map((link) => (
                 <li key={link}>
                   <Link href={link === 'Home' ? '/' : (link === 'About Us' ? '/about' : `/${link.toLowerCase().replace(' ', '-')}`)} className="hover:text-medical-accent transition-colors flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-medical-primary/50 group-hover:bg-medical-accent transition-colors" />
