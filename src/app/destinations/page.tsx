@@ -133,7 +133,7 @@ export default function DestinationsPage() {
       </section>
 
       {/* ── Cost Comparison Table ─────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-8 mb-32">
+      <section id="cost-comparison" className="max-w-5xl mx-auto px-8 mb-32 pt-24 -mt-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-medical-dark mb-4 font-[Manrope,sans-serif]">
             The Value Comparison

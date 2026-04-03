@@ -7,7 +7,7 @@ import ThemeToggle from './ThemeToggle';
 import StaggeredMenu from './StaggeredMenu';
 
 const Navbar = () => {
-  const menuItems = ['Hospitals', 'Destinations', 'Doctors', 'Treatments', 'About Us'];
+  const menuItems = ['Hospitals', 'Destinations', 'Doctors', 'Treatments', 'Testimonials', 'About Us'];
 
   return (
     <>
