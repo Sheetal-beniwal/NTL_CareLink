@@ -26,14 +26,25 @@ export default function DoctorsPage() {
   const [search, setSearch] = useState('');
   const [specialty, setSpecialty] = useState('All Specialties');
   const [hospital, setHospital] = useState('All Hospitals');
+  const [visibleCount, setVisibleCount] = useState(20);
 
-  const filteredDoctors = doctors.filter((doc) => {
-    const matchesSearch = doc.name.toLowerCase().includes(search.toLowerCase()) || 
-                          doc.specialty.toLowerCase().includes(search.toLowerCase());
-    const matchesSpecialty = specialty === 'All Specialties' || doc.specialty.includes(specialty);
-    const matchesHospital = hospital === 'All Hospitals' || doc.hospital === hospital;
-    return matchesSearch && matchesSpecialty && matchesHospital;
-  });
+  // Memoize filtered doctors to avoid recalculating on every re-render
+  const filteredDoctors = React.useMemo(() => {
+    return doctors.filter((doc) => {
+      const matchesSearch = doc.name.toLowerCase().includes(search.toLowerCase()) || 
+                            doc.specialty.toLowerCase().includes(search.toLowerCase());
+      const matchesSpecialty = specialty === 'All Specialties' || doc.specialty.includes(specialty);
+      const matchesHospital = hospital === 'All Hospitals' || doc.hospital === hospital;
+      return matchesSearch && matchesSpecialty && matchesHospital;
+    });
+  }, [search, specialty, hospital]);
+
+  // Reset visible count when filters change
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [search, specialty, hospital]);
+
+  const displayedDoctors = filteredDoctors.slice(0, visibleCount);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -118,7 +129,7 @@ export default function DoctorsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredDoctors.map((doc, idx) => (
+            {displayedDoctors.map((doc, idx) => (
               <div 
                 key={idx}
                 className="group relative bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-100 dark:border-slate-800 hover:border-medical-primary/30 hover:shadow-2xl hover:shadow-medical-primary/10 transition-all duration-500 flex flex-col"
@@ -170,10 +181,13 @@ export default function DoctorsPage() {
         )}
 
         {/* --- Pagination / Load More --- */}
-        {filteredDoctors.length > 0 && (
+        {filteredDoctors.length > visibleCount && (
           <div className="mt-20 flex flex-col items-center">
-            <p className="text-slate-400 text-sm mb-6">Showing {filteredDoctors.length} out of {doctors.length} doctors</p>
-            <button className="px-10 py-4 bg-medical-dark dark:bg-white dark:text-medical-dark text-white rounded-full font-bold shadow-xl hover:bg-medical-primary dark:hover:bg-medical-primary dark:hover:text-white transition-all transform hover:-translate-y-1 active:scale-95">
+            <p className="text-slate-400 text-sm mb-6">Showing {visibleCount} out of {filteredDoctors.length} found specialists</p>
+            <button 
+              onClick={() => setVisibleCount(prev => prev + 20)}
+              className="px-10 py-4 bg-medical-dark dark:bg-white dark:text-medical-dark text-white rounded-full font-bold shadow-xl hover:bg-medical-primary dark:hover:bg-medical-primary dark:hover:text-white transition-all transform hover:-translate-y-1 active:scale-95"
+            >
               Load More Specialists
             </button>
           </div>

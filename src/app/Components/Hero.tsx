@@ -67,10 +67,6 @@ const Hero = () => {
                 Book Appointment
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all backdrop-blur-sm">
-                <Calculator size={20} />
-                Get Free
-              </button>
             </motion.div>
 
             {/* Themed Quote Section */}
@@ -137,9 +133,9 @@ const Hero = () => {
                    <div className="space-y-3 relative z-10 flex-1 flex flex-col justify-center">
                       <h3 className="text-xl font-bold text-white">Save up to 70%</h3>
                       <p className="text-sm text-gray-300 leading-relaxed max-w-[95%]">Compare costs across top destinations including Turkey, India, and Thailand.</p>
-                      <div className="pt-2 flex items-center gap-2 text-medical-accent font-semibold text-sm">
+                      <Link href="/hospitals" className="pt-2 flex items-center gap-2 text-medical-accent font-semibold text-sm pointer-events-auto hover:gap-4 transition-all">
                         Explore Costs <ArrowRight size={16} />
-                      </div>
+                      </Link>
                    </div>
                 </div>
               }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 
 export interface StaggeredMenuItem {
@@ -468,7 +469,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }`}
         aria-label="Main navigation header"
       >
-        <div className={`sm-logo flex-1 flex items-center select-none pointer-events-auto transition-all duration-300 ${open ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`} aria-label="Logo">
+        <Link href="/" className={`sm-logo flex-1 flex items-center select-none pointer-events-auto transition-all duration-300 hover:opacity-80 ${open ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`} aria-label="NTL CareLink Home">
           <img
             src={logoUrl || '/ntl_logo.jpeg'}
             alt="Logo"
@@ -482,7 +483,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           }`}>
             NTL <span className={`ml-1 ${scrolled ? 'text-medical-primary' : 'text-cyan-300'}`}>CareLink</span>
           </span>
-        </div>
+        </Link>
 
         <button
           ref={toggleBtnRef}

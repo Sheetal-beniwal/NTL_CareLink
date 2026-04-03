@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import FloatingMedicalElements from '../Components/FloatingMedicalElements';
 
 const hospitals = [
@@ -96,6 +97,12 @@ const hospitals = [
     tags: ['ORTHOPEDICS', 'COSMETIC'],
     desc: 'A leading hospital group in Turkey specializing in orthopedic restoration, cosmetic surgery, and dental implants.',
     img: '/hospital_images/medicana hospital images.jpeg',
+    keyPoints: [
+      'Top 10 Private Hospitals in Turkey',
+      'Advanced Robotic Surgery Center',
+      'Comprehensive Cancer Treatment'
+    ],
+    facilities: ['VIP Rooms', 'Multi-lingual Support', 'International Patient Lounge', 'Private Concierge']
   },
 ];
 
@@ -105,6 +112,7 @@ export default function HospitalsPage() {
   const [country, setCountry] = useState('All Countries');
   const [userCountry, setUserCountry] = useState<string | null>(null);
   const [locationLoading, setLocationLoading] = useState(true);
+  const [selectedHospital, setSelectedHospital] = useState<any>(null);
 
   // Detect user's country via our own API route (server-side, no CORS issues)
   useEffect(() => {
@@ -199,7 +207,12 @@ export default function HospitalsPage() {
                   A NABH-accredited super-specialty hospital in Gurugram known for advanced cardiac care, neurosciences, and robotic surgery.
                 </p>
                 <div className="flex gap-4 items-center">
-                  <button className="bg-white text-blue-800 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors">Learn More</button>
+                  <button 
+                    onClick={() => setSelectedHospital(hospitals[0])}
+                    className="bg-white text-blue-800 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors"
+                  >
+                    Learn More
+                  </button>
                   <div className="flex items-center gap-2 text-white">
                     <svg className="w-5 h-5 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -229,7 +242,7 @@ export default function HospitalsPage() {
                     All hospitals in our network maintain JCI accreditation, ensuring global safety protocols and clinical outcomes.
                   </p>
                 </div>
-                <a href="#" className="text-medical-accent font-bold flex items-center gap-2 mt-4 hover:underline text-sm">View Standards →</a>
+                <Link href="/about-us" className="text-medical-accent font-bold flex items-center gap-2 mt-4 hover:underline text-sm">View Standards →</Link>
               </div>
 
               {/* Bumrungrad Card */}
@@ -407,7 +420,10 @@ export default function HospitalsPage() {
                       ))}
                     </div>
                     <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">{h.desc}</p>
-                    <button className="w-full py-3 bg-medical-light text-medical-primary font-bold rounded-xl hover:bg-medical-primary hover:text-white transition-all duration-300">
+                    <button 
+                      onClick={() => setSelectedHospital(h)}
+                      className="w-full py-3 bg-medical-light text-medical-primary font-bold rounded-xl hover:bg-medical-primary hover:text-white transition-all duration-300"
+                    >
                       View Details
                     </button>
                   </div>
@@ -426,6 +442,116 @@ export default function HospitalsPage() {
           </div>
         </div>
       </section>
+
+      {/* ── HOSPITAL MODAL ────────────────────────────────────── */}
+      {selectedHospital && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-none">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-medical-dark/60 backdrop-blur-md pointer-events-auto cursor-zoom-out"
+            onClick={() => setSelectedHospital(null)}
+          />
+
+          {/* Modal Container */}
+          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-[3rem] overflow-hidden relative shadow-2xl pointer-events-auto flex flex-col md:flex-row border border-white/20 animate-in fade-in zoom-in duration-300">
+            {/* Left: Image & Badge */}
+            <div className="md:w-2/5 relative h-64 md:h-auto">
+              <img 
+                src={selectedHospital.img} 
+                alt={selectedHospital.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-medical-dark via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-8 left-8">
+                 <p className="text-medical-accent font-black text-sm uppercase tracking-widest mb-2 flex items-center gap-2">
+                   <span className="w-2 h-2 rounded-full bg-medical-accent animate-pulse" />
+                   Partner Network
+                 </p>
+                 <h2 className="text-white text-3xl font-black">{selectedHospital.name}</h2>
+              </div>
+            </div>
+
+            {/* Right: Info */}
+            <div className="md:w-3/5 p-8 md:p-12 overflow-y-auto custom-scrollbar">
+              <button 
+                onClick={() => setSelectedHospital(null)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+
+              <div className="space-y-8">
+                <div>
+                  <h4 className="text-medical-primary font-bold text-xs uppercase tracking-[0.2em] mb-4">Hospital Overview</h4>
+                  <p className="text-gray-600 leading-relaxed text-base italic">
+                    {selectedHospital.desc}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-8">
+                   <div>
+                      <h4 className="text-medical-dark font-bold text-sm mb-4 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-medical-primary/10 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-medical-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        Key Figures
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedHospital.keyPoints?.map((p: string, i: number) => (
+                          <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                            <span className="text-medical-primary mt-1">✓</span> {p}
+                          </li>
+                        )) || [
+                          'JCI Accredited Facility',
+                          'Multi-disciplinary Experts',
+                          'Advanced OT Labs'
+                        ].map((p, i) => (
+                           <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                             <span className="text-medical-primary mt-1">✓</span> {p}
+                           </li>
+                        ))}
+                      </ul>
+                   </div>
+                   <div>
+                      <h4 className="text-medical-dark font-bold text-sm mb-4 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-medical-accent/10 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-medical-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                        </div>
+                        Facilities
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedHospital.facilities?.map((f: string, i: number) => (
+                          <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-1.5" /> {f}
+                          </li>
+                        )) || [
+                          'International Lounges',
+                          'Language Interpreters',
+                          'Visa Help Desk'
+                        ].map((f, i) => (
+                           <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                             <span className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-1.5" /> {f}
+                           </li>
+                        ))}
+                      </ul>
+                   </div>
+                </div>
+
+                <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
+                  <div className="flex gap-2">
+                    {selectedHospital.tags.map((t: string) => (
+                      <span key={t} className="px-3 py-1 bg-gray-100 text-[10px] font-bold rounded-lg text-gray-500 uppercase tracking-widest">{t}</span>
+                    ))}
+                  </div>
+                  <Link href="/register" className="px-8 py-3 bg-medical-dark text-white rounded-xl font-bold hover:bg-medical-primary transition-all shadow-lg hover:shadow-medical-primary/20 active:scale-95">
+                    Start Consultation
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

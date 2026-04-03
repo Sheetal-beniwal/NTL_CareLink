@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
 import { ShieldCheck, Hospital, Stethoscope, Users, MapPin, MessageSquare } from 'lucide-react';
 import FloatingMedicalElements from './FloatingMedicalElements';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const HealthServices = () => {
   return (
@@ -27,62 +29,100 @@ const HealthServices = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible pb-8 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
           {[
             { 
               title: "Medical Visa Assistance", 
               desc: "Facilitating smooth visa invitations and processing for international patients.",
-              icon: <ShieldCheck className="w-8 h-8" /> 
+              icon: <ShieldCheck className="w-8 h-8" />,
+              bgImage: "/african_medical_scene_1774726766055.png"
             },
             { 
               title: "Hospital Coordination", 
               desc: "Strategic partner network to find the best hospitals and medical specialists in India.",
-              icon: <Hospital className="w-8 h-8" /> 
+              icon: <Hospital className="w-8 h-8" />,
+              bgImage: "/hero-bg.png"
             },
             { 
               title: "Full Journey Management", 
               desc: "Professional handling of appointments, diagnosis, surgical bookings, and discharge.",
-              icon: <Stethoscope className="w-8 h-8" /> 
+              icon: <Stethoscope className="w-8 h-8" />,
+              bgImage: "/african_wellness_recovery_1774726781943.png"
             },
             { 
               title: "Free Medical Opinion", 
               desc: "Online consultation with top doctors to plan your treatment before you fly.",
-              icon: <Users className="w-8 h-8" /> 
+              icon: <Users className="w-8 h-8" />,
+              bgImage: "/doctor_founder.png"
             },
             { 
               title: "Patient Concierge", 
               desc: "Pick-up services, local SIM cards, currency exchange, and accommodation support.",
-              icon: <MapPin className="w-8 h-8" /> 
+              icon: <MapPin className="w-8 h-8" />,
+              bgImage: "/african_patient_profile_1774726934268.png"
             },
             { 
               title: "Translation & Support", 
               desc: "Language assistants and dedicated support staff to bridge any communication gaps.",
-              icon: <MessageSquare className="w-8 h-8" /> 
+              icon: <MessageSquare className="w-8 h-8" />,
+              bgImage: "/healthcare_scene.png"
             }
           ].map((service, i) => (
-            <div key={i} className="group p-8 rounded-[32px] bg-white border border-transparent dark:border-white/5 shadow-xl hover:shadow-2xl hover:shadow-medical-primary/20 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-medical-light/50 rounded-bl-[64px] transition-transform group-hover:scale-110" />
+            <motion.div 
+              key={i} 
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 0.6 }}
+              className="shrink-0 w-[85%] sm:w-auto md:w-full group p-8 rounded-[32px] bg-white border border-gray-100 shadow-xl snap-center relative overflow-hidden"
+            >
+              {/* Premium Floating Image Accent */}
+              <div className="absolute -right-12 -bottom-12 w-48 h-48 opacity-[0.1] group-hover:opacity-[0.25] group-hover:-translate-x-4 group-hover:-translate-y-4 transition-all duration-1000 select-none pointer-events-none">
+                <div className="w-full h-full rounded-[60px] overflow-hidden border-4 border-medical-primary/20 shadow-2xl">
+                  <Image 
+                    src={service.bgImage} 
+                    alt="" 
+                    fill 
+                    className="object-cover grayscale brightness-125 transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110"
+                  />
+                </div>
+              </div>
+
+              <div className="absolute top-0 right-0 w-24 h-24 bg-medical-light/40 rounded-bl-[64px] z-10" />
               
               <div className="relative z-10 space-y-6">
-                <div className="w-16 h-16 rounded-2xl bg-medical-light flex items-center justify-center text-medical-primary transition-transform group-hover:scale-110 group-hover:bg-medical-primary group-hover:text-white group-hover:rotate-6">
+                <div className="w-16 h-16 rounded-2xl bg-medical-light flex items-center justify-center text-medical-primary group-hover:bg-medical-primary group-hover:text-white transition-all duration-500">
                   {service.icon}
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-2xl font-bold text-gray-900 group-hover:text-medical-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-gray-500 leading-relaxed text-base">
+                  <p className="text-gray-500 leading-relaxed text-sm md:text-base">
                     {service.desc}
                   </p>
                 </div>
-                <div className="pt-4 flex items-center gap-2 text-medical-primary font-bold text-sm tracking-wide uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                <Link href="/contact-support" className="pt-4 flex items-center gap-2 text-medical-primary font-bold text-sm tracking-wide uppercase group-hover:gap-4 transition-all">
                   <span>Learn More</span>
                   <div className="w-5 h-[2px] bg-medical-primary" />
-                </div>
+                </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
