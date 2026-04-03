@@ -20,7 +20,7 @@ const Navbar = () => {
               <img src="/ntl_logo.jpeg" alt="NTL Logo" className="w-full h-full object-cover" />
             </div>
             <span className="flex items-center">
-              NTL <span className="text-medical-primary ml-1 hidden xs:inline">CareLink</span>
+              NTL <span className="text-medical-primary ml-1 xs:inline">CareLink</span>
             </span>
           </Link>
 
