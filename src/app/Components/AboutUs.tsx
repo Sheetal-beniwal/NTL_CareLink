@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Plus, ArrowUpRight, Stethoscope, HeartPulse, Activity, Thermometer, PlusSquare } from 'lucide-react';
 import FloatingMedicalElements from './FloatingMedicalElements';
 
@@ -59,7 +60,7 @@ const AboutUs = () => {
             <div className="flex items-center gap-3 group cursor-pointer">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-light-green group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/african_founder_doctor_1774726750288.png" 
+                  src="/sultan_founder.png" 
                   alt="Founder" 
                   fill 
                   className="object-cover" 
@@ -71,10 +72,10 @@ const AboutUs = () => {
               </div>
             </div>
 
-            <button className="flex items-center gap-2 bg-medical-blue text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-medical-blue/20 transition-all hover:translate-y-[-2px] active:scale-95 group text-sm">
+            <Link href="/about-us#founder" className="flex items-center gap-2 bg-medical-blue text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-medical-blue/20 transition-all hover:translate-y-[-2px] active:scale-95 group text-sm">
               <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={18} />
               <span>Know More</span>
-            </button>
+            </Link>
           </div>
         </div>
 

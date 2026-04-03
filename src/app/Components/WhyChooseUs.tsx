@@ -47,7 +47,8 @@ const WhyChooseUs = () => {
             </div>
 
             {/* Benefit Cards Grid */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            {/* Benefit Cards Grid: 2-Column for Mobile and Desktop */}
+            <div className="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6">
               {[
                 "Medical Travel Assistance",
                 "Full Treatment Management",
@@ -55,11 +56,14 @@ const WhyChooseUs = () => {
                 "Translation & Patient Support",
                 "Hospital & Doctor Coordination"
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 p-5 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-medical-primary/50 transition-colors group">
-                  <div className="w-10 h-10 bg-medical-light text-medical-primary rounded-xl flex items-center justify-center font-bold text-sm shrink-0 group-hover:bg-medical-primary group-hover:text-white transition-colors">
+                <div 
+                  key={i} 
+                  className="flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4 p-4 md:p-6 bg-white dark:bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 hover:border-medical-primary/50 transition-all duration-300 group/card"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-medical-primary/10 text-medical-primary rounded-xl md:rounded-2xl flex items-center justify-center font-black text-[10px] md:text-sm shrink-0 group-hover/card:bg-medical-primary group-hover/card:text-white transition-all duration-500 shadow-inner">
                     0{i + 1}
                   </div>
-                  <span className="font-semibold text-gray-800">{item}</span>
+                  <span className="font-bold text-gray-800 dark:text-white text-[10px] md:text-base leading-tight text-center md:text-left">{item}</span>
                 </div>
               ))}
             </div>

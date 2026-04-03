@@ -30,7 +30,7 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <Link 
                 key={item} 
-                href={item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`}
+                href={`/${item.toLowerCase().replace(' ', '-')}`}
                 className="hover:text-medical-primary transition-colors relative group"
               >
                 {item}
@@ -51,10 +51,13 @@ const Navbar = () => {
               <span>Book</span>
             </Link>
 
-            <button className="hidden lg:flex px-6 py-2.5 bg-medical-dark text-white rounded-full font-bold hover:bg-medical-primary transition-all shadow-md hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm whitespace-nowrap">
+            <Link 
+              href="/contact-support" 
+              className="hidden lg:flex px-6 py-2.5 bg-medical-dark text-white rounded-full font-bold hover:bg-medical-primary transition-all shadow-md hover:shadow-medical-primary/20 active:scale-95 items-center gap-2 text-sm whitespace-nowrap"
+            >
               <MessageSquare size={18} />
               <span>Contact Support</span>
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -66,7 +69,7 @@ const Navbar = () => {
           ...menuItems.map(item => ({
             label: item,
             ariaLabel: item,
-            link: item === 'About Us' ? '#about' : `/${item.toLowerCase().replace(' ', '-')}`
+            link: `/${item.toLowerCase().replace(' ', '-')}`
           })),
           { label: 'Book Now', ariaLabel: 'Book Now', link: '/register' }
         ]}

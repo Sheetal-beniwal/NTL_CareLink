@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import TiltedCard from './TiltedCard';
 import FloatingMedicalElements from './FloatingMedicalElements';
 
@@ -53,7 +54,7 @@ const SpecializedCare = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 auto-rows-[230px]">
           {careServices.map((service, index) => (
-            <div key={index} className={`${service.className}`}>
+            <Link key={index} href="/treatments" className={`${service.className} block active:scale-95 transition-all`}>
               <TiltedCard
                 imageSrc={service.image}
                 altText={service.title}
@@ -89,7 +90,7 @@ const SpecializedCare = () => {
                   </div>
                 }
               />
-            </div>
+            </Link>
           ))}
         </div>
       </div>

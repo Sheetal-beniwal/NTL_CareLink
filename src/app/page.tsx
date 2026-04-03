@@ -1,4 +1,3 @@
-import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Gallery from "./Components/Gallery";
 import Highlights from "./Components/Highlights";
@@ -6,12 +5,11 @@ import WhyChooseUs from "./Components/WhyChooseUs";
 import HealthServices from "./Components/HealthServices";
 import SpecializedCare from "./Components/SpecializedCare";
 import AboutUs from "./Components/AboutUs";
+import TreatmentsSection from "./Components/TreatmentsSection";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
-      
       <main>
         {/* 1. Hero Section */}
         <Hero />
@@ -30,6 +28,9 @@ export default function Home() {
 
         {/* 6. Specialized Medical Care */}
         <SpecializedCare />
+
+        {/* 6b. Clinical Speciality Grid */}
+        <TreatmentsSection />
 
         {/* 7. About Us Section */}
         <div id="about">
