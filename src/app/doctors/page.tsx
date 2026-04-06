@@ -1,214 +1,327 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import FloatingMedicalElements from '../Components/FloatingMedicalElements';
-
+import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronUp, Search, Building2, Filter, Calendar, Star, BadgeCheck, X, User, Activity, ShieldCheck } from 'lucide-react';
 import doctorsDataRaw from '@/../doctors.json';
 
-const doctors = doctorsDataRaw.map(d => ({
+/* ─────────────────── TYPE & DATA ─────────────────── */
+
+type Doctor = {
+  name: string;
+  specialty: string;
+  hospital: string;
+  image_url: string;
+  detail_url: string;
+};
+
+const doctors: Doctor[] = doctorsDataRaw.map(d => ({
   name: d.name,
   specialty: d.specialization,
   hospital: d.doctor_info,
-  image_url: d.image
+  image_url: d.image,
+  detail_url: d.detail_url,
 }));
 
-const specialties = [
-  "All Specialties",
-  ...Array.from(new Set(doctors.flatMap(d => d.specialty.split(',').map(s => s.trim())))).sort()
-];
+const allSpecialties = ['All Specialties', ...Array.from(new Set(
+  doctors.flatMap(d => d.specialty.split(',').map(s => s.trim()))
+)).sort()];
 
-const hospitalsOptions = [
-  "All Hospitals",
-  ...Array.from(new Set(doctors.map(d => d.hospital))).sort()
-];
+const DOCTORS_PER_HOSPITAL = 10;
+
+/* ─────────────────── SUB COMPONENTS ─────────────────── */
+
+function DoctorCard({ doc }: { doc: Doctor }) {
+  const firstSpecialty = doc.specialty.split(',')[0].trim();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' }}
+      className="group relative bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-[#00A3AD]/50 transition-all duration-300 flex flex-col"
+    >
+      {/* Photo Container */}
+      <div className="relative h-64 overflow-hidden bg-slate-100">
+        <img
+          src={doc.image_url}
+          alt={doc.name}
+          loading="lazy"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'https://www.medicanainternational.com/assets/img/doctors/default-doctor.jpg';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#003B5C]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+           <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+             <User size={14} className="text-[#00E0D2]" /> View Specialist Profile
+           </span>
+        </div>
+        
+        {/* badges */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full shadow-lg border border-slate-100">
+            <BadgeCheck size={14} className="text-[#00A3AD]" />
+            <span className="text-[10px] font-black text-[#003B5C] uppercase tracking-wider">Top Expert</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Info Body */}
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2">
+            <p className="text-[10px] font-black text-[#00A3AD] uppercase tracking-[0.15em] py-0.5 px-2 bg-[#00A3AD]/5 rounded border border-[#00A3AD]/10">
+              {firstSpecialty}
+            </p>
+          </div>
+          <h3 className="font-extrabold text-[#003B5C] text-lg mb-2 leading-tight group-hover:text-[#00A3AD] transition-colors line-clamp-2">
+            {doc.name}
+          </h3>
+          
+          {/* Rating */}
+          <div className="flex items-center gap-1.5 mb-4">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={12} fill="#f6ad55" stroke="none" />
+              ))}
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 mt-0.5">(280+ Reviews)</span>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <a
+          href={doc.detail_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-3 bg-slate-50 hover:bg-[#003B5C] hover:text-white text-[#003B5C] font-black rounded-xl text-xs uppercase tracking-widest transition-all duration-300 text-center border border-slate-200 hover:border-[#003B5C] shadow-sm hover:shadow-lg"
+        >
+          Book Consultation
+        </a>
+      </div>
+    </motion.div>
+  );
+}
+
+function HospitalSection({ hospital, doctors }: { hospital: string; doctors: Doctor[] }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const visible = expanded ? doctors : doctors.slice(0, DOCTORS_PER_HOSPITAL);
+  const hasMore = doctors.length > DOCTORS_PER_HOSPITAL;
+
+  return (
+    <section className="mb-20">
+      {/* Section Header */}
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-8 border-b-2 border-slate-200 pb-5">
+        <div className="flex items-start gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-[#003B5C] flex items-center justify-center text-white shadow-xl rotate-3">
+            <Building2 size={26} />
+          </div>
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black text-[#003B5C] tracking-tight mb-1">{hospital}</h2>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-slate-500 font-bold bg-slate-100 px-3 py-1 rounded-full">{doctors.length} Verified Specialists</span>
+              <div className="flex items-center gap-1.5 text-xs text-[#00A3AD] font-black uppercase tracking-widest">
+                <BadgeCheck size={14} /> JCI Accredited
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Doctor Grid - Optimized to 4 columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <AnimatePresence>
+          {visible.map((doc, i) => (
+            <DoctorCard key={`${doc.name}-${i}`} doc={doc} />
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* Expand/Collapse with optimized UX */}
+      {hasMore && (
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={() => setExpanded(prev => !prev)}
+            className="group flex items-center gap-3 px-10 py-5 rounded-2xl bg-white border-2 border-[#003B5C] text-[#003B5C] font-black text-sm uppercase tracking-widest hover:bg-[#003B5C] hover:text-white transition-all shadow-xl hover:shadow-[#003B5C]/20 active:scale-95"
+          >
+            {expanded ? (
+              <><ChevronUp size={20} className="group-hover:-translate-y-1 transition-transform" /> Show Fewer Specialists</>
+            ) : (
+              <><ChevronDown size={20} className="group-hover:translate-y-1 transition-transform" /> View {doctors.length - DOCTORS_PER_HOSPITAL} More Experts</>
+            )}
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ─────────────────── MAIN PAGE ─────────────────── */
 
 export default function DoctorsPage() {
   const [search, setSearch] = useState('');
   const [specialty, setSpecialty] = useState('All Specialties');
-  const [hospital, setHospital] = useState('All Hospitals');
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [showFilters, setShowFilters] = useState(false);
 
-  // Memoize filtered doctors to avoid recalculating on every re-render
-  const filteredDoctors = React.useMemo(() => {
-    return doctors.filter((doc) => {
-      const matchesSearch = doc.name.toLowerCase().includes(search.toLowerCase()) || 
-                            doc.specialty.toLowerCase().includes(search.toLowerCase());
-      const matchesSpecialty = specialty === 'All Specialties' || doc.specialty.includes(specialty);
-      const matchesHospital = hospital === 'All Hospitals' || doc.hospital === hospital;
-      return matchesSearch && matchesSpecialty && matchesHospital;
+  const filteredDoctors = useMemo(() => {
+    return doctors.filter(doc => {
+      const q = search.toLowerCase();
+      const matchSearch = !q || doc.name.toLowerCase().includes(q) || doc.specialty.toLowerCase().includes(q) || doc.hospital.toLowerCase().includes(q);
+      const matchSpec = specialty === 'All Specialties' || doc.specialty.toLowerCase().includes(specialty.toLowerCase());
+      return matchSearch && matchSpec;
     });
-  }, [search, specialty, hospital]);
+  }, [search, specialty]);
 
-  // Reset visible count when filters change
-  useEffect(() => {
-    setVisibleCount(20);
-  }, [search, specialty, hospital]);
-
-  const displayedDoctors = filteredDoctors.slice(0, visibleCount);
+  const grouped = useMemo(() => {
+    const map = new Map<string, Doctor[]>();
+    filteredDoctors.forEach(doc => {
+      const hospitalName = doc.hospital.trim() || 'Other Partner Centers';
+      if (!map.has(hospitalName)) map.set(hospitalName, []);
+      map.get(hospitalName)!.push(doc);
+    });
+    return Array.from(map.entries()).sort((a, b) => b[1].length - a[1].length);
+  }, [filteredDoctors]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      {/* --- Hero Section --- */}
-      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 px-8 pt-32 pb-20 overflow-hidden">
-        <FloatingMedicalElements density="medium" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-medical-primary/10 border border-medical-primary/20 text-medical-primary font-bold text-xs uppercase tracking-widest mb-6">
-            👨‍⚕️ Expert Medical Team
-          </div>
-          <header className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-medical-dark dark:text-white tracking-tight mb-6 font-[Manrope,sans-serif]">
-              Meet Our <span className="text-medical-primary">World-Class</span> Doctors
+    <div className="min-h-screen bg-[#f8fafc] font-sans">
+      
+      {/* ── CLEAN TOP BAR ── */}
+      <div className="h-20 bg-white border-b border-slate-100" />
+
+      {/* ── REFINED SEARCH & HERO ── */}
+      <section className="bg-white border-b border-slate-200 py-12 md:py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3AD]/10 border border-[#00A3AD]/20 text-[#00A3AD] font-black text-[10px] tracking-widest uppercase mb-6">
+              👨‍⚕️ Expert Clinical Network
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#003B5C] tracking-tight leading-[1.1] mb-6">
+              Connect with <span className="text-[#00A3AD]">Global Leaders</span> in Specialized Medicine
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl leading-relaxed">
+            <p className="text-slate-500 text-lg font-medium max-w-2xl mb-10 leading-relaxed">
               Our network features internationally recognized specialists committed to providing exceptional care across more than 50 medical disciplines.
             </p>
-          </header>
 
-          {/* --- Search & Filter Bar --- */}
-          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl shadow-medical-primary/5 p-6 flex flex-wrap lg:flex-nowrap items-center gap-4 border border-medical-primary/10 transition-all">
-            <div className="flex-[2] min-w-[280px] relative">
-              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-              </svg>
-              <input
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-medical-primary focus:border-transparent text-sm outline-none transition dark:text-white"
-                placeholder="Search by name, specialty..."
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            
-            <div className="flex-1 min-w-[200px] relative">
-              <select
-                className="w-full appearance-none pl-4 pr-10 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-medical-primary text-sm outline-none transition cursor-pointer dark:text-white"
-                value={specialty}
-                onChange={(e) => setSpecialty(e.target.value)}
+            {/* Optimized Search & Filter Suite */}
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 relative group">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#00A3AD] transition-colors" size={20} />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Search by Doctor Name, Hospital or Speciality..."
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-14 pr-6 py-5 text-base font-medium outline-none focus:ring-4 focus:ring-[#00A3AD]/10 focus:border-[#00A3AD] transition-all placeholder-slate-400"
+                />
+              </div>
+              <button 
+                onClick={() => setShowFilters(!showFilters)}
+                className={`px-8 py-5 rounded-2xl font-black text-sm uppercase tracking-widest border-2 transition-all flex items-center justify-center gap-3 ${
+                  showFilters ? 'bg-[#003B5C] border-[#003B5C] text-white shadow-xl shadow-[#003B5C]/20' : 'bg-white border-slate-200 text-[#003B5C] hover:border-[#003B5C]'
+                }`}
               >
-                {specialties.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-
-            <div className="flex-1 min-w-[200px] relative">
-              <select
-                className="w-full appearance-none pl-4 pr-10 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-medical-primary text-sm outline-none transition cursor-pointer dark:text-white"
-                value={hospital}
-                onChange={(e) => setHospital(e.target.value)}
-              >
-                {hospitalsOptions.map(h => <option key={h} value={h}>{h}</option>)}
-              </select>
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                <Filter size={20} /> Advanced Filters
+              </button>
             </div>
           </div>
+          
+          {/* Collapsible Filter Set */}
+          <AnimatePresence>
+            {showFilters && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden mt-8 pt-8 border-t border-slate-100"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                   <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Speciality</label>
+                     <select 
+                       value={specialty}
+                       onChange={e => setSpecialty(e.target.value)}
+                       className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 font-bold text-[#003B5C] outline-none focus:border-[#00A3AD] transition-all cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23003B5C%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat"
+                     >
+                       {allSpecialties.map(s => <option key={s} value={s}>{s}</option>)}
+                     </select>
+                   </div>
+                   <div className="flex items-end">
+                      <button 
+                        onClick={() => { setSearch(''); setSpecialty('All Specialties'); }}
+                        className="px-8 py-4 text-xs font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-all flex items-center gap-2"
+                      >
+                        <X size={16} /> Reset All Parameters
+                      </button>
+                   </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
-      {/* --- Doctors Gallery --- */}
-      <section className="px-8 py-16 max-w-7xl mx-auto relative">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-2xl font-bold text-medical-dark dark:text-white font-[Manrope,sans-serif]">
-            Found {filteredDoctors.length} Specialists
-          </h2>
-          <div className="h-px flex-1 mx-8 bg-slate-200 dark:bg-slate-800 hidden md:block" />
-        </div>
-
-        {filteredDoctors.length === 0 ? (
-          <div className="py-20 text-center">
-            <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No doctors found</h3>
-            <p className="text-slate-500">Try adjusting your filters or search terms.</p>
+      {/* ── DOCTORS DIRECTORY ── */}
+      <main className="container mx-auto px-6 py-12 md:py-20">
+        {grouped.length === 0 ? (
+          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
+             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search size={32} className="text-slate-300" />
+             </div>
+             <h3 className="text-2xl font-black text-[#003B5C] mb-2">No Specialists Found</h3>
+             <p className="text-slate-400 font-medium">Try adjusting your filters or search terms.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {displayedDoctors.map((doc, idx) => (
-              <div 
-                key={idx}
-                className="group relative bg-white dark:bg-slate-900 rounded-3xl p-4 border border-slate-100 dark:border-slate-800 hover:border-medical-primary/30 hover:shadow-2xl hover:shadow-medical-primary/10 transition-all duration-500 flex flex-col"
-              >
-                {/* Image Container */}
-                <div className="relative h-72 w-full rounded-2xl overflow-hidden mb-5 bg-slate-100 dark:bg-slate-800">
-                  <img 
-                    src={doc.image_url} 
-                    alt={doc.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://www.medicanainternational.com/assets/img/doctors/default-doctor.jpg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-medical-dark/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Badge */}
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-full text-[10px] font-bold text-medical-primary uppercase tracking-wider shadow-sm">
-                    Verified Expert
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="px-2 flex-1 flex flex-col">
-                  <p className="text-medical-primary text-[11px] font-bold uppercase tracking-widest mb-1.5 line-clamp-1">
-                    {doc.specialty}
-                  </p>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 group-hover:text-medical-primary transition-colors leading-tight font-[Manrope,sans-serif]">
-                    {doc.name}
-                  </h3>
-                  <div className="flex items-start gap-2 text-slate-500 dark:text-slate-400 text-sm mb-6">
-                    <svg className="w-4 h-4 mt-0.5 text-medical-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span className="line-clamp-2">{doc.hospital}</span>
-                  </div>
-
-                  <button className="w-full py-3.5 bg-slate-50 dark:bg-slate-800 text-medical-dark dark:text-white font-bold rounded-2xl hover:bg-medical-primary hover:text-white group-hover:shadow-lg group-hover:shadow-medical-primary/20 transition-all duration-300 text-sm flex items-center justify-center gap-2">
-                    Book Appointment
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          grouped.map(([hospital, docs]) => (
+            <HospitalSection key={hospital} hospital={hospital} doctors={docs} />
+          ))
         )}
+      </main>
 
-        {/* --- Pagination / Load More --- */}
-        {filteredDoctors.length > visibleCount && (
-          <div className="mt-20 flex flex-col items-center">
-            <p className="text-slate-400 text-sm mb-6">Showing {visibleCount} out of {filteredDoctors.length} found specialists</p>
-            <button 
-              onClick={() => setVisibleCount(prev => prev + 20)}
-              className="px-10 py-4 bg-medical-dark dark:bg-white dark:text-medical-dark text-white rounded-full font-bold shadow-xl hover:bg-medical-primary dark:hover:bg-medical-primary dark:hover:text-white transition-all transform hover:-translate-y-1 active:scale-95"
-            >
-              Load More Specialists
-            </button>
-          </div>
-        )}
+      {/* ── TRUST SECTION ── */}
+      <section className="bg-[#003B5C] py-20">
+        <div className="container mx-auto px-6">
+           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+              {[
+                { label: 'Verified Experts', value: '1,200+', icon: BadgeCheck },
+                { label: 'Medical Specialities', value: '50+', icon: Activity },
+                { label: 'Patient Success Rate', value: '98%', icon: ShieldCheck },
+                { label: 'Worldwide Partners', value: '150+', icon: Building2 }
+              ].map((stat, i) => (
+                <div key={i} className="space-y-4">
+                   <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto border border-white/10">
+                      <stat.icon size={28} className="text-[#00E0D2]" />
+                   </div>
+                   <div>
+                     <p className="text-3xl font-black text-white mb-1 uppercase tracking-tight">{stat.value}</p>
+                     <p className="text-xs font-bold text-[#00A3AD] uppercase tracking-widest">{stat.label}</p>
+                   </div>
+                </div>
+              ))}
+           </div>
+        </div>
       </section>
 
-      {/* --- Trust Markers --- */}
-      <section className="bg-medical-dark py-16 px-8 mt-20">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { label: 'JCI Accredited', value: '100%', sub: 'Safety Standard' },
-            { label: 'Expert Doctors', value: '1200+', sub: 'Global Network' },
-            { label: 'Specialties', value: '50+', sub: 'Medical Fields' },
-            { label: 'Happy Patients', value: '50k+', sub: 'Treated Yearly' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-3xl font-extrabold text-white mb-1">{stat.value}</div>
-              <div className="text-medical-primary font-bold text-xs uppercase tracking-widest mb-1">{stat.label}</div>
-              <div className="text-slate-400 text-[10px]">{stat.sub}</div>
-            </div>
-          ))}
+      {/* ── FINAL BOOKING CTA ── */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 text-center max-w-3xl">
+           <div className="w-20 h-20 bg-[#00A3AD] rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-[#00A3AD]/30 rotate-12">
+              <Calendar size={36} className="text-white" />
+           </div>
+           <h2 className="text-4xl md:text-5xl font-black text-[#003B5C] mb-6 tracking-tight">Ready to Start Your Journey?</h2>
+           <p className="text-slate-500 text-lg font-medium mb-10 leading-relaxed">
+             Join thousands of patients who have found world-class care through NTL CareLink. Our specialists are waiting to guide you.
+           </p>
+           <div className="flex flex-wrap justify-center gap-6">
+             <Link href="/register" className="px-12 py-5 bg-[#003B5C] text-white font-black rounded-2xl hover:bg-[#00A3AD] transition-all shadow-2xl hover:-translate-y-1 active:scale-95 text-base uppercase tracking-widest">
+               Begin Free Assessment
+             </Link>
+             <Link href="/contact-support" className="px-12 py-5 bg-white border-2 border-slate-200 text-[#003B5C] font-black rounded-2xl hover:border-[#003B5C] transition-all text-base uppercase tracking-widest">
+               Speak to Coordinator
+             </Link>
+           </div>
         </div>
       </section>
     </div>
