@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info (3 cols) */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:acol-spn-3 space-y-6">
             <h4 className="text-white font-bold tracking-wide uppercase text-sm">Contact Us</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
