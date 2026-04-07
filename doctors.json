@@ -2245,5 +2245,327 @@
         "specialization": "Pediatric Cardiology",
         "doctor_info": "Medicana Ataşehir,Medicana International İstanbul",
         "detail_url": "https://www.medicanainternational.com/en/doctor-detail/9026/murat-saygi"
+    },
+    {
+        "name": "Dr. Sandeep Chauhan",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Orthopaedics",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Arun Chowdary Kotaru",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Respiratory/ Pulmonology & Sleep Medicine",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Renu Raina Sehgal",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Maternity, Obstetrics & Gynaecology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. D.K. Jhamb",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Cardiac Rehab, Cardiology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Sumeet Agrawal",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Rheumatology & Clinical Immunology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Arun Singh Danewa",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Pediatric Hematology, Oncology, Bone Marrow Transplant",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Arpit Jain",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Internal Medicine",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Puneet Dwevedi",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Mental Health and Behavioural Science",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Priya Tiwari",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Oncology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Tariq Matin",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Neurointerventional Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Manju Aggarwal",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Nephrology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Hari Goyal",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Oncology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Nidhi Rajotia (Goel)",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Maternity, Obstetrics & Gynaecology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Sumit Singh",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Neurology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Bimal Kumar Sahu",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Gastroenterology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Amit Kumar Chaurasia",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Cardiology, Interventional Cardiology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Nidhi Rawal",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Paediatric Cardiac Surgery & Paediatric Cardiology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Ajit Singh Baghela",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Paediatric Neurology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Rajiv Yadav",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Robotic Surgery, Urology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Parveen Yadav",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Thoracic Surgery & Surgical Oncology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Surendra Nath Khanna",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Cardiology, Vascular Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Rahul Naithani",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "BMT, Hematology, Oncology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Gaurav Dixit",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "BMT, Haematopoietic Stem Cell Transplant, Hematology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Pradeep Kumar Singh",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Cosmetic & Plastic Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Subodh Chandra Pande",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Radiation Oncology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Shashidhar TB",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "ENT",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Abhinandan Mukhopadhyay",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Organ Transplant, Urology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Shweta Bansal",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Respiratory/ Pulmonology & Sleep Medicine",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Kuldeep Arora",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Cardiology, Interventional Cardiology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Rakesh Durkhure",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "General & Minimally Invasive Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Kapil Dev Jamwal",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Gastroenterology & Hepatology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. S Jayalakshmi",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Radiation Oncology & CyberKnife Centre",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Tapan Singh Chauhan",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Surgical Oncology, Robotics, GI & HPB",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Paritosh S Gupta",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "General & Minimally Invasive Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Biswarup Purkayastha",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Heart & Lung Transplant",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Mayank Madan",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "General & Minimally Invasive Surgery, Robotic Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. (Prof.) Ravi Sauhta",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Orthopaedics & Joint Replacement",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Giriraj Bora",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Organ Transplant, Liver Transplant",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Vishal Arora",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Ophthalmology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Varun Mittal",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Organ Transplant, Robotic Surgery, Urology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. SK Rajan",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Neurosurgery, Spine Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Hitesh Garg",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Orthopaedics, Scoliosis Surgery, Spine Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Aditya Gupta",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Neurosurgery & CNS Radiosurgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Dilpreet Bajwa",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "ENT",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. I P S Oberoi",
+        "image": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+        "specialization": "Orthopaedics, Robotic Surgery",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
+    },
+    {
+        "name": "Dr. Shifa Yadav",
+        "image": "https://img.freepik.com/free-photo/female-doctor-hospital-with-stethoscope_23-2148827775.jpg",
+        "specialization": "Dermatology & Cosmetology",
+        "doctor_info": "Artemis Hospitals, Gurgaon",
+        "detail_url": "/register"
     }
 ]
