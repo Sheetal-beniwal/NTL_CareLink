@@ -210,7 +210,68 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* ─── 5. GLOBAL HUB NETWORK ─── */}
+        {/* ─── 5. NTL TEAM ─── */}
+        <section className="py-16 sm:py-24 md:py-32 bg-white selection:bg-medical-primary/30">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-20 gap-6">
+              <div className="space-y-4 max-w-2xl">
+                <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-medical-primary/10 text-medical-primary font-bold text-[10px] sm:text-xs tracking-widest uppercase">
+                  <Users size={14} /> The Experts Behind the Care
+                </motion.div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-medical-dark leading-tight">
+                  Meet the <span className="text-medical-primary">NTL Powerhouse</span>
+                </h2>
+                <p className="text-base sm:text-xl text-gray-600 leading-relaxed font-light">
+                  Our multidisciplinary team combines clinical excellence with logistical precision to ensure your health journey is flawless.
+                </p>
+              </div>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+                <Link href="/doctors" className="flex items-center gap-2 text-medical-primary font-bold hover:underline group text-sm sm:text-base">
+                  View Medical Specialists <ChevronRight size={18} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
+
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+              {[
+                { name: "Dr. Evelyn Reed", role: "Medical Director", image: "/team/medical_director.png", bio: "25+ years expertise in clinical standards and JCI accreditation." },
+                { name: "Kofi Mensah", role: "Head of Logistics", image: "/team/logistics_head.png", bio: "Master of cross-border medical travel and patient coordination." },
+                { name: "Abimbola Adebayo", role: "Patient Care Manager", image: "/team/patient_care.png", bio: "Leading our 24/7 compassionate support network for every patient." },
+                { name: "Sarah Mwangi", role: "Regional Manager (East Africa)", image: "/team/regional_manager.png", bio: "Connecting East African patients to global healthcare pathways." },
+              ].map((member, i) => (
+                <motion.div key={i} variants={fadeInUp}
+                  className="group relative bg-white rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image src={member.image} alt={member.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-medical-dark/90 via-medical-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                    <div className="absolute bottom-6 left-6 right-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <p className="text-white font-black text-xl mb-1">{member.name}</p>
+                      <p className="text-medical-accent font-bold text-xs uppercase tracking-widest">{member.role}</p>
+                    </div>
+                  </div>
+                  <div className="p-8 space-y-4 bg-white relative z-10 transition-colors duration-500">
+                    <p className="text-gray-600 text-sm leading-relaxed italic line-clamp-3">"{member.bio}"</p>
+                    <div className="pt-4 flex items-center justify-between border-t border-gray-100 group-hover:border-medical-primary/20 transition-colors">
+                      <div className="flex gap-3">
+                        <Link href="#" className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-medical-primary hover:text-white transition-all">
+                          <Target size={14} />
+                        </Link>
+                        <Link href="#" className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-medical-primary hover:text-white transition-all">
+                          <Globe size={14} />
+                        </Link>
+                      </div>
+                      <ChevronRight size={20} className="text-medical-primary opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ─── 6. GLOBAL HUB NETWORK ─── */}
         <section className="py-16 sm:py-24 md:py-32 bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6 text-center space-y-10 sm:space-y-16">
             <div className="max-w-2xl mx-auto space-y-4">

@@ -48,7 +48,7 @@ const WhyChooseUs = () => {
 
             {/* Benefit Cards Grid */}
             {/* Benefit Cards Grid: 2-Column for Mobile and Desktop */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
               {[
                 "Medical Travel Assistance",
                 "Full Treatment Management",
@@ -72,7 +72,7 @@ const WhyChooseUs = () => {
             <div className="pt-4">
               <Link 
                 href="/hospitals"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-medical-dark text-white font-bold rounded-2xl hover:bg-medical-primary transition-all duration-300 shadow-xl shadow-medical-dark/20 group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-medical-dark text-white font-bold rounded-2xl hover:bg-medical-primary transition-all duration-300 shadow-xl shadow-medical-dark/20 group"
               >
                 View our Collaborated hospitals
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

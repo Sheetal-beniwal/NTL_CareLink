@@ -14,7 +14,6 @@ interface TiltedCardProps {
   imageWidth?: React.CSSProperties['width'];
   scaleOnHover?: number;
   rotateAmplitude?: number;
-  showMobileWarning?: boolean;
   showTooltip?: boolean;
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
@@ -36,7 +35,6 @@ export default function TiltedCard({
   imageWidth = '300px',
   scaleOnHover = 1.1,
   rotateAmplitude = 14,
-  showMobileWarning = true,
   showTooltip = true,
   overlayContent = null,
   displayOverlayContent = false
@@ -101,12 +99,9 @@ export default function TiltedCard({
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchEnd={handleMouseLeave}
     >
-      {showMobileWarning && (
-        <div className="absolute top-4 text-center text-sm block sm:hidden text-white z-10">
-          This effect is not optimized for mobile. Check on desktop.
-        </div>
-      )}
 
       <motion.div
         className="relative [transform-style:preserve-3d] w-full h-full"

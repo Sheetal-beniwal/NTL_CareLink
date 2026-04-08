@@ -41,7 +41,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-5xl md:text-7xl font-bold leading-tight"
+            className="text-4xl xs:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight"
           >
             Affordable <span className="text-medical-accent">World-Class</span> Treatment Abroad
           </motion.h1>
@@ -50,7 +50,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed font-light"
           >
             Experience premium healthcare at a fraction of the cost. From Turkey to Thailand, we connect you with the world's best hospitals.
           </motion.p>

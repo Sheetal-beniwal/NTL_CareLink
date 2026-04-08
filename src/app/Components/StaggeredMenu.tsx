@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
+import { Users, Target, Globe, Phone, Mail } from 'lucide-react';
+
+const useSafeLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export interface StaggeredMenuItem {
   label: string;
@@ -38,7 +41,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   items = [],
   socialItems = [],
   displaySocials = true,
-  displayItemNumbering = true,
+  displayItemNumbering = false,
   className,
   logoUrl = '/ntl_logo.jpeg',
   menuButtonColor = '#003B5C',
@@ -85,7 +88,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
 
-  useLayoutEffect(() => {
+  useSafeLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
       const preContainer = preLayersRef.current;
@@ -469,19 +472,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }`}
         aria-label="Main navigation header"
       >
-        <Link href="/" className={`sm-logo flex-1 flex items-center select-none pointer-events-auto transition-all duration-300 hover:opacity-80 ${open ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`} aria-label="NTL CareLink Home">
+        <Link href="/" className={`sm-logo flex-1 flex items-center select-none pointer-events-auto transition-all duration-300 hover:opacity-80 ${open ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'}`} aria-label="NTL CareLink Home">
           <img
             src={logoUrl || '/ntl_logo.jpeg'}
             alt="Logo"
-            className="sm-logo-img block h-8 w-auto object-contain rounded-lg flex-shrink-0"
+            className="sm-logo-img block h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-xl flex-shrink-0 border border-white/20"
             draggable={false}
-            width={110}
-            height={32}
           />
           <span className={`ml-2 font-black text-xl flex items-center transition-all duration-300 tracking-tight ${
-            scrolled ? 'text-medical-dark dark:text-gray-100' : 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
+            scrolled || open ? 'text-medical-dark dark:text-gray-100' : 'text-white'
           }`}>
-            NTL <span className={`ml-1 ${scrolled ? 'text-medical-primary' : 'text-cyan-300'}`}>CareLink</span>
+            NTL <span className={`ml-1 ${scrolled || open ? 'text-medical-primary' : 'text-medical-accent'}`}>CareLink</span>
           </span>
         </Link>
 
@@ -578,7 +579,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               {items && items.length ? (
                 items.map((it, idx) => (
                   <li className="sm-panel-itemWrap relative overflow-hidden leading-none" key={it.label + idx}>
-                    <a
+                    <Link
                       className="sm-panel-item relative text-medical-dark dark:text-gray-100 font-extrabold text-[1.45rem] cursor-pointer leading-tight tracking-[-0.02em] uppercase transition-[background,color,transform] duration-150 ease-linear inline-block no-underline pr-[1em] active:scale-95"
                       href={it.link}
                       aria-label={it.ariaLabel}
@@ -588,7 +589,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
                         {it.label}
                       </span>
-                    </a>
+                    </Link>
                   </li>
                 ))
               ) : null}
@@ -603,14 +604,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 >
                   {socialItems.map((s, i) => (
                     <li key={s.label + i} className="sm-socials-item">
-                      <a
+                      <Link
                         href={s.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="sm-socials-link text-[0.9rem] font-bold text-gray-700 dark:text-gray-300 no-underline relative inline-block py-[2px] transition-all hover:text-medical-primary active:scale-95"
+                        target={s.link.startsWith('http') ? "_blank" : undefined}
+                        rel={s.link.startsWith('http') ? "noopener noreferrer" : undefined}
+                        className="sm-socials-link text-[0.9rem] font-bold text-gray-700 dark:text-gray-300 no-underline relative inline-block py-[2px] transition-all hover:text-medical-primary active:scale-95 flex items-center gap-2"
+                        onClick={closeMenu}
                       >
                         {s.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
