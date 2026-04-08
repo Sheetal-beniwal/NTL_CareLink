@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, useMotionValue, animate, useInView } from 'framer-motion';
 import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
+// ─── Data ──────────────────────────────────────────────────────────────────────
 const testimonials = [
   {
     id: 1,
@@ -15,24 +16,6 @@ const testimonials = [
     treatment: 'Cardiac Surgery',
     text: 'NTL CareLink was a lifeline for my family. When my father needed urgent heart surgery, they coordinated everything — from the hospital in Delhi to our flights and accommodation. The care he received at Apollo was world-class, and we never felt alone for a single moment.',
   },
-  // {
-  //   id: 2,
-  //   name: 'Grace Akello',
-  //   location: 'Kampala, Uganda',
-  //   image: '/testimonials/testimonial (2).jpeg',
-  //   rating: 5,
-  //   treatment: 'Orthopaedic Treatment',
-  //   text: 'I had been suffering from a knee condition for over two years. NTL CareLink connected me with a specialist at Fortis Hospital within days. The surgery was successful and the post-operative support was exceptional. I am now walking pain-free — something I had only dreamed of.',
-  // },
-  // {
-  //   id: 3,
-  //   name: 'Samuel Mwangi',
-  //   location: 'Nairobi, Kenya',
-  //   image: '/testimonials/testimonial (3).jpeg',
-  //   rating: 5,
-  //   treatment: 'Cancer Treatment',
-  //   text: 'Receiving a cancer diagnosis was devastating, but NTL CareLink turned my despair into hope. They arranged my oncology consultation at Medanta without delay, managed all my paperwork, and their team was just a call away every single day. I am now in remission.',
-  // },
   {
     id: 4,
     name: 'Fatima Al-Rashid',
@@ -60,15 +43,6 @@ const testimonials = [
     treatment: 'Paediatric Care',
     text: "My daughter needed specialized paediatric care that was not available locally. NTL CareLink arranged her treatment at a top children's hospital in India, including accommodation for our entire family. Their compassion and professionalism are truly unmatched.",
   },
-  // {
-  //   id: 7,
-  //   name: 'Emmanuel Osei',
-  //   location: 'Accra, Ghana',
-  //   image: '/testimonials/testimonial (7).jpeg',
-  //   rating: 5,
-  //   treatment: 'Diabetes Management',
-  //   text: "I had struggled with uncontrolled diabetes for years. NTL CareLink connected me with an endocrinology specialist in Bangkok through Bumrungrad Hospital. The comprehensive management plan I received transformed my health. Their follow-up support back home has been outstanding.",
-  // },
   {
     id: 8,
     name: 'Winnie Atieno',
@@ -78,15 +52,6 @@ const testimonials = [
     treatment: 'Fertility Treatment',
     text: 'After years of failed fertility treatments locally, NTL CareLink gave us renewed hope. They connected us with a renowned fertility specialist in India, handled all travel arrangements, and supported us emotionally throughout the journey. We are now proud parents of twins.',
   },
-  // {
-  //   id: 9,
-  //   name: 'David Lukudu',
-  //   location: 'Wau, South Sudan',
-  //   image: '/testimonials/testimonial (9).jpeg',
-  //   rating: 5,
-  //   treatment: 'Spinal Surgery',
-  //   text: 'I was paralysed with fear when my doctor said I needed spinal surgery. NTL CareLink was calm, professional, and incredibly supportive. They arranged my treatment at Artemis Hospital where I received exceptional surgical care. I owe my mobility to this team.',
-  // },
   {
     id: 10,
     name: 'Mercy Wanjiku',
@@ -132,28 +97,17 @@ const testimonials = [
     treatment: 'Cardiac Bypass',
     text: "My mother's cardiac bypass surgery was a terrifying prospect, but NTL CareLink made us feel reassured at every stage. They chose the right hospital, arranged accommodation, and provided daily updates during her surgery. She recovered beautifully. We are truly thankful.",
   },
-  // {
-  //   id: 15,
-  //   name: 'Julius Tumusiime',
-  //   location: 'Kampala, Uganda',
-  //   image: '/testimonials/testimonial (15).jpeg',
-  //   rating: 5,
-  //   treatment: 'Stem Cell Therapy',
-  //   text: 'The team at NTL CareLink guided me through a complex stem cell therapy journey with patience and expertise. Every question was answered, every concern addressed. The treatment I received in India gave me a new lease on life. I trust NTL CareLink completely.',
-  // },
-  // {
-  //   id: 16,
-  //   name: 'Halima Sudi',
-  //   location: 'Dar es Salaam, Tanzania',
-  //   image: '/testimonials/testimonial (16).jpeg',
-  //   rating: 5,
-  //   treatment: 'Weight Loss Surgery',
-  //   text: 'NTL CareLink was exceptional in arranging my bariatric surgery in India. From obtaining the medical visa to post-operative dietary counselling, everything was covered. I lost over 40 kg and regained my confidence and health. They truly changed my life.',
-  // },
 ];
 
-const VISIBLE_CARDS = 3;
+// Only images confirmed to exist on disk
+const AVATAR_IDS = [1, 4, 5, 6, 8];
 
+// ─── Constants ─────────────────────────────────────────────────────────────────
+const GAP = 24;       // px — matches Tailwind gap-6
+const VISIBLE = 3;    // visible cards on desktop
+const CLONES = 3;     // clone count on each side for seamless infinite loop
+
+// ─── Helpers ───────────────────────────────────────────────────────────────────
 const StarRating = ({ rating }: { rating: number }) => (
   <div className="flex gap-0.5">
     {Array.from({ length: 5 }).map((_, i) => (
@@ -166,26 +120,28 @@ const StarRating = ({ rating }: { rating: number }) => (
   </div>
 );
 
+// ─── Card (no motion.div — position is handled by the parent strip) ─────────────
 const TestimonialCard = ({
   testimonial,
-  isActive,
+  isCenter,
 }: {
   testimonial: (typeof testimonials)[0];
-  isActive: boolean;
+  isCenter: boolean;
 }) => (
-  <motion.div
-    layout
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -30 }}
-    transition={{ duration: 0.5, ease: 'easeOut' }}
-    className={`relative flex flex-col bg-white rounded-3xl overflow-hidden shadow-lg border transition-all duration-500 h-full ${
-      isActive
-        ? 'border-medical-primary/40 shadow-medical-primary/15 scale-[1.02]'
-        : 'border-gray-100 hover:border-medical-primary/20 hover:shadow-xl'
-    }`}
+  <div
+    className="relative flex flex-col bg-white rounded-3xl overflow-hidden h-full"
+    style={{
+      border: '1px solid',
+      borderColor: isCenter ? 'rgba(0,180,180,0.35)' : '#f1f5f9',
+      boxShadow: isCenter
+        ? '0 8px 40px rgba(0,180,180,0.18), 0 2px 8px rgba(0,0,0,0.06)'
+        : '0 2px 12px rgba(0,0,0,0.06)',
+      transform: isCenter ? 'scale(1.025)' : 'scale(0.97)',
+      opacity: isCenter ? 1 : 0.82,
+      transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease',
+    }}
   >
-    {/* Large patient photo at top */}
+    {/* Patient photo */}
     <div className="relative w-full h-52 shrink-0">
       <Image
         src={testimonial.image}
@@ -194,37 +150,27 @@ const TestimonialCard = ({
         className="object-cover object-top"
         sizes="(max-width: 768px) 100vw, 33vw"
       />
-      {/* Gradient overlay at bottom of photo */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-      {/* Treatment tag overlaid on photo */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
       <div className="absolute bottom-3 left-4">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-medical-primary text-white text-[11px] font-bold uppercase tracking-wider shadow-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
           {testimonial.treatment}
         </span>
       </div>
-      {/* Rating overlaid on photo top-right */}
       <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-2.5 py-1.5 shadow">
         <StarRating rating={testimonial.rating} />
       </div>
     </div>
 
-    {/* Card body */}
+    {/* Body */}
     <div className="flex flex-col flex-1 p-6">
-      {/* Large decorative quote */}
-      <div className="absolute top-[220px] right-5 opacity-[0.06]">
+      <div className="absolute top-[220px] right-5 opacity-[0.05]">
         <Quote size={56} className="text-medical-primary fill-medical-primary" />
       </div>
-
-      {/* Quote text */}
       <p className="text-gray-600 text-sm leading-relaxed flex-1 italic">
         &ldquo;{testimonial.text}&rdquo;
       </p>
-
-      {/* Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-5" />
-
-      {/* Author row */}
       <div className="flex items-center gap-4">
         <div className="relative w-14 h-14 rounded-full overflow-hidden border-[3px] border-medical-primary/30 shrink-0 shadow-md">
           <Image
@@ -241,28 +187,151 @@ const TestimonialCard = ({
         </div>
       </div>
     </div>
-  </motion.div>
+  </div>
 );
 
+// ─── Main Component ─────────────────────────────────────────────────────────────
 export default function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [cardWidth, setCardWidth] = useState(0);
+
+  /**
+   * activeIndex = real index of the LEFTMOST visible card.
+   * center card real index = (activeIndex + 1) % total
+   */
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const isPausedRef = useRef(false);
+  const isAnimating = useRef(false);
+
+  // framer-motion MotionValue for the strip's horizontal position
+  const x = useMotionValue(0);
+
+  // Ref tracking the extended-strip index of the leftmost visible card
+  const stripPos = useRef(CLONES); // starts pointing at real index 0
 
   const total = testimonials.length;
 
-  const prev = () => setActiveIndex((i) => (i - 1 + total) % total);
-  const next = () => setActiveIndex((i) => (i + 1) % total);
+  /**
+   * Extended strip:
+   *   [ last CLONES cards | all real cards | first CLONES cards ]
+   *
+   * Example for 10 cards, CLONES=3:
+   *   [T7,T8,T9, | T0..T9, | T0,T1,T2]
+   *   indices 0-2 | 3-12   | 13-15
+   */
+  const extended = [
+    ...testimonials.slice(-CLONES),
+    ...testimonials,
+    ...testimonials.slice(0, CLONES),
+  ];
 
+  const slideUnit = cardWidth + GAP;
+
+  // ── Measure container to compute card width ──────────────────────────────────
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(next, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused, activeIndex]);
+    const measure = () => {
+      if (!containerRef.current) return;
+      const w = containerRef.current.offsetWidth;
+      setCardWidth(Math.max((w - (VISIBLE - 1) * GAP) / VISIBLE, 0));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (containerRef.current) ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
 
-  // Calculate the 3 visible cards (circular)
-  const visibleIndices = Array.from({ length: VISIBLE_CARDS }, (_, i) => (activeIndex + i) % total);
+  // ── Sync x when cardWidth is first known ────────────────────────────────────
+  useEffect(() => {
+    if (cardWidth > 0) {
+      x.set(-(stripPos.current * slideUnit));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardWidth]);
+
+  // ── Core slide function ──────────────────────────────────────────────────────
+  const slideTo = useCallback(
+    (direction: 1 | -1) => {
+      if (isAnimating.current || cardWidth === 0) return;
+      isAnimating.current = true;
+
+      const nextStrip = stripPos.current + direction;
+      const nextReal = ((activeIndex + direction) % total + total) % total;
+      const targetX = -(nextStrip * slideUnit);
+
+      animate(x, targetX, {
+        type: 'spring',
+        stiffness: 280,
+        damping: 30,
+        mass: 0.95,
+        onComplete: () => {
+          // Seamlessly snap from clone zone back into real zone
+          if (nextStrip < CLONES || nextStrip >= CLONES + total) {
+            const corrected = nextReal + CLONES;
+            x.set(-(corrected * slideUnit));
+            stripPos.current = corrected;
+          } else {
+            stripPos.current = nextStrip;
+          }
+          setActiveIndex(nextReal);
+          isAnimating.current = false;
+        },
+      });
+    },
+    [activeIndex, cardWidth, slideUnit, total, x],
+  );
+
+  const next = useCallback(() => slideTo(1), [slideTo]);
+  const prev = useCallback(() => slideTo(-1), [slideTo]);
+
+  // ── Dot navigation — jump to any center card ────────────────────────────────
+  const jumpTo = useCallback(
+    (centerIdx: number) => {
+      if (isAnimating.current || cardWidth === 0) return;
+      // center card is at leftmost+1, so leftmost = (centerIdx - 1 + total) % total
+      const newLeftmost = (centerIdx - 1 + total) % total;
+      if (newLeftmost === activeIndex) return; // already there
+
+      isAnimating.current = true;
+      const targetStrip = newLeftmost + CLONES;
+      const targetX = -(targetStrip * slideUnit);
+
+      animate(x, targetX, {
+        type: 'spring',
+        stiffness: 280,
+        damping: 30,
+        mass: 0.95,
+        onComplete: () => {
+          stripPos.current = targetStrip;
+          setActiveIndex(newLeftmost);
+          isAnimating.current = false;
+        },
+      });
+    },
+    [activeIndex, cardWidth, slideUnit, total, x],
+  );
+
+  // ── Keep isPausedRef in sync ─────────────────────────────────────────────────
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+  }, [isPaused]);
+
+  // ── Auto-advance ─────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!isPausedRef.current) slideTo(1);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slideTo]);
+
+  // Center card real index (for dot highlight & card visual state)
+  const centerRealIdx = (activeIndex + 1) % total;
+
+  const totalStripWidth =
+    cardWidth > 0 ? extended.length * cardWidth + (extended.length - 1) * GAP : 0;
 
   return (
     <section
@@ -271,12 +340,13 @@ export default function Testimonials() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Decorative background elements */}
+      {/* Background blobs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-medical-primary/4 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-medical-accent/5 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
+
+        {/* ── Section Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -296,7 +366,7 @@ export default function Testimonials() {
             journey — their health.
           </p>
 
-          {/* Stats row */}
+          {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             {[
               { value: '300+', label: 'Patients Served' },
@@ -320,71 +390,97 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Cards Grid */}
+        {/* ── Carousel Viewport ── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[420px]"
         >
-          <AnimatePresence mode="popLayout">
-            {visibleIndices.map((idx, position) => (
-              <TestimonialCard
-                key={testimonials[idx].id}
-                testimonial={testimonials[idx]}
-                isActive={position === 1}
-              />
-            ))}
-          </AnimatePresence>
+          {/*
+            overflow-hidden clips the strip.
+            The strip itself is a single flex row containing ALL cards (including clones).
+            We animate its `x` position to slide — no re-mounts, no key changes.
+          */}
+          <div
+            ref={containerRef}
+            className="overflow-hidden"
+            style={{ minHeight: 460 }}
+          >
+            {totalStripWidth > 0 && (
+              <motion.div
+                style={{
+                  x,
+                  display: 'flex',
+                  gap: GAP,
+                  width: totalStripWidth,
+                  willChange: 'transform',
+                  alignItems: 'stretch',
+                }}
+              >
+                {extended.map((t, i) => {
+                  // Map extended index back to 0-based real index
+                  const realIdx = ((i - CLONES) % total + total) % total;
+                  return (
+                    <div
+                      key={`${t.id}-${i}`}
+                      style={{ width: cardWidth, flexShrink: 0 }}
+                    >
+                      <TestimonialCard
+                        testimonial={t}
+                        isCenter={realIdx === centerRealIdx}
+                      />
+                    </div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </div>
         </motion.div>
 
-        {/* Navigation */}
+        {/* ── Navigation ── */}
         <div className="flex items-center justify-center gap-6 mt-12">
-          {/* Prev button */}
           <button
             onClick={prev}
             aria-label="Previous testimonials"
-            className="w-12 h-12 rounded-2xl border-2 border-gray-200 hover:border-medical-primary hover:bg-medical-primary hover:text-white text-gray-500 flex items-center justify-center transition-all duration-300 group"
+            className="w-12 h-12 rounded-2xl border-2 border-gray-200 hover:border-medical-primary hover:bg-medical-primary hover:text-white text-gray-500 flex items-center justify-center transition-all duration-300 group shadow-sm"
           >
             <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
           </button>
 
-          {/* Dot indicators */}
-          <div className="flex gap-2">
+          {/* Dots — highlight the center card */}
+          <div className="flex gap-2 items-center">
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => jumpTo(i)}
                 aria-label={`Go to testimonial ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${
-                  i === activeIndex
-                    ? 'w-8 h-2.5 bg-medical-primary'
+                  i === centerRealIdx
+                    ? 'w-8 h-2.5 bg-medical-primary shadow-sm'
                     : 'w-2.5 h-2.5 bg-gray-300 hover:bg-medical-primary/50'
                 }`}
               />
             ))}
           </div>
 
-          {/* Next button */}
           <button
             onClick={next}
             aria-label="Next testimonials"
-            className="w-12 h-12 rounded-2xl border-2 border-gray-200 hover:border-medical-primary hover:bg-medical-primary hover:text-white text-gray-500 flex items-center justify-center transition-all duration-300 group"
+            className="w-12 h-12 rounded-2xl border-2 border-gray-200 hover:border-medical-primary hover:bg-medical-primary hover:text-white text-gray-500 flex items-center justify-center transition-all duration-300 group shadow-sm"
           >
             <ChevronRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
 
-        {/* Bottom trust badge */}
+        {/* ── Trust badge ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="mt-14 flex flex-col items-center gap-4"
         >
-          {/* Avatar stack */}
           <div className="flex items-center -space-x-4">
-            {[1, 2, 3, 4, 5].map((n) => (
+            {AVATAR_IDS.map((n) => (
               <div
                 key={n}
                 className="w-12 h-12 rounded-full border-[3px] border-white overflow-hidden shadow-md relative"
@@ -407,6 +503,7 @@ export default function Testimonials() {
             <span className="text-gray-800 font-bold">500+ patients</span> who trusted NTL CareLink
           </p>
         </motion.div>
+
       </div>
     </section>
   );
