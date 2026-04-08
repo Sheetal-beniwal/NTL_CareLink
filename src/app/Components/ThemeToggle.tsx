@@ -10,7 +10,16 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Default to light theme on mobile if no user preference is set
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      const storedTheme = localStorage.getItem('theme');
+      // If no theme is stored, or it's still specifically 'system', default to light
+      if (!storedTheme || storedTheme === 'system') {
+        setTheme('light');
+      }
+    }
+  }, [setTheme]);
 
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     const isDark = theme === 'dark';

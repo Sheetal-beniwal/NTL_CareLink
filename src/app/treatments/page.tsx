@@ -212,17 +212,19 @@ function HospitalModal({ hospitalIds, onClose }: { hospitalIds: string[]; onClos
             </button>
           </div>
 
-          <div className="flex flex-1 overflow-hidden">
-            {/* Left: hospital tabs */}
-            <div className="w-48 shrink-0 border-r border-gray-100 overflow-y-auto bg-slate-50">
+          <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
+            {/* hospital tabs - Horizontal on mobile, Vertical on desktop */}
+            <div className="w-full sm:w-52 shrink-0 border-b sm:border-b-0 sm:border-r border-gray-100 overflow-x-auto sm:overflow-y-auto bg-slate-50/50 flex sm:flex-col scrollbar-hide">
               {matched.map(h => (
                 <button
                   key={h.id}
                   onClick={() => setSelected(h)}
-                  className={`w-full text-left px-4 py-3.5 border-b border-gray-100 transition-all ${selected.id === h.id ? 'bg-white border-l-[3px] border-l-[#00A3AD]' : 'hover:bg-white'}`}
+                  className={`flex-1 sm:flex-none text-left px-5 py-3.5 sm:py-4 border-r sm:border-r-0 sm:border-b border-gray-100 transition-all min-w-[140px] sm:min-w-0 ${selected.id === h.id ? 'bg-white border-b-2 sm:border-b-0 sm:border-l-[4px] border-[#00A3AD]' : 'hover:bg-white/60'}`}
                 >
-                  <p className={`text-[13px] font-bold leading-snug ${selected.id === h.id ? 'text-[#003B5C]' : 'text-slate-600'}`}>{h.name}</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{h.country}</p>
+                  <p className={`text-[12px] sm:text-[13px] font-bold leading-tight whitespace-nowrap sm:whitespace-normal ${selected.id === h.id ? 'text-[#003B5C]' : 'text-slate-500'}`}>{h.name}</p>
+                  <p className="text-[10px] text-slate-400 mt-1 flex items-center gap-1 font-medium">
+                    <Globe size={10} /> {h.country}
+                  </p>
                 </button>
               ))}
             </div>
@@ -235,21 +237,21 @@ function HospitalModal({ hospitalIds, onClose }: { hospitalIds: string[]; onClos
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
-                className="flex-1 overflow-y-auto"
+                className="flex-1 overflow-y-auto bg-white"
               >
-                {/* Hero image */}
-                <div className="relative h-44 shrink-0">
-                  <Image src={selected.img} alt={selected.name} fill className="object-cover" sizes="600px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                {/* Hero image - adjusted height for mobile */}
+                <div className="relative h-40 sm:h-48 shrink-0">
+                  <Image src={selected.img} alt={selected.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 600px" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
-                    <div>
-                      <p className="text-white font-extrabold text-xl leading-tight">{selected.name}</p>
+                    <div className="max-w-[70%]">
+                      <p className="text-white font-extrabold text-lg sm:text-2xl leading-tight drop-shadow-md">{selected.name}</p>
                       <div className="flex items-center gap-1.5 mt-1">
                         <MapPin size={12} className="text-[#00E0D2]" />
-                        <span className="text-[#00E0D2] text-xs font-semibold">{selected.city}, {selected.country}</span>
+                        <span className="text-[#00E0D2] text-[11px] sm:text-xs font-semibold">{selected.city}, {selected.country}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 bg-white/20 backdrop-blur-sm rounded-lg px-2.5 py-1.5">
+                    <div className="flex items-center gap-1 bg-white/20 backdrop-blur-md rounded-lg px-2 sm:px-3 py-1.5 border border-white/20">
                       <Star size={13} fill="#f6ad55" stroke="none" />
                       <span className="text-white text-sm font-black">{selected.rating}</span>
                     </div>
@@ -257,44 +259,44 @@ function HospitalModal({ hospitalIds, onClose }: { hospitalIds: string[]; onClos
                 </div>
 
                 {/* Details */}
-                <div className="p-5 space-y-4">
+                <div className="p-5 sm:p-6 space-y-6">
                   <p className="text-slate-600 text-sm leading-relaxed">{selected.desc}</p>
 
                   {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {[
                       { label: 'Beds', value: selected.beds },
                       { label: 'Since', value: selected.founded },
                       { label: 'Accreditation', value: selected.badge },
                     ].map(s => (
-                      <div key={s.label} className="bg-slate-50 rounded-xl p-3 text-center border border-slate-100">
-                        <p className="text-[#003B5C] font-extrabold text-sm">{s.value}</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5 uppercase tracking-wider font-semibold">{s.label}</p>
+                      <div key={s.label} className="bg-slate-50 rounded-xl p-3 text-center border border-slate-100 flex flex-col justify-center">
+                        <p className="text-[#003B5C] font-black text-sm sm:text-base leading-none">{s.value}</p>
+                        <p className="text-[9px] text-slate-400 mt-1.5 uppercase tracking-wider font-bold">{s.label}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* Specialties */}
                   <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Key Specialties at this Hospital</p>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Principal Specialties</p>
                     <div className="flex flex-wrap gap-2">
                       {selected.specialties.map(sp => (
-                        <span key={sp} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#00A3AD]/10 text-[#003B5C] text-[11px] font-bold">
-                          <BadgeCheck size={10} className="text-[#00A3AD]" />
+                        <span key={sp} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#00A3AD]/5 text-[#003B5C] text-[11px] font-bold border border-[#00A3AD]/10 whitespace-nowrap">
+                          <Activity size={10} className="text-[#00A3AD]" />
                           {sp}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex gap-3 pt-2">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-50">
                     <Link href="/register" onClick={onClose}
-                      className="flex-1 py-3 bg-[#003B5C] hover:bg-[#00A3AD] text-white font-extrabold rounded-xl text-sm flex items-center justify-center gap-2 transition-all">
-                      <ClipboardList size={15} /> Get Free Quote
+                      className="flex-1 py-3.5 bg-[#003B5C] hover:bg-[#00A3AD] text-white font-extrabold rounded-xl text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#003B5C]/10">
+                      <ClipboardList size={16} /> Get Free Quote
                     </Link>
                     <Link href="/hospitals" onClick={onClose}
-                      className="flex items-center gap-1.5 px-4 py-3 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:border-[#00A3AD] hover:text-[#00A3AD] transition-all">
-                      <ExternalLink size={14} /> All Hospitals
+                      className="flex items-center justify-center gap-1.5 px-6 py-3.5 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:border-[#00A3AD] hover:text-[#00A3AD] transition-all">
+                      <Building2 size={16} /> Hospital Profile
                     </Link>
                   </div>
                 </div>
@@ -510,12 +512,12 @@ function TreatmentsHero() {
           <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6,delay:0.3}}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link href="/register"
-              className="px-8 py-4 bg-[#00A3AD] hover:bg-white hover:text-[#003B5C] text-white font-extrabold rounded-2xl text-sm transition-all shadow-xl shadow-[#00A3AD]/25 flex items-center gap-2 group">
+              className="w-full sm:w-auto px-8 py-4 bg-[#00A3AD] hover:bg-white hover:text-[#003B5C] text-white font-extrabold rounded-2xl text-sm transition-all shadow-xl shadow-[#00A3AD]/25 flex items-center justify-center gap-2 group">
               <ClipboardList size={16}/> Get a Free Quote
               <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform"/>
             </Link>
             <a href="tel:+918146654185"
-              className="px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold rounded-2xl text-sm transition-all flex items-center gap-2">
+              className="w-full sm:w-auto px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold rounded-2xl text-sm transition-all flex items-center justify-center gap-2">
               <Phone size={15}/> +91 81466 54185
             </a>
           </motion.div>

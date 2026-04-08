@@ -90,7 +90,7 @@ const HealthServices = () => {
               className="shrink-0 w-[85%] sm:w-auto md:w-full group p-8 rounded-[32px] bg-white border border-gray-100 shadow-xl snap-center relative overflow-hidden"
             >
               {/* Premium Floating Image Accent */}
-              <div className="absolute -right-12 -bottom-12 w-48 h-48 opacity-[0.1] group-hover:opacity-[0.25] group-hover:-translate-x-4 group-hover:-translate-y-4 transition-all duration-1000 select-none pointer-events-none">
+              <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-[0.1] group-hover:opacity-[0.25] group-hover:-translate-x-4 group-hover:-translate-y-4 transition-all duration-1000 select-none pointer-events-none">
                 <div className="w-full h-full rounded-[60px] overflow-hidden border-4 border-medical-primary/20 shadow-2xl">
                   <Image 
                     src={service.bgImage} 

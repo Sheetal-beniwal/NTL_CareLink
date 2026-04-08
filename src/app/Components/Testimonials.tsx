@@ -299,7 +299,7 @@ export default function Testimonials() {
           {/* Stats row */}
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             {[
-              { value: '500+', label: 'Patients Served' },
+              { value: '300+', label: 'Patients Served' },
               { value: '100%', label: 'Satisfaction Rate' },
               { value: '15+', label: 'Countries Reached' },
               { value: '50+', label: 'Hospital Partners' },
