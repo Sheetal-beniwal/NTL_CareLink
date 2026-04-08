@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { Users, Target, Globe, Phone, Mail } from 'lucide-react';
 
 const useSafeLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+import ThemeToggle from './ThemeToggle';
 
 export interface StaggeredMenuItem {
   label: string;
@@ -485,6 +486,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             NTL <span className={`ml-1 ${scrolled || open ? 'text-medical-primary' : 'text-medical-accent'}`}>CareLink</span>
           </span>
         </Link>
+        
+        <div className={`pointer-events-auto flex items-center transition-all duration-300 ${open ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'} mr-3`}>
+          <ThemeToggle />
+        </div>
 
         <button
           ref={toggleBtnRef}
