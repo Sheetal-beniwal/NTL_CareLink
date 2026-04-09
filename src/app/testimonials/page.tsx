@@ -209,7 +209,8 @@ function TestimonialsCarousel() {
     const measure = () => {
       if (!containerRef.current) return;
       const w = containerRef.current.offsetWidth;
-      setCardWidth(Math.max((w - (VISIBLE - 1) * GAP) / VISIBLE, 0));
+      const vis = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : VISIBLE;
+      setCardWidth(Math.max((w - (vis - 1) * GAP) / vis, 0));
     };
     measure();
     const ro = new ResizeObserver(measure);

@@ -1,10 +1,21 @@
-import React from 'react';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Destinations | NTL CareLink',
+export const metadata = buildMetadata({
+  title: 'Medical Destinations — India, Thailand & Turkey',
   description:
-    'Curated medical excellence across five continents. Discover JCI-accredited facilities in India, Turkey, Thailand, Mexico, and UAE.',
-};
+    'Compare top medical travel destinations: India, Thailand, and Turkey. Save up to 80% on surgery costs vs. the USA. JCI-accredited hospitals, zero waiting periods, and world-class specialists.',
+  path: '/destinations',
+  keywords: [
+    'medical tourism destinations',
+    'medical tourism india vs thailand',
+    'surgery cost india vs usa',
+    'affordable healthcare destinations',
+    'medical travel india thailand turkey',
+    'hip replacement cost india',
+    'heart bypass cost india',
+    'IVF cost india',
+  ],
+});
 
 const destinations = [
   {

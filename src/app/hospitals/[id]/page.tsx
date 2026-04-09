@@ -3,6 +3,40 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { MapPin, Phone, Calendar, HeartPulse } from 'lucide-react';
 import { hospitals } from '@/data/hospitals';
+import { buildMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+// ─── Dynamic Metadata per hospital ───────────────────────────────────────────
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const hospital = hospitals.find((h) => h.id === params.id);
+
+  if (!hospital) {
+    return buildMetadata({
+      title: 'Hospital Not Found',
+      description: 'The requested hospital page was not found.',
+      path: '/hospitals',
+      noIndex: true,
+    });
+  }
+
+  return buildMetadata({
+    title: `${hospital.name} — ${hospital.location}`,
+    description: `${hospital.shortDescription} Explore specialties, facilities, and book a free consultation through NTL CareLink.`,
+    path: `/hospitals/${hospital.id}`,
+    ogImage: hospital.mainImage,
+    keywords: [
+      hospital.name.toLowerCase(),
+      `${hospital.name.toLowerCase()} india`,
+      ...hospital.specialties.map((s) => s.toLowerCase()),
+      `hospital in ${hospital.location.toLowerCase()}`,
+      'JCI accredited hospital',
+    ],
+  });
+}
 
 export default function HospitalDetailsPage({ params }: { params: { id: string } }) {
   const hospital = hospitals.find(h => h.id === params.id);

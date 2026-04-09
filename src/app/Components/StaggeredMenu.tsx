@@ -487,7 +487,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           </span>
         </Link>
         
-        <div className={`pointer-events-auto flex items-center transition-all duration-300 ${open ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'} mr-3`}>
+        <div className="pointer-events-auto flex items-center transition-all duration-300 mr-3 hidden">
           <ThemeToggle />
         </div>
 
@@ -623,6 +623,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 </ul>
               </div>
             )}
+            
+            <div className="sm-theme-toggle mt-4 pt-4 border-t border-gray-200 dark:border-white/10 flex items-center justify-between" style={{ opacity: open ? 1 : 0, transition: 'opacity 0.6s ease' }}>
+               <span className="text-xs font-black uppercase tracking-widest text-medical-primary">Theme</span>
+               <div className="pointer-events-auto">
+                 <ThemeToggle />
+               </div>
+            </div>
           </div>
         </aside>
       </div>
