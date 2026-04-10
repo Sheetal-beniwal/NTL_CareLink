@@ -208,7 +208,7 @@ const AboutPage = () => {
                   whileInView={{ y: 0, opacity: 1 }} 
                   viewport={{ once: true }} 
                   transition={{ delay: 0.6 }}
-                  className="absolute -bottom-10 -left-4 sm:left-10 lg:-left-12 bg-white p-8 rounded-3xl shadow-2xl max-w-[280px] sm:max-w-[340px] z-20 border-b-[6px] border-[#00A3AD]"
+                  className="relative lg:absolute lg:-bottom-10 lg:-left-12 bg-white p-8 rounded-3xl shadow-2xl w-full lg:max-w-[280px] z-20 border-b-[6px] border-[#00A3AD] mb-8 lg:mb-0"
                 >
                   <Quote size={36} className="text-[#00A3AD] mb-4 opacity-30" />
                   <p className="text-[#003B5C] font-black italic text-lg sm:text-xl leading-snug">
@@ -290,10 +290,10 @@ const AboutPage = () => {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
               {[
-                { name: "Executive Leader", role: "Chief Operation Officer", image: "/teamMembers/coo.jpeg", bio: "Driving excellence in operational efficiency and healthcare delivery across borders." },
-                { name: "Technology Expert", role: "Chief Technology Officer", image: "/teamMembers/cto.jpeg", bio: "Innovating the digital landscape of global healthcare accessibility." },
-                { name: "Strategic Lead", role: "Associate Director", image: "/teamMembers/associate-director-ops.jpeg", bio: "Ensuring seamless patient journeys and world-class care coordination." },
-                { name: "Marketing Lead", role: "Director of Access", image: "/teamMembers/marketing-director.jpeg", bio: "Expanding the reach of transformative care to underserved communities." },
+                { name: "", role: "Chief Operation Officer", image: "/teamMembers/coo.jpeg", bio: "Driving excellence in operational efficiency and healthcare delivery across borders." },
+                { name: "Amit Yadav", role: "Chief Technology Officer", image: "/teamMembers/cto.jpeg", bio: "Innovating the digital landscape of global healthcare accessibility." },
+                { name: "Isha", role: "Associate Director", image: "/teamMembers/associate-director-ops.jpeg", bio: "Ensuring seamless patient journeys and world-class care coordination." },
+                { name: "Nancy Kiden", role: "Director of Access", image: "/teamMembers/marketing-director.jpeg", bio: "Expanding the reach of transformative care to underserved communities." },
               ].map((member, i) => (
                 <motion.div key={i} variants={fadeInUp} className="flex flex-col items-center">
                   <div className="w-full aspect-[4/5] mb-6">

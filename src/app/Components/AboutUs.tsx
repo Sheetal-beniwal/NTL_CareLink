@@ -92,7 +92,7 @@ const AboutUs = () => {
           </div>
 
           {/* Experience Badge Overlay */}
-          <div className="absolute bottom-0 left-0 w-auto h-[40%] bg-medical-blue rounded-[2.5rem] overflow-hidden p-6 flex flex-col justify-center gap-1 border-4 border-white shadow-xl group cursor-default z-10">
+          <div className="relative lg:absolute bottom-0 left-0 w-full lg:w-auto h-auto lg:h-[40%] bg-medical-blue rounded-[2.5rem] overflow-hidden p-6 flex flex-col justify-center gap-1 border-4 border-white shadow-xl group cursor-default z-10 mb-8 lg:mb-0">
             <div className="absolute inset-0 opacity-10 transition-opacity group-hover:opacity-20">
               <Image 
                 src="/medical_badge_bg.png" 

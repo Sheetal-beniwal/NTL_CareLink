@@ -102,8 +102,8 @@ const ContactSupportPage = () => {
                       <MapPin size={20} className="text-medical-accent" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Global Headquarters (India)</h4>
-                      <p className="text-gray-400">Sector 62, Gurugram, Haryana - 122001</p>
+                      <h4 className="font-bold text-lg">CGC University,jhanjeri </h4>
+                      <p className="text-gray-400">Mohali, 140307 - Punjab</p>
                     </div>
                   </div>
                   
@@ -140,10 +140,10 @@ const ContactSupportPage = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-medical-dark">Have a quick question?</h3>
                 <p className="text-gray-600">Our patient coordinators are online and ready to chat with you right now.</p>
-                <button className="w-full py-4 bg-medical-primary text-white rounded-2xl font-bold shadow-lg hover:bg-medical-dark transition-all flex items-center justify-center gap-3 group">
+                <a href="https://wa.me/918146654185" className='px-8'><button className="w-full py-4 px-8 bg-medical-primary text-white rounded-2xl font-bold shadow-lg hover:bg-medical-dark transition-all flex items-center justify-center gap-3 group">
                   Message on WhatsApp
                   <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-                </button>
+                </button></a>
               </motion.div>
             </div>
           </div>

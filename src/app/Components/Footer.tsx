@@ -77,7 +77,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-medical-accent shrink-0 mt-0.5" />
-                <span className="text-slate-400">NTL CareLink Global H.Q.<br/>Sector 62, Gurugram, India</span>
+                <span className="text-slate-400">CGC University, Jhanjeri<br/>Mohali 140307 Punjab, India</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-medical-accent shrink-0" />
@@ -121,7 +121,10 @@ const Footer = () => {
 
         {/* Copyright & Legal */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} NTL CareLink Global. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} NTL CareLink Global. All rights reserved.
+            <Link href="/registrations" className="ml-1 text-slate-800 dark:text-slate-900 cursor-default hover:text-medical-primary transition-colors">.</Link>
+          </p>
           <div className="flex flex-wrap justify-center gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

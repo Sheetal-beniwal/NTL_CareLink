@@ -468,19 +468,19 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       {/* HIGH VISIBILITY Navigation Bar */}
       <header
         ref={headerRef}
-        className={`staggered-menu-header fixed top-0 left-0 w-full flex items-center justify-between p-[1.5em] z-[100] pointer-events-none transition-all duration-300 ${
+        className={`staggered-menu-header fixed top-0 left-0 w-full flex items-center justify-between p-4 sm:p-6 z-[100] pointer-events-none transition-all duration-300 ${
           scrolled && !open ? 'bg-white/85 dark:bg-slate-900/90 backdrop-blur-3xl border-b border-gray-100 dark:border-white/10 shadow-xl' : 'bg-transparent'
         }`}
         aria-label="Main navigation header"
       >
-        <Link href="/" className={`sm-logo flex-1 flex items-center select-none pointer-events-auto transition-all duration-300 hover:opacity-80 ${open ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'}`} aria-label="NTL CareLink Home">
+        <Link href="/" className={`sm-logo flex-shrink-0 flex items-center select-none pointer-events-auto transition-all duration-300 hover:opacity-80 ${open ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'}`} aria-label="NTL CareLink Home">
           <img
             src={logoUrl || '/ntl_logo.jpeg'}
             alt="Logo"
             className="sm-logo-img block h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-xl flex-shrink-0 border border-white/20"
             draggable={false}
           />
-          <span className={`ml-2 font-black text-xl flex items-center transition-all duration-300 tracking-tight ${
+          <span className={`ml-2 font-black text-lg sm:text-xl flex items-center transition-all duration-300 tracking-tight ${
             scrolled || open ? 'text-medical-dark dark:text-gray-100' : 'text-white'
           }`}>
             NTL <span className={`ml-1 ${scrolled || open ? 'text-medical-primary' : 'text-medical-accent'}`}>CareLink</span>
@@ -571,7 +571,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         <aside
           id="staggered-menu-panel"
           ref={panelRef}
-          className="staggered-menu-panel absolute top-0 right-0 h-full w-[80vw] bg-white/45 dark:bg-slate-900/40 border-l border-white/20 flex flex-col p-[5em_1.5em_2.5em_1.5em] overflow-y-auto z-10 backdrop-blur-[35px] pointer-events-auto"
+          className="staggered-menu-panel absolute top-0 right-0 h-full w-[80vw] bg-white/45 dark:bg-slate-900/40 border-l border-white/20 flex flex-col p-[7.5em_1.5em_2.5em_1.5em] overflow-y-auto z-10 backdrop-blur-[35px] pointer-events-auto"
           style={{ WebkitBackdropFilter: 'blur(35px)' }}
           aria-hidden={!open}
         >

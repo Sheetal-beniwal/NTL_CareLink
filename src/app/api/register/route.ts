@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Registration from '@/models/Registration';
 import { sendNotificationEmail } from '@/lib/mailer';
+import { appendToGoogleSheet } from '@/lib/google-sheets';
 
 export async function POST(request: Request) {
   console.log('🚀 POST /api/register hit');
@@ -28,13 +29,16 @@ export async function POST(request: Request) {
       message: data.message || '',
     });
 
-    // Send email notification after successful registration
-    // We don't want to block the response if email sending fails, or maybe we do?
+    // Send email notification and sync to google sheets concurrently
+    // We don't want to block the response if either fails, or maybe we do?
     // Let's at least log it and move on
     try {
-      await sendNotificationEmail(data);
-    } catch (emailError) {
-      console.error('Failed to send registration notification email:', emailError);
+      await Promise.all([
+        sendNotificationEmail(data),
+        appendToGoogleSheet(data)
+      ]);
+    } catch (sideEffectError) {
+      console.error('Failed to run side effects (email or google sheet sync):', sideEffectError);
     }
 
     return NextResponse.json(
