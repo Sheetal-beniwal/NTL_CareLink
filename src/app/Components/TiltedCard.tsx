@@ -17,6 +17,7 @@ interface TiltedCardProps {
   showTooltip?: boolean;
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
+  objectPosition?: string;
 }
 
 const springValues: SpringOptions = {
@@ -36,8 +37,9 @@ export default function TiltedCard({
   scaleOnHover = 1.1,
   rotateAmplitude = 14,
   showTooltip = true,
-  overlayContent = null,
-  displayOverlayContent = false
+   overlayContent = null,
+  displayOverlayContent = false,
+  objectPosition = 'center'
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
   const x = useMotionValue(0);
@@ -119,7 +121,8 @@ export default function TiltedCard({
           className="absolute top-0 left-0 object-cover rounded-[2rem] will-change-transform [transform:translateZ(0)] border border-white/10 shadow-lg"
           style={{
             width: '100%',
-            height: '100%'
+            height: '100%',
+            objectPosition: objectPosition
           }}
         />
 
