@@ -20,12 +20,12 @@ const testimonials = [
   },
   {
     id: 4,
-    name: 'Fatima Al-Rashid',
+    name: 'Garang Mun Akok',
     location: 'Dar es Salaam, Tanzania',
     image: '/testimonials/testimonial (4).jpeg',
     rating: 5,
     treatment: 'Neurological Care',
-    text: 'My son was diagnosed with a rare neurological disorder. NTL CareLink found us the best neurologist at Artemis Hospital in Gurugram. Their team handled visa processing, hospital admissions, and even arranged a translator. I cannot express my gratitude enough.',
+    text: 'I came to India from South Sudan carrying pain, uncertainty, and hope. Through NTL CareLink, I found more than treatment — I found care, guidance, and people who truly stood by me. At Artemis Hospital, I received the help I had been searching for. Today, I feel alive again. I am deeply grateful for a journey that changed my life',
   },
   {
     id: 5,
@@ -92,12 +92,12 @@ const testimonials = [
   },
   {
     id: 14,
-    name: 'Rose Achieng',
-    location: 'Kisumu, Kenya',
+    name: 'Opara Oluchi Udoka',
+    location: 'Nigeria',
     image: '/testimonials/testimonial (14).jpeg',
     rating: 5,
     treatment: 'Cardiac Bypass',
-    text: "My mother's cardiac bypass surgery was a terrifying prospect, but NTL CareLink made us feel reassured at every stage. They chose the right hospital, arranged accommodation, and provided daily updates during her surgery. She recovered beautifully. We are truly thankful.",
+    text: "Opara Oluchi Udoka from Nigeria visited Apollo Hospitals with her mother Ms Victoria and took treatment under Dr.TPS Bhandari, Sr Consultant Surgical Oncologist under his guidance the surgery was performed and it was successful. Thus she thanks Dr Naveen Polavarapu,Dr.TPS Bhandari and Apollo Hospitals for the best services and treatment. She also praises Doctor for his impressive treatment and guidance.",
   },
 ];
 
