@@ -3,8 +3,9 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Search, Building2, Filter, Calendar, Star, BadgeCheck, X, User, Activity, ShieldCheck } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search, Building2, Filter, Calendar, Star, BadgeCheck, X, User, Activity, ShieldCheck, Sparkles, Users, Globe } from 'lucide-react';
 import doctorsDataRaw from '@/../doctors.json';
+import HeroSection from '../Components/HeroSection';
 
 /* ─────────────────── TYPE & DATA ─────────────────── */
 
@@ -188,24 +189,42 @@ export default function DoctorsPage() {
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans">
       
-      {/* ── CLEAN TOP BAR ── */}
-      <div className="h-20 bg-white border-b border-slate-100" />
+      {/* ── HERO ── */}
+      <HeroSection
+        pillText="Expert Clinical Network"
+        pillIcon={<Sparkles size={14} />}
+        heading={
+          <>
+            Connect with <span className="text-[#00E0D2]">Global Leaders</span> in Specialized Medicine
+          </>
+        }
+        subtitle="Our network features internationally recognized specialists committed to providing exceptional care across more than 50 medical disciplines."
+        ctaText="Begin Free Assessment"
+        ctaHref="/register"
+        backgroundImage="/hero-bg-medical.png"
+        cards={[
+          {
+            icon: <BadgeCheck size={26} />,
+            title: "1,200+ Verified Experts",
+            description: "Every specialist is verified and credentialed through our rigorous vetting process.",
+          },
+          {
+            icon: <Globe size={26} />,
+            title: "50+ Medical Specialities",
+            description: "From cardiac surgery to neurology — find the right expert for your condition.",
+          },
+          {
+            icon: <ShieldCheck size={26} />,
+            title: "98% Patient Success Rate",
+            description: "Outcomes consistently matching or exceeding Western medical standards.",
+          },
+        ]}
+      />
 
-      {/* ── REFINED SEARCH & HERO ── */}
-      <section className="bg-white border-b border-slate-200 py-12 md:py-16">
+      {/* ── SEARCH & FILTERS ── */}
+      <section className="bg-white border-b border-slate-200 py-10 md:py-12">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3AD]/10 border border-[#00A3AD]/20 text-[#00A3AD] font-black text-[10px] tracking-widest uppercase mb-6">
-              👨‍⚕️ Expert Clinical Network
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#003B5C] tracking-tight leading-[1.1] mb-6">
-              Connect with <span className="text-[#00A3AD]">Global Leaders</span> in Specialized Medicine
-            </h1>
-            <p className="text-slate-500 text-lg font-medium max-w-2xl mb-10 leading-relaxed">
-              Our network features internationally recognized specialists committed to providing exceptional care across more than 50 medical disciplines.
-            </p>
-
-            {/* Optimized Search & Filter Suite */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative group">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#00A3AD] transition-colors" size={20} />

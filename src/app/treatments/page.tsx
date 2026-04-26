@@ -11,8 +11,9 @@ import {
   Phone, Mail, ChevronRight, Check,
   ClipboardList, Building2, UserCheck, MessageCircle,
   Zap, Star, Globe, Users, ArrowRight, Calendar,
-  X, MapPin, Award, ExternalLink, Wind
+  X, MapPin, Award, ExternalLink, Wind, Sparkles
 } from 'lucide-react';
+import HeroSection from '../Components/HeroSection';
 
 /* ════════════════ HOSPITAL DATA ════════════════ */
 const allHospitals = [
@@ -472,85 +473,40 @@ function SectionHeading({ title, viewAllHref }: { title: string; viewAllHref?: s
 
 /* ════════════════ HERO ════════════════ */
 function TreatmentsHero() {
-  const stats = [
-    { value: '50+', label: 'Partner Hospitals' },
-    { value: '60+', label: 'Countries Served' },
-    { value: '98%', label: 'Success Rate' },
-    { value: '24/7', label: 'Patient Support' },
-  ];
-
   return (
-    <section className="relative overflow-hidden bg-[#003B5C] pt-28 pb-20 md:pt-36 md:pb-28">
-      {/* Dot grid background */}
-      <div className="absolute inset-0 opacity-[0.06]"
-        style={{ backgroundImage:'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize:'28px 28px' }}/>
-      {/* Gradient blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00A3AD]/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none"/>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00E0D2]/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none"/>
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Pill */}
-          <motion.div initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{duration:0.5}}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3AD]/20 border border-[#00A3AD]/30 text-[#00E0D2] text-xs font-bold uppercase tracking-widest mb-6">
-            <Activity size={12}/> World-Class Medical Care
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6,delay:0.1}}
-            className="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
-            Expert Treatments,<br/>
-            <span className="text-[#00E0D2]">Across the Globe</span>
-          </motion.h1>
-
-          <motion.p initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6,delay:0.2}}
-            className="text-slate-300 text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-            NTL CareLink connects you to internationally accredited specialists in India, Thailand, and Turkey — end-to-end, with no hidden costs.
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6,delay:0.3}}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Link href="/register"
-              className="w-full sm:w-auto px-8 py-4 bg-[#00A3AD] hover:bg-white hover:text-[#003B5C] text-white font-extrabold rounded-2xl text-sm transition-all shadow-xl shadow-[#00A3AD]/25 flex items-center justify-center gap-2 group">
-              <ClipboardList size={16}/> Get a Free Quote
-              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform"/>
-            </Link>
-            <a href="tel:+918146654185"
-              className="w-full sm:w-auto px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold rounded-2xl text-sm transition-all flex items-center justify-center gap-2">
-              <Phone size={15}/> +91 81466 54185
-            </a>
-          </motion.div>
-
-          {/* Stats strip */}
-          <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6,delay:0.4}}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
-            {stats.map((s,i)=>(
-              <div key={i} className="bg-white/5 px-4 py-5 text-center hover:bg-white/10 transition-colors">
-                <p className="text-2xl font-black text-[#00E0D2]">{s.value}</p>
-                <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mt-1">{s.label}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Floating hospital badge strip */}
-        <motion.div initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:0.7,delay:0.55}}
-          className="mt-12 flex flex-wrap items-center justify-center gap-3">
-          {allHospitals.slice(0,6).map(h=>(
-            <div key={h.id} className="flex items-center gap-2 px-3.5 py-2 bg-white/10 border border-white/15 rounded-full backdrop-blur-sm">
-              <div className="w-5 h-5 rounded-full overflow-hidden relative shrink-0">
-                <Image src={h.img} alt={h.name} fill className="object-cover" sizes="20px"/>
-              </div>
-              <span className="text-white text-[11px] font-semibold">{h.name}</span>
-            </div>
-          ))}
-          <Link href="/hospitals" className="flex items-center gap-1.5 px-3.5 py-2 bg-[#00A3AD]/30 border border-[#00A3AD]/40 rounded-full text-[#00E0D2] text-[11px] font-bold hover:bg-[#00A3AD]/50 transition-all">
-            +{allHospitals.length - 6} more <ExternalLink size={10}/>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
+    <HeroSection
+      pillText="World-Class Medical Care"
+      pillIcon={<Sparkles size={14} />}
+      heading={
+        <>
+          Expert Treatments,<br />
+          <span className="text-[#00E0D2]">Across the Globe</span>
+        </>
+      }
+      subtitle="NTL CareLink connects you to internationally accredited specialists in India, Thailand, and Turkey — end-to-end, with no hidden costs."
+      ctaText="Get a Free Quote"
+      ctaHref="/register"
+      secondaryCtaText="Call +91 81466 54185"
+      secondaryCtaHref="tel:+918146654185"
+      backgroundImage="/hero-bg-medical.png"
+      cards={[
+        {
+          icon: <ShieldCheck size={26} />,
+          title: "50+ Partner Hospitals",
+          description: "Every partner hospital passes rigorous 200-point audits and holds JCI accreditation.",
+        },
+        {
+          icon: <Globe size={26} />,
+          title: "60+ Countries Served",
+          description: "Patients from across Africa, Middle East, and beyond trust us for their treatment journey.",
+        },
+        {
+          icon: <Activity size={26} />,
+          title: "98% Success Rate",
+          description: "Outcomes consistently matching or exceeding Western medical standards.",
+        },
+      ]}
+    />
   );
 }
 

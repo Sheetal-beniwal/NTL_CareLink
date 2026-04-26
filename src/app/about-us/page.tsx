@@ -10,8 +10,8 @@ import {
   ChevronRight, ClipboardList, Zap, ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FloatingMedicalElements from '../Components/FloatingMedicalElements';
 import TiltedCard from '../Components/TiltedCard';
+import HeroSection from '../Components/HeroSection';
 
 const fadeInUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 const staggerContainer = { visible: { transition: { staggerChildren: 0.15 } } };
@@ -19,54 +19,38 @@ const staggerContainer = { visible: { transition: { staggerChildren: 0.15 } } };
 const AboutPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white overflow-x-hidden">
-      <main className="flex-grow pt-16 sm:pt-20 md:pt-24">
+      <main className="flex-grow">
 
         {/* ─── 1. HERO ─── */}
-        <section className="relative py-20 sm:py-28 md:py-36 overflow-hidden bg-[#003B5C]">
-          {/* Dot grid background from Treatments */}
-          <div className="absolute inset-0 opacity-[0.06]"
-            style={{ backgroundImage:'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize:'28px 28px' }}/>
-          
-          {/* Gradient blobs */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00A3AD]/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none"/>
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00E0D2]/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none"/>
-
-          <FloatingMedicalElements density="low" />
-          
-          <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3AD]/20 border border-[#00A3AD]/30 text-[#00E0D2] text-xs font-bold uppercase tracking-widest mb-6 mx-auto">
-              <Sparkles size={14} className="text-[#00E0D2]" /> Dedicated Since Day One
-            </motion.div>
-            
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-8">
+        <HeroSection
+          pillText="Dedicated Since Day One"
+          pillIcon={<Sparkles size={14} />}
+          heading={
+            <>
               Bridging Borders to <br />
               <span className="text-[#00E0D2]">Better Health</span>
-            </motion.h1>
-            
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10 px-4">
-              NTL CareLink connects patients across Africa and beyond with world-class healthcare. Every life deserves the best medical care, regardless of geography.
-            </motion.p>
-            
-            {/* Buttons removed as requested */}
-          </div>
-        </section>
-
-        {/* ─── QUICK STATS BAR ─── */}
-        <section className="bg-[#003B5C] border-y border-[#00A3AD]/20 py-8">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-              {[['50+', 'Partner Hospitals'], ['10K+', 'Lives Touched'], ['15+', 'Countries'], ['98%', 'Success Rate']].map(([v, l], i) => (
-                <div key={l} className={`text-center ${i !== 3 ? 'lg:border-r lg:border-white/10' : ''}`}>
-                  <p className="text-3xl sm:text-4xl font-black text-[#00E0D2]">{v}</p>
-                  <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">{l}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+            </>
+          }
+          subtitle="NTL CareLink connects patients across Africa and beyond with world-class healthcare. Every life deserves the best medical care, regardless of geography."
+          backgroundImage="/african_medical_scene_1774726766055.png"
+          cards={[
+            {
+              icon: <Globe size={26} />,
+              title: "50+ Partner Hospitals",
+              description: "Access to JCI-accredited facilities across India, Thailand, and Turkey.",
+            },
+            {
+              icon: <Users size={26} />,
+              title: "10K+ Lives Touched",
+              description: "Thousands of patients trusted us for their medical travel journey.",
+            },
+            {
+              icon: <Award size={26} />,
+              title: "98% Success Rate",
+              description: "Consistent outcomes matching or exceeding Western medical standards.",
+            },
+          ]}
+        />
 
         {/* ─── 2. WHO WE ARE ─── */}
         <section className="py-20 sm:py-32 bg-white">
@@ -290,7 +274,7 @@ const AboutPage = () => {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
               {[
-                { name: "", role: "Chief Operation Officer", image: "/teamMembers/coo.jpeg", bio: "Driving excellence in operational efficiency and healthcare delivery across borders." },
+                { name: "Atana Peter", role: "Chief Operation Officer", image: "/teamMembers/coo.jpeg", bio: "Driving excellence in operational efficiency and healthcare delivery across borders." },
                 { name: "Amit Yadav", role: "Chief Technology Officer", image: "/teamMembers/cto.jpeg", bio: "Innovating the digital landscape of global healthcare accessibility." },
                 { name: "Isha", role: "Associate Director", image: "/teamMembers/associate-director-ops.jpeg", bio: "Ensuring seamless patient journeys and world-class care coordination." },
                 { name: "Nancy Kiden", role: "Director of Access", image: "/teamMembers/marketing-director.jpeg", bio: "Expanding the reach of transformative care to underserved communities." },

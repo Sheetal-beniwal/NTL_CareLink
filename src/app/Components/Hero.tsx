@@ -1,158 +1,279 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Calculator, Sparkles, Quote } from "lucide-react";
+import {
+  ArrowRight, Calendar, Sparkles, ShieldCheck, Globe,
+  HeartPulse, Brain, Plane, ClipboardList, Users,
+  Stethoscope, BadgeCheck, Activity, Clock, Star,
+  MapPin, PhoneCall
+} from "lucide-react";
 import Image from "next/image";
-import Link from 'next/link';
-import TiltedCard from "./TiltedCard";
-import FloatingMedicalElements from "./FloatingMedicalElements";
+import Link from "next/link";
 
+/* ── Scroll Cards Data ─────────────────────────────── */
+const cards = [
+  {
+    icon: HeartPulse,
+    color: "bg-rose-50 text-rose-600 border-rose-100",
+    iconBg: "bg-rose-100",
+    tag: "Cardiac Care",
+    title: "Heart Surgery & Cardiology",
+    desc: "Access world-class cardiac surgeons for bypass, valve repair, angioplasty & more — at 70% lower cost.",
+  },
+  {
+    icon: Brain,
+    color: "bg-violet-50 text-violet-600 border-violet-100",
+    iconBg: "bg-violet-100",
+    tag: "Neurology",
+    title: "Brain & Spine Treatments",
+    desc: "Leading neurosurgeons for complex spine surgeries, tumor removal & epilepsy management.",
+  },
+  {
+    icon: ClipboardList,
+    color: "bg-teal-50 text-teal-700 border-teal-100",
+    iconBg: "bg-teal-100",
+    tag: "Treatment Planning",
+    title: "Free Medical Opinion",
+    desc: "Share your reports and get a second opinion from international specialists within 48 hours — at no cost.",
+  },
+  {
+    icon: Plane,
+    color: "bg-sky-50 text-sky-700 border-sky-100",
+    iconBg: "bg-sky-100",
+    tag: "Travel & Visa",
+    title: "End-to-End Travel Support",
+    desc: "We handle medical visa, flights, airport transfers, and accommodation so you focus only on healing.",
+  },
+  {
+    icon: Stethoscope,
+    color: "bg-amber-50 text-amber-700 border-amber-100",
+    iconBg: "bg-amber-100",
+    tag: "Oncology",
+    title: "Cancer Care Abroad",
+    desc: "JCI-accredited oncology centers offering targeted therapy, immunotherapy, and robotic surgeries.",
+  },
+  {
+    icon: BadgeCheck,
+    color: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    iconBg: "bg-emerald-100",
+    tag: "Orthopedics",
+    title: "Joint Replacement & Spine",
+    desc: "Robotic knee, hip & shoulder replacements with short recovery times and international-standard care.",
+  },
+  {
+    icon: Activity,
+    color: "bg-indigo-50 text-indigo-700 border-indigo-100",
+    iconBg: "bg-indigo-100",
+    tag: "Organ Transplant",
+    title: "Kidney & Liver Transplants",
+    desc: "Partner with top transplant centers in India for life-saving kidney, liver, and bone-marrow procedures.",
+  },
+  {
+    icon: Users,
+    color: "bg-pink-50 text-pink-700 border-pink-100",
+    iconBg: "bg-pink-100",
+    tag: "Patient Support",
+    title: "Dedicated Care Coordinator",
+    desc: "A personal coordinator guides you from first enquiry to full recovery — available 24 / 7 in your language.",
+  },
+];
+
+/* ── Component ─────────────────────────────────────── */
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] py-20 w-full overflow-hidden bg-medical-dark flex items-center">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 text-medical-dark">
-        <Image
-          src="/hero-bg.png"
-          alt="Modern Hospital Interior"
-          fill
-          className="object-cover opacity-70"
+    <section className="relative overflow-hidden">
+
+      {/* ══════════ HERO AREA ══════════ */}
+      <div className="relative min-h-[82vh] flex items-center pb-36 sm:pb-44">
+
+        {/* Background image — right-aligned so subject shows on right */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/hero-bg-home.png"
+            alt="Doctor consulting a patient"
+            fill
+            className="object-cover object-right"
+            priority
+            quality={100}
+            sizes="100vw"
+            unoptimized={true}
           />
-        <div className="absolute inset-0 bg-gradient-to-r from-medical-dark/95 via-medical-dark/70 to-transparent z-10" />
-        
-        {/* New Floating Elements for Hero */}
-        <FloatingMedicalElements density="low" />
-      </div>
 
-      <div className="container mx-auto px-6 relative z-30 flex flex-col md:flex-row items-center gap-12">
-        {/* Text Content */}
-        <div className="flex-1 text-white space-y-6 max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-medical-primary/20 border border-medical-primary/30 text-medical-accent font-medium text-sm backdrop-blur-md"
-          >
-            <Sparkles size={16} />
-            <span>Trusted by 10,000+ Global Patients</span>
-          </motion.div>
+          {/* White fade: strong on left, fades to transparent by ~55% */}
+          <div
+            className="absolute inset-0 z-10"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.60) 52%, rgba(255,255,255,0.0) 72%)",
+            }}
+          />
+          {/* Subtle bottom fade */}
+          <div
+            className="absolute inset-0 z-10"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(255,255,255,0.55) 0%, transparent 35%)",
+            }}
+          />
+        </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-4xl xs:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight"
-          >
-            Affordable <span className="text-medical-accent">World-Class</span> Treatment Abroad
-          </motion.h1>
+        {/* ── Text content — left half ── */}
+        <div className="relative z-20 w-full container mx-auto px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32">
+          <div className="max-w-[520px]">
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed font-light"
-          >
-            Experience premium healthcare at a fraction of the cost. From Turkey to Thailand, we connect you with the world's best hospitals.
-          </motion.p>
-
-          <div className="space-y-6 pt-4">
+            {/* Pill */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4"
+              transition={{ duration: 0.45, delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A3AD]/12 border border-[#00A3AD]/30 text-[#00A3AD] text-[11px] font-bold uppercase tracking-widest mb-5"
             >
-              <Link href="/register" className="px-8 py-4 bg-medical-primary hover:bg-medical-primary/90 text-white rounded-xl font-semibold flex items-center justify-center gap-2 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-medical-primary/20 group">
-                <Calendar size={20} />
-                Book Appointment
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <Sparkles size={13} />
+              Trusted by 10,000+ Global Patients
             </motion.div>
 
-            {/* Themed Quote Section */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+            {/* Heading — compact, tight leading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-start gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 max-w-md italic text-gray-300 text-sm"
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="text-[2.4rem] sm:text-[2.9rem] md:text-[3.3rem] font-black text-[#003B5C] leading-[1.08] tracking-tight mb-4"
             >
-              <Quote size={18} className="text-medical-accent flex-shrink-0" />
-              <p>
-                "At NTL CareLink, your health is our global priority. We believe world-class care shouldn't have boundaries."
-              </p>
+              Affordable{" "}
+              <span className="text-[#00A3AD]">World-Class</span>
+              <br />
+              Treatment Abroad
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="text-[15px] sm:text-base text-slate-500 leading-relaxed mb-7 max-w-[400px]"
+            >
+              From Turkey to Thailand — we connect you with the world&apos;s best hospitals at a fraction of the cost.
+            </motion.p>
+
+            {/* Quick trust badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.32 }}
+              className="flex flex-wrap gap-3 mb-7"
+            >
+              {[
+                { icon: ShieldCheck, label: "JCI Accredited" },
+                { icon: Globe, label: "15+ Countries" },
+                { icon: Star, label: "98% Success Rate" },
+              ].map(({ icon: Icon, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-600 bg-white/80 border border-slate-200 rounded-full px-3 py-1.5 shadow-sm"
+                >
+                  <Icon size={12} className="text-[#00A3AD]" />
+                  {label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.38 }}
+              className="flex flex-col sm:flex-row gap-3"
+            >
+              <Link
+                href="/register"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#003B5C] hover:bg-[#00A3AD] text-white rounded-xl font-extrabold text-sm transition-all duration-300 shadow-lg shadow-[#003B5C]/20 hover:scale-[1.03] active:scale-95"
+              >
+                <Calendar size={17} />
+                Book Appointment
+                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+              <Link
+                href="/about-us"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/70 backdrop-blur-sm border-2 border-slate-200 hover:border-[#00A3AD] text-[#003B5C] rounded-xl font-bold text-sm transition-all duration-300"
+              >
+                Learn More
+              </Link>
             </motion.div>
           </div>
         </div>
+      </div>
 
-        {/* Floating Card with Tilted Effect */}
-        <div className="hidden lg:block flex-shrink-0 w-80">
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      {/* ══════════ HORIZONTAL SCROLL CARDS ══════════ */}
+      <div
+        className="relative z-30 -mt-28 sm:-mt-36 pb-10 sm:pb-14"
+      >
+        {/* Fade masks on sides */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          {/* Scrollable track */}
+          <div
+            className="flex gap-4 sm:gap-5 overflow-x-auto px-6 sm:px-10 lg:px-16 pb-4 scroll-smooth"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            <TiltedCard
-              imageSrc="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              altText="Save up to 70%"
-              captionText="Hover to Tilt"
-              containerHeight="400px"
-              containerWidth="100%"
-              imageHeight="100%"
-              imageWidth="100%"
-              rotateAmplitude={12}
-              scaleOnHover={1.02}
-              showTooltip={false}
-              displayOverlayContent={true}
-              overlayContent={
-                <div className="absolute inset-0 flex flex-col p-6 pointer-events-none rounded-[2rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] z-10">
-                   
-                   {/* Liquid Glass Background & Flowing Orbs */}
-                   <div className="absolute inset-0 rounded-[2rem] bg-white/5 dark:bg-black/40 backdrop-blur-2xl border border-white/30 dark:border-white/10 overflow-hidden">
-                     {/* Liquid Glowing Orbs */}
-                     <div className="absolute -top-10 -left-10 w-48 h-48 bg-medical-accent/40 rounded-full mix-blend-screen filter blur-[50px] animate-[pulse_6s_ease-in-out_infinite]" />
-                     <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-medical-primary/40 rounded-full mix-blend-screen filter blur-[50px] animate-[pulse_8s_ease-in-out_infinite_alternate]" />
-                     
-                     {/* Glossy Edge Reflection */}
-                     <div className="absolute inset-0 bg-gradient-to-br from-white/30 dark:from-white/10 via-transparent to-black/10 dark:to-transparent opacity-50 pointer-events-none" />
-                   </div>
-
-                   {/* Badge */}
-                   <div className="absolute -top-4 -right-4 w-12 h-12 bg-medical-accent rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(0,224,210,0.6)] animate-pulse z-20">
-                     <Sparkles size={24} />
-                   </div>
-
-                    <div className="w-full h-40 bg-medical-primary/20 rounded-2xl overflow-hidden relative mb-4 group">
-                      <Image 
-                        src="/african_wellness_recovery_1774726781943.png" 
-                        alt="Wellness" 
-                        fill
-                        className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-110"
-                      />
+            {cards.map((card, idx) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.55 + idx * 0.07 }}
+                  className={`flex-shrink-0 w-[240px] sm:w-[260px] bg-white rounded-2xl border ${card.color} p-5 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group`}
+                >
+                  {/* Tag + Icon */}
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest opacity-70">
+                      {card.tag}
+                    </span>
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${card.iconBg} group-hover:scale-110 transition-transform`}>
+                      <Icon size={18} />
                     </div>
+                  </div>
 
-                   {/* Content Area */}
-                   <div className="space-y-3 relative z-10 flex-1 flex flex-col justify-center">
-                      <h3 className="text-xl font-bold text-white">Save up to 70%</h3>
-                      <p className="text-sm text-gray-300 leading-relaxed max-w-[95%]">Compare costs across top destinations including Turkey, India, and Thailand.</p>
-                      <Link href="/destinations#cost-comparison" className="pt-2 flex items-center gap-2 text-medical-accent font-semibold text-sm pointer-events-auto hover:gap-4 transition-all">
-                        Explore Costs <ArrowRight size={16} />
-                      </Link>
-                   </div>
-                </div>
-              }
-            />
-          </motion.div>
+                  <h3 className="font-extrabold text-[#003B5C] text-[15px] leading-snug mb-2">
+                    {card.title}
+                  </h3>
+                  <p className="text-slate-500 text-[12px] leading-relaxed">
+                    {card.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+
+            {/* End CTA card */}
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55 + cards.length * 0.07 }}
+              className="flex-shrink-0 w-[200px] sm:w-[220px] bg-[#003B5C] rounded-2xl p-5 shadow-md flex flex-col items-start justify-between"
+            >
+              <div>
+                <PhoneCall size={24} className="text-[#00E0D2] mb-3" />
+                <h3 className="font-extrabold text-white text-[15px] leading-snug mb-2">
+                  Speak to a Coordinator
+                </h3>
+                <p className="text-slate-400 text-[12px] leading-relaxed">
+                  Get personalised guidance from our medical travel experts.
+                </p>
+              </div>
+              <Link
+                href="/contact-support"
+                className="mt-4 inline-flex items-center gap-1.5 text-[#00E0D2] font-black text-[12px] hover:gap-3 transition-all"
+              >
+                Contact Us <ArrowRight size={14} />
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 z-20 flex flex-col items-center gap-2 group cursor-pointer"
-      >
-        <span className="text-xs uppercase tracking-widest font-medium group-hover:text-white transition-colors text-center w-full">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
-      </motion.div>
     </section>
   );
 };
