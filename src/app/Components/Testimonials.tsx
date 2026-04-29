@@ -6,7 +6,7 @@ import { motion, useMotionValue, animate, useInView } from 'framer-motion';
 import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
-const testimonials = [
+const fallbackTestimonials = [
   {
     id: 1,
     name: 'Amara Deng',
@@ -125,7 +125,7 @@ const TestimonialCard = ({
   testimonial,
   isCenter,
 }: {
-  testimonial: (typeof testimonials)[0];
+  testimonial: any;
   isCenter: boolean;
 }) => (
   <div
@@ -191,7 +191,8 @@ const TestimonialCard = ({
 );
 
 // ─── Main Component ─────────────────────────────────────────────────────────────
-export default function Testimonials() {
+export default function Testimonials({ data }: { data?: any }) {
+  const testimonials = data?.testimonials || fallbackTestimonials;
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const containerRef = useRef<HTMLDivElement>(null);

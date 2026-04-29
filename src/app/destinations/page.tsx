@@ -17,59 +17,27 @@ export const metadata = buildMetadata({
   ],
 });
 
-const destinations = [
-  {
-    id: 'india',
-    name: 'India',
-    tagline: 'Global Leader in Complex Surgeries & Organ Transplants.',
-    description: 'Home to some of the world\'s most renowned surgeons and JCI-accredited facilities. India offers cutting-edge medical technology at a fraction of Western costs, specializing in Cardiology, Oncology, and Robotic Surgery.',
-    img: '/hospital_images/Apollo hospital.jpeg',
-    alt: 'Modern Medical Care in India',
-    size: 'large-left',
-    bullets: [
-      { icon: '✓', text: 'Cost Savings up to 80%' },
-      { icon: '✓', text: 'World-Renowned Specialists' },
-      { icon: '✓', text: 'Zero Waiting Periods' },
-    ],
-  },
-  {
-    id: 'thailand',
-    name: 'Thailand',
-    tagline: 'The Gold Standard for Premium Wellness & Hospitality.',
-    description: 'Combining world-class medical expertise with legendary Thai hospitality. Thailand is the top choice for preventive check-ups, wellness retreats, and elective procedures in 5-star recovery environments.',
-    img: '/hospital_images/Bumrungrad Hospital.jpeg',
-    alt: 'Luxury Wellness in Thailand',
-    size: 'small',
-    badge: 'Wellness Hub',
-    bullets: [
-      { icon: '✿', text: '5-Star Recovery Suites' },
-      { icon: '✿', text: 'Holistic Health Programs' },
-    ],
-  },
-  {
-    id: 'turkey',
-    name: 'Turkey',
-    tagline: 'Pioneer in Aesthetics & Advanced Dental Restoration.',
-    description: 'Strategically located between Europe and Asia, Turkey has become the global capital for hair transplants, high-end dental work, and aesthetic transformations in state-of-the-art facilities.',
-    img: '/hospital_images/medicana hospital images.jpeg',
-    alt: 'Advanced Aesthetics in Turkey',
-    size: 'small',
-    badge: 'Aesthetic Capital',
-    bullets: [
-      { icon: '★', text: 'Global Hair Transplant Hub' },
-      { icon: '★', text: 'Digital Dental Design' },
-    ],
-  },
-];
+import dbConnect from '@/lib/db';
+import SiteContent from '@/models/SiteContent';
 
-const costRows = [
-  { procedure: 'Hip Replacement', usa: '$40,000', india: '$7,200', thailand: '$12,500', turkey: '$10,500' },
-  { procedure: 'Heart Bypass (CABG)', usa: '$120,000', india: '$8,500', thailand: '$28,000', turkey: '$14,000' },
-  { procedure: 'Dental Implants (Full)', usa: '$25,000', india: '$4,500', thailand: '$10,500', turkey: '$5,000' },
-  { procedure: 'IVF Treatment', usa: '$15,000', india: '$3,500', thailand: '$6,500', turkey: '$4,200' },
-];
+export const revalidate = 0;
 
-export default function DestinationsPage() {
+export default async function DestinationsPage() {
+  await dbConnect();
+  const doc = await SiteContent.findOne({ pageId: 'destinations', sectionId: 'destinations_list' }).lean();
+  const content = doc?.content || {
+    headerBadge: 'Global Network',
+    headerTitle1: 'World-Class',
+    headerTitle2: 'Care Destinations.',
+    headerSubtitle: 'Curated medical excellence. We connect you with international facilities that combine world-class surgery with recovery in the globe\'s most sought-after medical hubs.',
+    headerImage: '/hospital_images/max hospital image 1.jpeg',
+    destinations: [],
+    costRows: [],
+    journeySteps: []
+  };
+
+  const { destinations, costRows, journeySteps } = content;
+
   return (
     <div className="bg-[#f7f9fb] dark:bg-slate-900 min-h-screen">
       {/* ── Hero ─────────────────────────────────────────────── */}
@@ -77,22 +45,21 @@ export default function DestinationsPage() {
         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-12">
           <div className="max-w-2xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-medical-primary/10 text-medical-primary font-bold text-xs mb-6 tracking-widest uppercase">
-              Global Network
+              {content.headerBadge}
             </span>
             <h1 className="text-6xl md:text-7xl font-black tracking-tighter leading-[0.9] text-medical-dark mb-8 font-[Manrope,sans-serif]">
-              World-Class <br />
-              <span className="text-slate-400">Care Destinations.</span>
+              {content.headerTitle1} <br />
+              <span className="text-slate-400">{content.headerTitle2}</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed">
-              Curated medical excellence. We connect you with international facilities that combine 
-              world-class surgery with recovery in the globe&apos;s most sought-after medical hubs.
+              {content.headerSubtitle}
             </p>
           </div>
 
           <div className="hidden lg:block w-72 h-72 rounded-[3rem] bg-medical-light/30 border-8 border-white shadow-2xl rotate-3 overflow-hidden">
              <img 
                className="w-full h-full object-cover grayscale opacity-50 contrast-150"
-               src="/hospital_images/max hospital image 1.jpeg" 
+               src={content.headerImage} 
                alt="Modern Healthcare"
              />
           </div>
@@ -102,7 +69,7 @@ export default function DestinationsPage() {
       {/* ── Destinations Bento Grid ───────────────────────────── */}
       <section className="max-w-7xl mx-auto px-8 mb-32">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          {destinations.map((dest, idx) => (
+          {(destinations || []).map((dest: any) => (
             <div 
               key={dest.id}
               className={`${
@@ -113,7 +80,7 @@ export default function DestinationsPage() {
                 <img
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src={dest.img}
-                  alt={dest.alt}
+                  alt={dest.alt || dest.name}
                 />
                 {dest.badge && (
                   <div className="absolute top-6 left-6 bg-medical-primary text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-medical-primary/20">
@@ -130,10 +97,10 @@ export default function DestinationsPage() {
                   {dest.description}
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  {dest.bullets.map((b, i) => (
+                  {(dest.bullets || []).map((b: any, i: number) => (
                     <div key={i} className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
-                      <span className="text-medical-primary font-bold">{b.icon}</span>
-                      <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{b.text}</span>
+                      <span className="text-medical-primary font-bold">{b.icon || "✓"}</span>
+                      <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{b.text || b}</span>
                     </div>
                   ))}
                 </div>
@@ -168,9 +135,9 @@ export default function DestinationsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {costRows.map((row, i) => (
+                {(costRows || []).map((row: any, i: number) => (
                   <tr
-                    key={row.procedure}
+                    key={row.procedure || i}
                     className="hover:bg-slate-50/50 transition-colors"
                   >
                     <td className="p-6 font-bold text-slate-800">{row.procedure}</td>
@@ -203,27 +170,11 @@ export default function DestinationsPage() {
               Simplified.
             </h2>
             <div className="space-y-8">
-              {[
-                {
-                  step: 1,
-                  title: 'Case Review',
-                  desc: 'Free medical history evaluation by international boards.',
-                },
-                {
-                  step: 2,
-                  title: 'Concierge Booking',
-                  desc: 'We handle visas, flights, and priority hospital admission.',
-                },
-                {
-                  step: 3,
-                  title: 'Care & Recovery',
-                  desc: 'Personalized post-op care in premium destination resorts.',
-                },
-              ].map((s, idx, arr) => (
-                <div key={s.step} className="flex gap-6">
+              {(journeySteps || []).map((s: any, idx: number, arr: any[]) => (
+                <div key={s.step || idx} className="flex gap-6">
                   <div className="flex flex-col items-center">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-700 to-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">
-                      {s.step}
+                      {s.step || (idx + 1)}
                     </div>
                     {idx < arr.length - 1 && (
                       <div className="w-0.5 flex-1 bg-slate-300 dark:bg-slate-600 mt-2" />

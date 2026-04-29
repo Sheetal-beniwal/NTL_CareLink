@@ -80,7 +80,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const headerTweenRef = useRef<gsap.core.Tween | null>(null);
 
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
-  const busyRef = useRef(false);
 
   const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
 
@@ -253,16 +252,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [position]);
 
   const playOpen = useCallback(() => {
-    if (busyRef.current) return;
-    busyRef.current = true;
     const tl = buildOpenTimeline();
     if (tl) {
-      tl.eventCallback('onComplete', () => {
-        busyRef.current = false;
-      });
       tl.play(0);
-    } else {
-      busyRef.current = false;
     }
   }, [buildOpenTimeline]);
 
@@ -295,8 +287,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
         if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
-
-        busyRef.current = false;
       }
     });
 
@@ -439,11 +429,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <img
             src={logoUrl || '/ntl_logo.jpeg'}
             alt="Logo"
-            className="sm-logo-img block h-11 w-11 sm:h-12 sm:w-12 object-contain rounded-xl flex-shrink-0 border border-white/20 shadow-md"
+            className="sm-logo-img block h-14 w-auto sm:h-16 object-contain rounded-xl flex-shrink-0 shadow-md bg-white p-0.5"
             draggable={false}
           />
-          <span className="ml-2.5 font-black text-xl sm:text-2xl flex items-center transition-all duration-300 tracking-tight text-slate-900 dark:text-white">
-            NTL <span className="ml-1 text-medical-primary">CareLink</span>
+          <span className="ml-3 font-black text-xl sm:text-2xl flex items-center transition-all duration-300 tracking-tight text-[#003B5C] dark:text-white drop-shadow-sm">
+            NTL <span className="ml-1 text-[#00A3AD] dark:text-[#00E0D2]">CareLink</span>
           </span>
         </Link>
         

@@ -1,85 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight, Calendar, Sparkles, ShieldCheck, Globe,
-  HeartPulse, Brain, Plane, ClipboardList, Users,
-  Stethoscope, BadgeCheck, Activity, Clock, Star,
-  MapPin, PhoneCall
-} from "lucide-react";
+import * as Icons from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-/* ── Scroll Cards Data ─────────────────────────────── */
-const cards = [
-  {
-    icon: HeartPulse,
-    color: "bg-rose-50 text-rose-600 border-rose-100",
-    iconBg: "bg-rose-100",
-    tag: "Cardiac Care",
-    title: "Heart Surgery & Cardiology",
-    desc: "Access world-class cardiac surgeons for bypass, valve repair, angioplasty & more — at 70% lower cost.",
-  },
-  {
-    icon: Brain,
-    color: "bg-violet-50 text-violet-600 border-violet-100",
-    iconBg: "bg-violet-100",
-    tag: "Neurology",
-    title: "Brain & Spine Treatments",
-    desc: "Leading neurosurgeons for complex spine surgeries, tumor removal & epilepsy management.",
-  },
-  {
-    icon: ClipboardList,
-    color: "bg-teal-50 text-teal-700 border-teal-100",
-    iconBg: "bg-teal-100",
-    tag: "Treatment Planning",
-    title: "Free Medical Opinion",
-    desc: "Share your reports and get a second opinion from international specialists within 48 hours — at no cost.",
-  },
-  {
-    icon: Plane,
-    color: "bg-sky-50 text-sky-700 border-sky-100",
-    iconBg: "bg-sky-100",
-    tag: "Travel & Visa",
-    title: "End-to-End Travel Support",
-    desc: "We handle medical visa, flights, airport transfers, and accommodation so you focus only on healing.",
-  },
-  {
-    icon: Stethoscope,
-    color: "bg-amber-50 text-amber-700 border-amber-100",
-    iconBg: "bg-amber-100",
-    tag: "Oncology",
-    title: "Cancer Care Abroad",
-    desc: "JCI-accredited oncology centers offering targeted therapy, immunotherapy, and robotic surgeries.",
-  },
-  {
-    icon: BadgeCheck,
-    color: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    iconBg: "bg-emerald-100",
-    tag: "Orthopedics",
-    title: "Joint Replacement & Spine",
-    desc: "Robotic knee, hip & shoulder replacements with short recovery times and international-standard care.",
-  },
-  {
-    icon: Activity,
-    color: "bg-indigo-50 text-indigo-700 border-indigo-100",
-    iconBg: "bg-indigo-100",
-    tag: "Organ Transplant",
-    title: "Kidney & Liver Transplants",
-    desc: "Partner with top transplant centers in India for life-saving kidney, liver, and bone-marrow procedures.",
-  },
-  {
-    icon: Users,
-    color: "bg-pink-50 text-pink-700 border-pink-100",
-    iconBg: "bg-pink-100",
-    tag: "Patient Support",
-    title: "Dedicated Care Coordinator",
-    desc: "A personal coordinator guides you from first enquiry to full recovery — available 24 / 7 in your language.",
-  },
-];
-
 /* ── Component ─────────────────────────────────────── */
-const Hero = () => {
+const Hero = ({ data }: { data?: any }) => {
+  // Use fallback data if not provided (matches original hardcoded data)
+  const content = data || {
+    badge: 'Trusted by 10,000+ Global Patients',
+    titleLine1: 'Affordable World-Class',
+    titleLine2: 'Treatment Abroad',
+    subtitle: 'From Turkey to Thailand — we connect you with the world\'s best hospitals at a fraction of the cost.',
+    desktopImage: '/hero-bg-home.png',
+    mobileImage: '/hero-bg-home.png',
+    services: [
+      { title: 'Heart Surgery & Cardiology', desc: 'Access world-class cardiac surgeons for bypass, valve repair, angioplasty & more — at 70% lower cost.', icon: 'HeartPulse', color: 'bg-rose-50 text-rose-600 border-rose-100', iconBg: 'bg-rose-100', tag: 'Cardiac Care' },
+      { title: 'Brain & Spine Treatments', desc: 'Leading neurosurgeons for complex spine surgeries, tumor removal & epilepsy management.', icon: 'Brain', color: 'bg-violet-50 text-violet-600 border-violet-100', iconBg: 'bg-violet-100', tag: 'Neurology' },
+      { title: 'Free Medical Opinion', desc: 'Share your reports and get a second opinion from international specialists within 48 hours — at no cost.', icon: 'ClipboardList', color: 'bg-teal-50 text-teal-700 border-teal-100', iconBg: 'bg-teal-100', tag: 'Treatment Planning' },
+      { title: 'End-to-End Travel Support', desc: 'We handle medical visa, flights, airport transfers, and accommodation so you focus only on healing.', icon: 'Plane', color: 'bg-sky-50 text-sky-700 border-sky-100', iconBg: 'bg-sky-100', tag: 'Travel & Visa' },
+      { title: 'Cancer Care Abroad', desc: 'JCI-accredited oncology centers offering targeted therapy, immunotherapy, and robotic surgeries.', icon: 'Stethoscope', color: 'bg-amber-50 text-amber-700 border-amber-100', iconBg: 'bg-amber-100', tag: 'Oncology' }
+    ]
+  };
+
+  const getIcon = (iconName: string) => {
+    return (Icons as any)[iconName] || Icons.Activity;
+  };
+
+  const defaultColors = [
+    { color: 'bg-rose-50 text-rose-600 border-rose-100', iconBg: 'bg-rose-100' },
+    { color: 'bg-violet-50 text-violet-600 border-violet-100', iconBg: 'bg-violet-100' },
+    { color: 'bg-teal-50 text-teal-700 border-teal-100', iconBg: 'bg-teal-100' },
+    { color: 'bg-sky-50 text-sky-700 border-sky-100', iconBg: 'bg-sky-100' },
+    { color: 'bg-amber-50 text-amber-700 border-amber-100', iconBg: 'bg-amber-100' }
+  ];
+
+  const Sparkles = Icons.Sparkles;
+  const ShieldCheck = Icons.ShieldCheck;
+  const Globe = Icons.Globe;
+  const Star = Icons.Star;
+  const Calendar = Icons.Calendar;
+  const ArrowRight = Icons.ArrowRight;
+  const PhoneCall = Icons.PhoneCall;
+
   return (
     <section className="relative overflow-hidden bg-[#FAFCFF] dark:bg-slate-950 md:bg-white md:dark:bg-slate-900">
 
@@ -93,11 +57,12 @@ const Hero = () => {
           className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/50 dark:shadow-none border-4 border-white dark:border-slate-800"
         >
           <Image
-            src="/hero-bg-home.png"
+            src={content.mobileImage || "/hero-bg-home.png"}
             alt="Doctor and Patient"
             fill
-            className="object-cover object-left"
+            className="object-cover object-center"
             priority
+            unoptimized={true}
           />
         </motion.div>
 
@@ -110,7 +75,7 @@ const Hero = () => {
         >
           <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#00A3AD]/10 border border-[#00A3AD]/20 text-[#00A3AD] text-[10px] font-black uppercase tracking-widest">
             <Sparkles size={12} className="fill-[#00A3AD]/20" />
-            Trusted by 10,000+ Global Patients
+            {content.badge}
           </span>
         </motion.div>
 
@@ -122,9 +87,13 @@ const Hero = () => {
             transition={{ delay: 0.3 }}
             className="text-[34px] leading-[1.1] font-black text-[#003B5C] tracking-tight"
           >
-            Affordable <br />
-            <span className="text-[#00A3AD]">World-Class</span> <br />
-            Treatment Abroad
+            {content.titleLine1} <br />
+            {content.titleLine2 && (
+               <>
+                 <span className="text-[#00A3AD]">{content.titleLine2.split(' ')[0]}</span> <br />
+                 {content.titleLine2.split(' ').slice(1).join(' ')}
+               </>
+            )}
           </motion.h1>
 
           <motion.p
@@ -133,7 +102,7 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="text-[15px] text-slate-500 leading-relaxed font-medium"
           >
-            From Turkey to Thailand — we connect you with the world&apos;s best hospitals at a fraction of the cost.
+            {content.subtitle}
           </motion.p>
         </div>
 
@@ -183,32 +152,44 @@ const Hero = () => {
 
         {/* 6. Service List (Vertical) */}
         <div className="flex flex-col gap-3.5 mt-4">
-          {cards.slice(0, 5).map((card, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7 + idx * 0.1 }}
-            >
-              <Link
-                href="/register"
-                className="bg-white border border-slate-50 rounded-2xl p-4 flex items-center gap-4 shadow-sm active:bg-slate-50 transition-colors group"
+          {(content.services || []).slice(0, 5).map((card: any, idx: number) => {
+            const Icon = getIcon(card.icon);
+            const colorConfig = card.color ? { color: card.color, iconBg: card.iconBg } : defaultColors[idx % defaultColors.length];
+            const colorClass = colorConfig.color;
+            const iconBgClass = colorConfig.iconBg;
+            
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7 + idx * 0.1 }}
               >
-                <div className={`w-14 h-14 rounded-2xl ${card.iconBg} flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform`}>
-                  <card.icon size={26} className={card.color.split(' ')[1]} />
-                </div>
-                <div className="flex-grow">
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${card.color.split(' ')[1]}`}>
-                    {card.tag}
-                  </span>
-                  <h3 className="text-[16px] font-black text-[#003B5C] leading-tight mt-0.5">
-                    {card.title}
-                  </h3>
-                </div>
-                <ArrowRight size={20} className="text-slate-300 group-hover:text-medical-primary transition-colors" />
-              </Link>
-            </motion.div>
-          ))}
+                <Link
+                  href={card.url || "/register"}
+                  className="bg-white border border-slate-50 rounded-2xl p-4 flex items-center gap-4 shadow-sm active:bg-slate-50 transition-colors group"
+                >
+                  <div className={`w-14 h-14 rounded-2xl ${iconBgClass} flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform`}>
+                    <Icon size={26} className={colorClass.split(' ')[1] || "text-medical-primary"} />
+                  </div>
+                  <div className="flex-grow">
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${colorClass.split(' ')[1] || "text-medical-primary"}`}>
+                      {card.tag || card.title}
+                    </span>
+                    <h3 className="text-[16px] font-black text-[#003B5C] leading-tight mt-0.5">
+                      {card.title}
+                    </h3>
+                    {(card.desc || card.description) && (
+                      <p className="text-slate-500 text-[11px] mt-1 leading-snug">
+                        {card.desc || card.description}
+                      </p>
+                    )}
+                  </div>
+                  <ArrowRight size={20} className="text-slate-300 group-hover:text-medical-primary transition-colors" />
+                </Link>
+              </motion.div>
+            )
+          })}
         </div>
 
         {/* 7. Sticky Bottom CTA (Mobile only) */}
@@ -231,7 +212,7 @@ const Hero = () => {
           {/* Background image — right-aligned so subject shows on right */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/hero-bg-home.png"
+              src={content.desktopImage || "/hero-bg-home.png"}
               alt="Doctor consulting a patient"
               fill
               className="object-cover object-right"
@@ -271,7 +252,7 @@ const Hero = () => {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A3AD]/12 border border-[#00A3AD]/30 text-[#00A3AD] text-[11px] font-bold uppercase tracking-widest mb-5"
               >
                 <Sparkles size={13} />
-                Trusted by 10,000+ Global Patients
+                {content.badge}
               </motion.div>
 
               {/* Heading — compact, tight leading */}
@@ -281,10 +262,16 @@ const Hero = () => {
                 transition={{ duration: 0.55, delay: 0.18 }}
                 className="text-[2.4rem] sm:text-[2.9rem] md:text-[3.3rem] font-black text-[#003B5C] leading-[1.08] tracking-tight mb-4"
               >
-                Affordable{" "}
-                <span className="text-[#00A3AD]">World-Class</span>
+                {content.titleLine1}
                 <br />
-                Treatment Abroad
+                {content.titleLine2 ? (
+                   <>
+                     <span className="text-[#00A3AD]">{content.titleLine2.split(' ')[0]}</span>{" "}
+                     {content.titleLine2.split(' ').slice(1).join(' ')}
+                   </>
+                ) : (
+                  <span className="text-[#00A3AD]">Treatment Abroad</span>
+                )}
               </motion.h1>
 
               {/* Subtitle */}
@@ -294,7 +281,7 @@ const Hero = () => {
                 transition={{ duration: 0.55, delay: 0.26 }}
                 className="text-[15px] sm:text-base text-slate-500 leading-relaxed mb-7 max-w-[400px]"
               >
-                From Turkey to Thailand — we connect you with the world&apos;s best hospitals at a fraction of the cost.
+                {content.subtitle}
               </motion.p>
 
               {/* Quick trust badges */}
@@ -359,22 +346,26 @@ const Hero = () => {
               className="flex gap-4 sm:gap-5 overflow-x-auto px-6 sm:px-10 lg:px-16 pb-4 scroll-smooth"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              {cards.map((card, idx) => {
-                const Icon = card.icon;
+              {(content.services || []).map((card: any, idx: number) => {
+                const Icon = getIcon(card.icon);
+                const colorConfig = card.color ? { color: card.color, iconBg: card.iconBg } : defaultColors[idx % defaultColors.length];
+                const colorClass = colorConfig.color;
+                const iconBgClass = colorConfig.iconBg;
+                
                 return (
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 28 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.55 + idx * 0.07 }}
-                    className={`flex-shrink-0 w-[240px] sm:w-[260px] bg-white rounded-2xl border ${card.color} p-5 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group`}
+                    className={`flex-shrink-0 w-[240px] sm:w-[260px] bg-white rounded-2xl border ${colorClass} p-5 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group`}
                   >
                     {/* Tag + Icon */}
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-[10px] font-black uppercase tracking-widest opacity-70">
-                        {card.tag}
+                        {card.tag || card.title}
                       </span>
-                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${card.iconBg} group-hover:scale-110 transition-transform`}>
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${iconBgClass} group-hover:scale-110 transition-transform`}>
                         <Icon size={18} />
                       </div>
                     </div>
@@ -383,7 +374,7 @@ const Hero = () => {
                       {card.title}
                     </h3>
                     <p className="text-slate-500 text-[12px] leading-relaxed">
-                      {card.desc}
+                      {card.desc || card.description}
                     </p>
                   </motion.div>
                 );
@@ -393,7 +384,7 @@ const Hero = () => {
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.55 + cards.length * 0.07 }}
+                transition={{ duration: 0.5, delay: 0.55 + (content.services?.length || 0) * 0.07 }}
                 className="flex-shrink-0 w-[200px] sm:w-[220px] bg-[#003B5C] rounded-2xl p-5 shadow-md flex flex-col items-start justify-between"
               >
                 <div>
