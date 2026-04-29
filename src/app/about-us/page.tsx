@@ -173,7 +173,7 @@ const AboutPage = () => {
                   >
                     <Image 
                       src="/teamMembers/founder-main.jpeg" 
-                      alt="Sultan Ngong" 
+                      alt="Ngong Arol" 
                       fill 
                       className="object-cover object-top transition-transform duration-[4000ms] group-hover:scale-105" 
                       priority
@@ -215,7 +215,7 @@ const AboutPage = () => {
                     The Founder
                   </div>
                   <h2 className="text-5xl sm:text-7xl md:text-8xl font-black text-white leading-[1.1] tracking-tight">
-                    Sultan <span className="text-[#00A3AD] italic">Ngong</span>
+                    Ngong <span className="text-[#00A3AD] italic">Arol</span>
                   </h2>
                 </div>
 
@@ -224,10 +224,10 @@ const AboutPage = () => {
                     "Distance should never decide who lives and who dies."
                   </p>
                   <p className="opacity-90">
-                    Sultan Ngong is a visionary healthcare leader driven by a singular mission: to ensure that no life is limited by geography or lack of access to quality medical treatment. As the CEO of NTL CareLink, he stands at the forefront of a global movement to democratize healthcare across continents.
+                    Ngong Arol is a visionary healthcare leader driven by a singular mission: to ensure that no life is limited by geography or lack of access to quality medical treatment. As the CEO of NTL CareLink, he stands at the forefront of a global movement to democratize healthcare across continents.
                   </p>
                   <p className="opacity-90">
-                    Born from a deep awareness of the disparities in global healthcare, Sultan has personally overseen the medical journeys of thousands, transforming uncertainty into hope. His leadership integrates medical tourism, digital health, and health education into a borderless ecosystem that empowers communities worldwide.
+                    Born from a deep awareness of the disparities in global healthcare, Ngong Arol has personally overseen the medical journeys of thousands, transforming uncertainty into hope. His leadership integrates medical tourism, digital health, and health education into a borderless ecosystem that empowers communities worldwide.
                   </p>
                 </div>
 

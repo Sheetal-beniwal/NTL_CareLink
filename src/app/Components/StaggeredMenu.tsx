@@ -73,14 +73,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const lineBotRef = useRef<HTMLSpanElement | null>(null);
   const iconRef = useRef<HTMLSpanElement | null>(null);
 
-  const textInnerRef = useRef<HTMLSpanElement | null>(null);
-  const textWrapRef = useRef<HTMLSpanElement | null>(null);
-  const [textLines, setTextLines] = useState<string[]>(['Menu', 'Close']);
-
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Animation | null>(null);
   const spinTweenRef = useRef<gsap.core.Animation | null>(null);
-  const textCycleAnimRef = useRef<gsap.core.Animation | null>(null);
   const colorTweenRef = useRef<gsap.core.Animation | null>(null);
   const headerTweenRef = useRef<gsap.core.Tween | null>(null);
 
@@ -99,9 +94,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       const mid = lineMidRef.current;
       const bot = lineBotRef.current;
       const icon = iconRef.current;
-      const textInner = textInnerRef.current;
 
-      if (!panel || !top || !mid || !bot || !icon || !textInner || !backdrop) return;
+      if (!panel || !top || !mid || !bot || !icon || !backdrop) return;
 
       let preLayers: HTMLElement[] = [];
       if (preContainer) {
@@ -117,8 +111,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       gsap.set(top, { y: -4 });
       gsap.set(mid, { opacity: 1 });
       gsap.set(bot, { y: 4 });
-
-      gsap.set(textInner, { yPercent: 0 });
 
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
 
@@ -363,37 +355,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);
 
-  const animateText = useCallback((opening: boolean) => {
-    const inner = textInnerRef.current;
-    if (!inner) return;
-
-    textCycleAnimRef.current?.kill();
-
-    const currentLabel = opening ? 'Menu' : 'Close';
-    const targetLabel = opening ? 'Close' : 'Menu';
-    const cycles = 3;
-
-    const seq: string[] = [currentLabel];
-    let last = currentLabel;
-    for (let i = 0; i < cycles; i++) {
-      last = last === 'Menu' ? 'Close' : 'Menu';
-      seq.push(last);
-    }
-    if (last !== targetLabel) seq.push(targetLabel);
-    seq.push(targetLabel);
-
-    setTextLines(seq);
-    gsap.set(inner, { yPercent: 0 });
-
-    const lineCount = seq.length;
-    const finalShift = ((lineCount - 1) / lineCount) * 100;
-
-    textCycleAnimRef.current = gsap.to(inner, {
-      yPercent: -finalShift,
-      duration: 0.5 + lineCount * 0.07,
-      ease: 'power4.out'
-    });
-  }, []);
+  // Removed animateText
 
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
@@ -412,8 +374,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     animateIcon(target);
     animateColor(target);
-    animateText(target);
-  }, [playOpen, playClose, animateIcon, animateColor, animateText, onMenuOpen, onMenuClose]);
+  }, [playOpen, playClose, animateIcon, animateColor, onMenuOpen, onMenuClose]);
 
   const closeMenu = useCallback(() => {
     if (openRef.current) {
@@ -423,9 +384,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       playClose();
       animateIcon(false);
       animateColor(false);
-      animateText(false);
     }
-  }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
+  }, [playClose, animateIcon, animateColor, onMenuClose]);
 
   React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
@@ -469,7 +429,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       <header
         ref={headerRef}
         className={`staggered-menu-header fixed top-0 left-0 w-full flex items-center justify-between p-4 sm:p-6 z-[100] pointer-events-none transition-all duration-300 ${
-          scrolled && !open ? 'bg-white/85 dark:bg-slate-900/90 backdrop-blur-3xl border-b border-gray-100 dark:border-white/10 shadow-xl' : 'bg-transparent'
+          (scrolled || open) 
+            ? 'bg-white/90 dark:bg-slate-900/95 backdrop-blur-3xl border-b border-gray-100 dark:border-white/10 shadow-xl' 
+            : 'bg-white/50 dark:bg-slate-950/50 backdrop-blur-md'
         }`}
         aria-label="Main navigation header"
       >
@@ -477,23 +439,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <img
             src={logoUrl || '/ntl_logo.jpeg'}
             alt="Logo"
-            className="sm-logo-img block h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-xl flex-shrink-0 border border-white/20"
+            className="sm-logo-img block h-11 w-11 sm:h-12 sm:w-12 object-contain rounded-xl flex-shrink-0 border border-white/20 shadow-md"
             draggable={false}
           />
-          <span className={`ml-2 font-black text-lg sm:text-xl flex items-center transition-all duration-300 tracking-tight ${
-            scrolled || open ? 'text-medical-dark dark:text-gray-100' : 'text-white'
-          }`}>
-            NTL <span className={`ml-1 ${scrolled || open ? 'text-medical-primary' : 'text-medical-accent'}`}>CareLink</span>
+          <span className="ml-2.5 font-black text-xl sm:text-2xl flex items-center transition-all duration-300 tracking-tight text-slate-900 dark:text-white">
+            NTL <span className="ml-1 text-medical-primary">CareLink</span>
           </span>
         </Link>
         
-        <div className="pointer-events-auto flex items-center transition-all duration-300 mr-3 hidden">
+        <div className="pointer-events-auto flex items-center transition-all duration-300 mr-3">
           <ThemeToggle />
         </div>
 
         <button
           ref={toggleBtnRef}
-          className={`sm-toggle flex-shrink-0 relative inline-flex items-center gap-[0.5rem] border-0 cursor-pointer font-black leading-none overflow-visible pointer-events-auto h-11 px-4 justify-center rounded-2xl shadow-2xl transition-all duration-300 ${
+          className={`sm-toggle flex-shrink-0 relative inline-flex items-center border-0 cursor-pointer overflow-visible pointer-events-auto h-12 w-12 justify-center rounded-2xl transition-all duration-300 ${
             open ? 'glass-btn-open' : 'glass-btn-closed'
           }`}
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -503,35 +463,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           type="button"
         >
           <span
-            ref={textWrapRef}
-            className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap min-w-[3.5rem]"
-            aria-hidden="true"
-          >
-            <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none font-black">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line block h-[1em] leading-none text-[12px] uppercase tracking-[0.1em] font-black" key={i}>
-                  {l}
-                </span>
-              ))}
-            </span>
-          </span>
-
-          <span
             ref={iconRef}
-            className="sm-icon relative w-[18px] h-[18px] shrink-0 inline-flex items-center justify-center [will-change:transform]"
+            className="sm-icon relative w-[24px] h-[24px] shrink-0 inline-flex items-center justify-center [will-change:transform]"
             aria-hidden="true"
           >
             <span
               ref={lineTopRef}
-              className="sm-icon-line absolute left-0 w-full h-[3px] bg-current rounded-full transition-transform"
+              className="sm-icon-line absolute w-full h-[2.5px] bg-current rounded-full transition-transform"
             />
             <span
               ref={lineMidRef}
-              className="sm-icon-line absolute left-0 w-full h-[2.5px] bg-current rounded-full transition-all"
+              className="sm-icon-line absolute w-full h-[2.5px] bg-current rounded-full transition-all"
             />
             <span
               ref={lineBotRef}
-              className="sm-icon-line absolute left-0 w-full h-[3px] bg-current rounded-full transition-transform"
+              className="sm-icon-line absolute w-full h-[2.5px] bg-current rounded-full transition-transform"
             />
           </span>
         </button>

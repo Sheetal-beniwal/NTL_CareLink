@@ -70,7 +70,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2.5 rounded-xl bg-medical-primary/5 dark:bg-slate-800 text-medical-primary dark:text-medical-accent hover:bg-medical-primary/10 dark:hover:bg-slate-700 transition-colors shadow-sm border border-medical-primary/10 dark:border-slate-700"
+      className="p-2.5 rounded-full bg-white dark:bg-slate-800 text-medical-primary dark:text-medical-accent hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm border border-slate-200 dark:border-slate-700"
       aria-label="Toggle Dark Mode"
     >
       {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}

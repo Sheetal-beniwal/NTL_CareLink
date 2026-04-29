@@ -15,14 +15,13 @@ const Navbar = () => {
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-100 dark:border-slate-800 px-6 py-4 hidden md:block">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-xl sm:text-2xl font-bold text-medical-dark flex items-center gap-2 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-medical-primary rounded-lg sm:rounded-xl flex items-center justify-center text-white group-hover:rotate-12 transition-transform overflow-hidden">
+          <Link href="/" className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3 group">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg sm:rounded-xl flex items-center justify-center text-white group-hover:rotate-6 transition-transform overflow-hidden shadow-md border border-slate-100">
               <img src="/ntl_logo.jpeg" alt="NTL Logo" className="w-full h-full object-cover" />
             </div>
-            <span className="flex items-center">
-              NTL <span className="text-medical-primary ml-1 xs:inline">CareLink</span>
+            <span className="flex items-center tracking-tight">
+              NTL <span className="text-medical-primary ml-1.5 xs:inline">CareLink</span>
             </span>
-            
           </Link>
 
           {/* Desktop Menu */}
