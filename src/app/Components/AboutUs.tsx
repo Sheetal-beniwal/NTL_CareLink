@@ -7,39 +7,13 @@ import { Plus, ArrowUpRight, Stethoscope, HeartPulse, Activity, Thermometer, Plu
 import FloatingMedicalElements from './FloatingMedicalElements';
 
 const AboutUs = ({ data }: { data?: any }) => {
-  const defaultContent = {
-    badge: 'About Us',
-    titleLine1: 'Best Healthcare for You',
-    titleLine2: 'Nuture. Treat. Link',
-    paragraph1: 'NTL CareLink is a global healthcare access and medical support company dedicated to connecting patients from South Sudan, Tanzania, Kenya, Uganda and Africa in general with world-class medical care in India, Thailand, and beyond.',
-    paragraph2: 'To us, NTL Carelink is more than a company, it is a bridge of hope, built to connect people to the healthcare they deserve. We stand for trust, compassion, and absolute dedication to every patient’s journey. We believe that healthcare should not be a privilege, it should be right to humanity. It should be accessible, affordable, and guided with dignity.',
-    stats: [
-      { label: 'Satisfied Patients', value: '%100' },
-      { label: 'Top Medical Projects', value: '%89' }
-    ],
-    founder: {
-      name: 'Sultan Ngong',
-      role: 'Founder',
-      image: '/sultan_founder.png'
-    },
-    images: {
-      main: '/african_medical_scene_1774726766055.png',
-      badge: '/medical_badge_bg.png',
-      badgeYears: '+25',
-      badgeTextLine1: 'Experience In',
-      badgeTextLine2: 'Medical',
-      badgeTextLine3: 'Service'
-    }
+  const rawData = data || {};
+  const content = {
+    ...rawData,
+    founder: rawData.founder || { name: '', role: '', image: '/logo.png' },
+    images: rawData.images || { main: '/logo.png', badge: '/logo.png', badgeYears: '', badgeTextLine1: '', badgeTextLine2: '', badgeTextLine3: '' },
+    stats: rawData.stats || []
   };
-
-  // Deep merge CMS data with default fallback to ensure no broken UI if fields are missing
-  const content = (data && Object.keys(data).length > 0) ? {
-    ...defaultContent,
-    ...data,
-    founder: { ...defaultContent.founder, ...(data.founder || {}) },
-    images: { ...defaultContent.images, ...(data.images || {}) },
-    stats: data.stats && data.stats.length > 0 ? data.stats : defaultContent.stats
-  } : defaultContent;
 
   return (
     <section className="relative w-full overflow-hidden py-16 md:py-24 px-6 min-h-screen flex items-center bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-white/10 transition-colors duration-500">
