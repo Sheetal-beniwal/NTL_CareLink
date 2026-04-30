@@ -26,13 +26,44 @@ const DynamicField = ({ label, value, onChange }: { label: string, value: any, o
             <div className="w-12 h-12 rounded bg-gray-100 border border-gray-200 overflow-hidden shrink-0 flex items-center justify-center">
               {value ? <img src={value as string} alt="" className="w-full h-full object-cover" /> : <ImageIcon className="text-gray-400" size={20} />}
             </div>
-            <input 
-              type="text" 
-              value={value} 
-              onChange={e => onChange(e.target.value)} 
-              className="flex-1 p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-medical-primary/20 focus:border-medical-primary outline-none text-sm transition-all"
-              placeholder="/images/example.png"
-            />
+            <div className="flex-1 flex flex-col gap-2">
+              <input 
+                type="text" 
+                value={value} 
+                onChange={e => onChange(e.target.value)} 
+                className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-medical-primary/20 focus:border-medical-primary outline-none text-sm transition-all"
+                placeholder="/images/example.png"
+              />
+              <input 
+                type="file" 
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  
+                  try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    const res = await fetch('/api/upload', {
+                      method: 'POST',
+                      body: formData
+                    });
+                    
+                    const data = await res.json();
+                    if (data.success) {
+                      onChange(data.url);
+                    } else {
+                      alert('Upload failed: ' + data.message);
+                    }
+                  } catch (err) {
+                    console.error(err);
+                    alert('Error uploading file');
+                  }
+                }} 
+                className="text-xs text-gray-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-medical-primary/10 file:text-medical-primary hover:file:bg-medical-primary/20 cursor-pointer"
+              />
+            </div>
           </div>
         ) : isLongText ? (
           <textarea 

@@ -52,7 +52,7 @@ const Gallery = ({ data }: { data?: any }) => {
             >
               <div className="group relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all bg-white">
                 <Image 
-                  src={img.src} 
+                  src={(img.src && (img.src.startsWith('/') || img.src.startsWith('http') || img.src.startsWith('data:'))) ? img.src : `/${img.src || 'logo.png'}`} 
                   alt={img.title} 
                   fill 
                   className="object-cover transition-transform duration-700 group-hover:scale-110" 
