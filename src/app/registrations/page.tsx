@@ -83,7 +83,7 @@ export default function RegistrationsDashboard() {
               <span>Export CSV</span>
             </button>
             <a
-              href="https://docs.google.com/spreadsheets/d/1v_vQd6p9g7Y2U3hY9f4Z2y-9zPQ_U1O3_vN_vQd6p9g" // Placeholder Sheet Link
+              href="https://docs.google.com/spreadsheets/d/1zmIjZnSbpu2a_nBmAmV16nI2taN2Jo8wfgUkVkboxEg" // Placeholder Sheet Link
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-medical-primary text-white rounded-xl hover:bg-medical-dark transition-all shadow-[0_8px_20px_rgba(0,163,173,0.3)]"
