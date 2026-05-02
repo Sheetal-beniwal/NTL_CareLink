@@ -1,4 +1,5 @@
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import SEOStructuredData from '../Components/SEOStructuredData';
 
 export const metadata = buildMetadata({
   title: 'About Us — Our Mission, Vision & Story',
@@ -15,5 +16,15 @@ export const metadata = buildMetadata({
 });
 
 export default function AboutUsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Home', item: '/' },
+    { name: 'About Us', item: '/about-us' },
+  ]);
+
+  return (
+    <>
+      <SEOStructuredData data={breadcrumb} />
+      {children}
+    </>
+  );
 }

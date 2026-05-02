@@ -1,4 +1,5 @@
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import SEOStructuredData from '../Components/SEOStructuredData';
 
 export const metadata = buildMetadata({
   title: 'Patient Testimonials — Real Stories of Healing & Recovery',
@@ -16,5 +17,15 @@ export const metadata = buildMetadata({
 });
 
 export default function TestimonialsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Home', item: '/' },
+    { name: 'Testimonials', item: '/testimonials' },
+  ]);
+
+  return (
+    <>
+      <SEOStructuredData data={breadcrumb} />
+      {children}
+    </>
+  );
 }

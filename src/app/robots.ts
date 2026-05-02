@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/api/',
+      disallow: ['/api/', '/registrations', '/admin'],
     },
-    sitemap: 'https://ntlcarelink.com/sitemap.xml',
+    sitemap: 'https://www.ntlcarelink.com/sitemap.xml',
   };
 }

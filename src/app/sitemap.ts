@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { hospitals } from '@/data/hospitals';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ntlcarelink.com';
+  const baseUrl = 'https://www.ntlcarelink.com';
 
   const staticRoutes = [
     '',
@@ -15,6 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/testimonials',
     '/treatments',
     '/treatments/all',
+    '/treatments/cardiology',
+    '/treatments/oncology',
+    '/treatments/neurology',
+    '/treatments/orthopedics',
+    '/treatments/kidney-transplant',
+    '/treatments/liver-transplant',
+    '/treatments/urology',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

@@ -1,4 +1,5 @@
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import SEOStructuredData from '../Components/SEOStructuredData';
 
 export const metadata = buildMetadata({
   title: 'Top Partner Hospitals — JCI Accredited Facilities in India, Thailand & Turkey',
@@ -19,5 +20,15 @@ export const metadata = buildMetadata({
 });
 
 export default function HospitalsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Home', item: '/' },
+    { name: 'Hospitals', item: '/hospitals' },
+  ]);
+
+  return (
+    <>
+      <SEOStructuredData data={breadcrumb} />
+      {children}
+    </>
+  );
 }

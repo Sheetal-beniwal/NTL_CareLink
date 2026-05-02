@@ -131,29 +131,11 @@ const allHospitals = [
   },
 ];
 
-/* ════════════════ SPECIALTIES ════════════════ */
-const specialties = [
-  { icon: HeartPulse, label: 'Cardiac Sciences',                hospitals: ['apollo','max','medanta','fortis','bumrungrad'] },
-  { icon: Dna,        label: 'Cancer Care / Oncology',          hospitals: ['apollo','max','medanta','artemis','memorial'] },
-  { icon: LifeBuoy,   label: 'Kidney Transplant',               hospitals: ['medanta','max','fortis'] },
-  { icon: ShieldCheck,label: 'Liver Transplant & Biliary',      hospitals: ['medanta','max','memorial'] },
-  { icon: Activity,   label: 'Nephrology',                      hospitals: ['apollo','fortis','medanta'] },
-  { icon: Bone,       label: 'Robotic Joint Replacement',       hospitals: ['apollo','artemis','fortis','bumrungrad'] },
-  { icon: Syringe,    label: 'Urology',                         hospitals: ['apollo','max','fortis'] },
-  { icon: Brain,      label: 'Neurology & Neurosurgery',        hospitals: ['apollo','artemis','memorial','max'] },
-];
+import { specialties as specialtiesData, procedures as proceduresData } from '@/data/treatments';
 
-/* ════════════════ PROCEDURES ════════════════ */
-const procedures = [
-  { icon: HeartPulse, label: 'Tetralogy of Fallot',                       hospitals: ['apollo','max','medanta'] },
-  { icon: Dna,        label: 'Allogeneic Stem Cell Transplant',            hospitals: ['max','medanta','fortis'] },
-  { icon: Dna,        label: 'Esophageal Cancer Treatment',                hospitals: ['apollo','memorial','medanta'] },
-  { icon: Scissors,   label: 'Rhinoplasty / Nose Reshaping',               hospitals: ['medicana','memorial'] },
-  { icon: Dna,        label: 'Autologous Stem Cell – Lymphoma',            hospitals: ['max','apollo','medanta'] },
-  { icon: Baby,       label: 'Uterine Cancer Surgery',                     hospitals: ['apollo','memorial','fortis'] },
-  { icon: Zap,        label: 'Novalis Tx Radiosurgery',                    hospitals: ['artemis','apollo'] },
-  { icon: HeartPulse, label: 'Robotic Heart Surgery',                      hospitals: ['apollo','max','artemis'] },
-];
+/* ════════════════ HOSPITAL DATA ════════════════ */
+// ... (keep existing hospital data if needed, or better, use the one from src/data/hospitals.ts)
+// I will keep it for now as it's defined in the file.
 
 const whyUs = [
   { icon: ShieldCheck, title: '200-Point Hospital Audit',    desc: 'Every partner hospital passes our rigorous pre-selection benchmarks.' },
@@ -311,16 +293,11 @@ function HospitalModal({ hospitalIds, onClose }: { hospitalIds: string[]; onClos
 }
 
 /* ════════════════ CLICKABLE CARD ════════════════ */
-function DiagnosticCard({ icon: Icon, label, hospitalIds, onOpen }: {
-  icon: React.ElementType; label: string; hospitalIds: string[]; onOpen: (ids: string[]) => void;
+function DiagnosticCard({ icon: Icon, label, hospitalIds, slug }: {
+  icon: React.ElementType; label: string; hospitalIds: string[]; slug?: string;
 }) {
-  return (
-    <motion.button
-      whileHover={{ scale: 1.02, y: -2 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={() => onOpen(hospitalIds)}
-      className="group flex items-center gap-3 sm:gap-4 p-4 bg-white border border-slate-200 rounded-xl cursor-pointer transition-all hover:shadow-lg hover:border-[#00A3AD]/50 text-left w-full min-h-[80px]"
-    >
+  const content = (
+    <>
       <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#003B5C]/5 group-hover:bg-[#00A3AD]/10 transition-colors">
         <Icon size={22} className="text-[#003B5C] group-hover:text-[#00A3AD] transition-colors" strokeWidth={1.3} />
       </div>
@@ -331,7 +308,25 @@ function DiagnosticCard({ icon: Icon, label, hospitalIds, onOpen }: {
         </span>
       </div>
       <ChevronRight size={14} className="text-slate-300 group-hover:text-[#00A3AD] shrink-0 transition-colors" />
-    </motion.button>
+    </>
+  );
+
+  if (slug) {
+    return (
+      <Link href={`/treatments/${slug}`} className="group flex items-center gap-3 sm:gap-4 p-4 bg-white border border-slate-200 rounded-xl cursor-pointer transition-all hover:shadow-lg hover:border-[#00A3AD]/50 text-left w-full min-h-[80px]">
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02, y: -2 }}
+      whileTap={{ scale: 0.98 }}
+      className="group flex items-center gap-3 sm:gap-4 p-4 bg-white border border-slate-200 rounded-xl cursor-pointer transition-all hover:shadow-lg hover:border-[#00A3AD]/50 text-left w-full min-h-[80px]"
+    >
+      {content}
+    </motion.div>
   );
 }
 
@@ -543,10 +538,10 @@ export default function TreatmentsPage() {
             {/* SPECIALITIES */}
             <section>
               <SectionHeading title="Specialities" viewAllHref="/treatments/all?tab=specialties"/>
-              <p className="text-sm text-slate-500 mb-5 -mt-2">Click any speciality to see which partner hospitals offer it.</p>
+              <p className="text-sm text-slate-500 mb-5 -mt-2">Explore our core medical disciplines and find the best care.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-                {specialties.map((s,i)=>(
-                  <DiagnosticCard key={i} icon={s.icon} label={s.label} hospitalIds={s.hospitals} onOpen={setModal}/>
+                {specialtiesData.map((s,i)=>(
+                  <DiagnosticCard key={i} icon={s.icon} label={s.label} hospitalIds={s.hospitals} slug={s.id}/>
                 ))}
               </div>
             </section>
@@ -554,10 +549,10 @@ export default function TreatmentsPage() {
             {/* PROCEDURES */}
             <section>
               <SectionHeading title="Procedures" viewAllHref="/treatments/all?tab=procedures"/>
-              <p className="text-sm text-slate-500 mb-5 -mt-2">Click any procedure to see which partner hospitals perform it.</p>
+              <p className="text-sm text-slate-500 mb-5 -mt-2">Specific medical procedures performed by our partner hospitals.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-                {procedures.map((p,i)=>(
-                  <DiagnosticCard key={i} icon={p.icon} label={p.label} hospitalIds={p.hospitals} onOpen={setModal}/>
+                {proceduresData.map((p,i)=>(
+                  <DiagnosticCard key={i} icon={p.icon} label={p.label} hospitalIds={p.hospitals}/>
                 ))}
               </div>
             </section>

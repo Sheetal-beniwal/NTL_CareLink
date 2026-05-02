@@ -35,11 +35,11 @@ const initialContent = [
         'To us, NTL Carelink is more than a company, it is a bridge of hope, built to connect people to the healthcare they deserve. We stand for trust, compassion, and absolute dedication to every patient’s journey. We believe that healthcare should not be a privilege, it should be right to humanity. It should be accessible, affordable, and guided with dignity.'
       ],
       stats: [
-        { label: 'Satisfied Patients', value: '%100' },
-        { label: 'Top Medical Projects', value: '%89' }
+        { label: 'Satisfied Patients', value: '100%' },
+        { label: 'Top Medical Projects', value: '89%' }
       ],
       founder: {
-        name: 'Sultan Ngong',
+        name: 'Ngong Arol',
         role: 'Founder',
         image: '/sultan_founder.png',
         link: '/about-us#founder'

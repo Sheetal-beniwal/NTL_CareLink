@@ -4,7 +4,7 @@
 
 import type { Metadata } from 'next';
 
-export const BASE_URL = 'https://ntlcarelink.com';
+export const BASE_URL = 'https://www.ntlcarelink.com';
 export const SITE_NAME = 'NTL CareLink';
 export const DEFAULT_OG_IMAGE = '/og-image.jpg'; // place 1200×630 image in /public
 export const TWITTER_HANDLE = '@ntlcarelink';
@@ -84,5 +84,44 @@ export function buildMetadata({
     robots: noIndex
       ? { index: false, follow: false }
       : { index: true, follow: true, googleBot: { index: true, follow: true } },
+  };
+}
+
+/**
+ * Generates JSON-LD for Breadcrumbs
+ */
+export function generateBreadcrumbSchema(items: { name: string; item: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.item.startsWith('http') ? item.item : `${BASE_URL}${item.item}`,
+    })),
+  };
+}
+
+/**
+ * Generates JSON-LD for Medical Organization / Business
+ */
+export function generateMedicalBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalOrganization',
+    name: SITE_NAME,
+    url: BASE_URL,
+    logo: `${BASE_URL}/ntl_logo.jpeg`,
+    description: 'Connecting patients to world-class medical care in India, Thailand, and Turkey.',
+    telephone: '+918146654185',
+    email: 'ntlcarelinkglobal@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Gurugram',
+      addressRegion: 'Haryana',
+      addressCountry: 'IN',
+    },
+    priceRange: '$$',
   };
 }

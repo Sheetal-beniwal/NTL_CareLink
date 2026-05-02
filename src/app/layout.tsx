@@ -17,8 +17,8 @@ const organizationSchema = {
   "@type": "MedicalOrganization",
   name: "NTL CareLink",
   alternateName: "Network for Transformative Life-Care",
-  url: "https://ntlcarelink.com",
-  logo: "https://ntlcarelink.com/ntl_logo.jpeg",
+  url: "https://www.ntlcarelink.com",
+  logo: "https://www.ntlcarelink.com/ntl_logo.jpeg",
   description:
     "NTL CareLink connects patients across Africa and beyond with world-class hospitals in India, Thailand, and Turkey. End-to-end medical travel facilitation including visa, flights, and specialist coordination.",
   telephone: "+918146654185",
@@ -39,16 +39,16 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "NTL CareLink",
-  url: "https://ntlcarelink.com",
+  url: "https://www.ntlcarelink.com",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://ntlcarelink.com/hospitals?search={search_term_string}",
+    target: "https://www.ntlcarelink.com/hospitals?search={search_term_string}",
     "query-input": "required name=search_term_string",
   },
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ntlcarelink.com"),
+  metadataBase: new URL("https://www.ntlcarelink.com"),
   title: {
     default: "NTL CareLink | Premium Medical Tourism & Healthcare Solutions",
     template: "%s | NTL CareLink",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     "specialist doctors india",
     "JCI accredited hospitals",
   ],
-  authors: [{ name: "NTL CareLink", url: "https://ntlcarelink.com" }],
+  authors: [{ name: "NTL CareLink", url: "https://www.ntlcarelink.com" }],
   creator: "NTL CareLink",
   publisher: "NTL CareLink",
   icons: {
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ntlcarelink.com",
+    url: "https://www.ntlcarelink.com",
     siteName: "NTL CareLink",
     title: "NTL CareLink | Premium Medical Tourism & Healthcare Solutions",
     description:
@@ -108,7 +108,7 @@ export const metadata: Metadata = {
     title: "NTL CareLink | Premium Medical Tourism & Healthcare Solutions",
     description:
       "NTL CareLink is the #1 medical tourism company providing affordable surgery abroad. Access the best hospitals in India for cardiac surgery, IVF, oncology & transplants. Get a free consultation today!",
-    images: ["/og-image.jpg"],
+    images: ["https://www.ntlcarelink.com/og-image.jpg"],
   },
   robots: {
     index: true,

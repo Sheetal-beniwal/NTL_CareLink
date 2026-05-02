@@ -1,4 +1,5 @@
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import SEOStructuredData from '../Components/SEOStructuredData';
 
 export const metadata = buildMetadata({
   title: 'Find Specialist Doctors — Expert Physicians in India, Thailand & Turkey',
@@ -18,5 +19,15 @@ export const metadata = buildMetadata({
 });
 
 export default function DoctorsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Home', item: '/' },
+    { name: 'Doctors', item: '/doctors' },
+  ]);
+
+  return (
+    <>
+      <SEOStructuredData data={breadcrumb} />
+      {children}
+    </>
+  );
 }
